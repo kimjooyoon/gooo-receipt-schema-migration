@@ -272,7 +272,7 @@ type AdoptionProposal struct {
 	AcceptanceCases              []AcceptanceCase  `json:"acceptance_cases"`
 	RollbackConditions           []string          `json:"rollback_conditions"`
 	RefutationConditions         []string          `json:"refutation_conditions"`
-	OptionalExternalRelease      *ExternalRelease `json:"optional_external_release,omitempty"`
+	OptionalExternalRelease      *ExternalRelease  `json:"optional_external_release,omitempty"`
 	ProposalDigest               string            `json:"proposal_digest,omitempty"`
 }
 
