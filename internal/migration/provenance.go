@@ -8,26 +8,26 @@ import (
 
 func developmentProvenance() DevelopmentProvenance {
 	return DevelopmentProvenance{
-		Schema: DevelopmentProvenanceSchema,
+		Schema:  DevelopmentProvenanceSchema,
 		EventID: "development-provenance-20260831-guardian-v3-001",
 		DevelopmentLocalGoCommands: map[string]int{
 			"gofmt": 0,
 			"build": 0,
-			"test": 0,
-			"vet": 0,
+			"test":  0,
+			"vet":   0,
 		},
 		DevelopmentLocalVMHarnessExecutions: 1,
-		Class: "NODE_VM_GUARDIAN_HARNESS",
-		Purpose: "DEBUG_AUTH_MERGE_VS_BASE_COMMIT_MOCK",
-		PolicyState: "RECORDED_DEVELOPMENT_POLICY_DEVIATION",
-		EventMutationPolicy: "APPEND_ONLY_NO_RESET_DELETE_REWRITE",
-		DevelopmentPolicyDeviationCount: 1,
+		Class:                               "NODE_VM_GUARDIAN_HARNESS",
+		Purpose:                             "DEBUG_AUTH_MERGE_VS_BASE_COMMIT_MOCK",
+		PolicyState:                         "RECORDED_DEVELOPMENT_POLICY_DEVIATION",
+		EventMutationPolicy:                 "APPEND_ONLY_NO_RESET_DELETE_REWRITE",
+		DevelopmentPolicyDeviationCount:     1,
 		ProductRuntimeAuthority: Authority{
-			RepositoryWrites: 0,
-			LocalTestExecutions: 0,
-			CrossProjectRequiredGates: 0,
+			RepositoryWrites:            0,
+			LocalTestExecutions:         0,
+			CrossProjectRequiredGates:   0,
 			ProductGenerationAuthorized: false,
-			RootReadmePolicy: "EXCLUDED_FROM_REPOSITORY_INVENTORY",
+			RootReadmePolicy:            "EXCLUDED_FROM_REPOSITORY_INVENTORY",
 		},
 		RemainingValidationPolicy: "GITHUB_ACTIONS_ONLY_AFTER_THIS_RECORD",
 	}

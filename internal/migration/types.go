@@ -51,8 +51,8 @@ type DevelopmentProvenance struct {
 	Purpose                             string         `json:"purpose"`
 	PolicyState                         string         `json:"policy_state"`
 	EventMutationPolicy                 string         `json:"event_mutation_policy"`
-	DevelopmentPolicyDeviationCount     int             `json:"development_policy_deviation_count"`
-	ProductRuntimeAuthority             Authority     `json:"product_runtime_authority"`
+	DevelopmentPolicyDeviationCount     int            `json:"development_policy_deviation_count"`
+	ProductRuntimeAuthority             Authority      `json:"product_runtime_authority"`
 	RemainingValidationPolicy           string         `json:"remaining_validation_policy"`
 	ProvenanceDigest                    string         `json:"provenance_digest,omitempty"`
 }
@@ -421,30 +421,30 @@ type ExternalRelease struct {
 }
 
 type AdoptionProposal struct {
-	Schema                       string             `json:"schema"`
-	ProposalID                   string             `json:"proposal_id"`
-	MigrationVersion             string             `json:"migration_version,omitempty"`
-	TargetRepository             string             `json:"target_repository"`
-	RepositoryWrites             int                `json:"repository_writes"`
-	LocalTestExecutions          int                `json:"local_test_executions"`
-	CrossProjectRequiredGates    int                `json:"cross_project_required_gates"`
-	OldSchemaOwnership           []SchemaOwnership  `json:"old_schema_ownership"`
-	NewSchemaOwnership           []SchemaOwnership  `json:"new_schema_ownership"`
-	ExactRequiredSemanticChanges []string           `json:"exact_required_semantic_changes"`
-	ExpectedProtectedPaths       []string           `json:"expected_protected_paths"`
-	AcceptanceCases              []AcceptanceCase   `json:"acceptance_cases"`
-	RollbackConditions           []string           `json:"rollback_conditions"`
-	RefutationConditions         []string           `json:"refutation_conditions"`
-	Migration                    *MigrationRecord   `json:"migration,omitempty"`
-	GuardianFixture              *GuardianFixture   `json:"guardian_fixture,omitempty"`
-	GuardianFixtureV3            *GuardianV3Fixture `json:"guardian_fixture_v3,omitempty"`
-	ReleaseLineage               []ReleaseLineage   `json:"release_lineage,omitempty"`
-	VariableLifetimeOwnership    []string           `json:"variable_lifetime_ownership,omitempty"`
-	HarnessAcceptanceCases       []AcceptanceCase   `json:"harness_acceptance_cases,omitempty"`
-	GuardianHarnessArtifact      *ArtifactRef       `json:"guardian_harness_artifact,omitempty"`
+	Schema                       string                 `json:"schema"`
+	ProposalID                   string                 `json:"proposal_id"`
+	MigrationVersion             string                 `json:"migration_version,omitempty"`
+	TargetRepository             string                 `json:"target_repository"`
+	RepositoryWrites             int                    `json:"repository_writes"`
+	LocalTestExecutions          int                    `json:"local_test_executions"`
+	CrossProjectRequiredGates    int                    `json:"cross_project_required_gates"`
+	OldSchemaOwnership           []SchemaOwnership      `json:"old_schema_ownership"`
+	NewSchemaOwnership           []SchemaOwnership      `json:"new_schema_ownership"`
+	ExactRequiredSemanticChanges []string               `json:"exact_required_semantic_changes"`
+	ExpectedProtectedPaths       []string               `json:"expected_protected_paths"`
+	AcceptanceCases              []AcceptanceCase       `json:"acceptance_cases"`
+	RollbackConditions           []string               `json:"rollback_conditions"`
+	RefutationConditions         []string               `json:"refutation_conditions"`
+	Migration                    *MigrationRecord       `json:"migration,omitempty"`
+	GuardianFixture              *GuardianFixture       `json:"guardian_fixture,omitempty"`
+	GuardianFixtureV3            *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	ReleaseLineage               []ReleaseLineage       `json:"release_lineage,omitempty"`
+	VariableLifetimeOwnership    []string               `json:"variable_lifetime_ownership,omitempty"`
+	HarnessAcceptanceCases       []AcceptanceCase       `json:"harness_acceptance_cases,omitempty"`
+	GuardianHarnessArtifact      *ArtifactRef           `json:"guardian_harness_artifact,omitempty"`
 	DevelopmentProvenance        *DevelopmentProvenance `json:"development_provenance,omitempty"`
-	OptionalExternalRelease      *ExternalRelease   `json:"optional_external_release,omitempty"`
-	ProposalDigest               string             `json:"proposal_digest,omitempty"`
+	OptionalExternalRelease      *ExternalRelease       `json:"optional_external_release,omitempty"`
+	ProposalDigest               string                 `json:"proposal_digest,omitempty"`
 }
 
 type Report struct {
