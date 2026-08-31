@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gooo.dev/schemas/receipt/parent/v2",
+  "title": "Immutable REGRESSION_REPAIR parent receipt v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schema_version", "receipt_id", "kind", "denominator_id", "denominator_cell_count", "denominator_stage_counts", "denominator_role_counts", "immutable", "created_by", "digest"],
+  "properties": {
+    "schema": {"const": "gooo/receipt/parent/v2"},
+    "schema_version": {"const": "v2"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "kind": {"const": "REGRESSION_REPAIR"},
+    "denominator_id": {"const": "receipt-schema-migration-v1"},
+    "denominator_cell_count": {"const": 12},
+    "denominator_stage_counts": {"type": "object"},
+    "denominator_role_counts": {"type": "object"},
+    "immutable": {"const": true},
+    "created_by": {"type": "string", "minLength": 1},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

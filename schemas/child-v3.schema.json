@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gooo.dev/schemas/receipt/child/v3",
+  "title": "Append-only CORRECTION_CHILD receipt v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schema_version", "receipt_id", "parent_receipt_id", "parent_digest", "parent_outcome", "outcome", "cause_code", "causal_chain", "next_operation", "denominator_id", "denominator_cell_count", "denominator_stage_counts", "denominator_role_counts", "attestation", "child_ordinal", "digest"],
+  "properties": {
+    "schema": {"const": "gooo/receipt/child/v3"},
+    "schema_version": {"const": "v3"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "parent_receipt_id": {"type": "string", "minLength": 1},
+    "parent_digest": {"type": "string"},
+    "parent_outcome": {"type": "string", "minLength": 1},
+    "outcome": {"type": "string", "minLength": 1},
+    "cause_code": {"type": "string", "minLength": 1},
+    "causal_chain": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "next_operation": {"type": "string", "minLength": 1},
+    "denominator_id": {"const": "receipt-schema-migration-v1"},
+    "denominator_cell_count": {"const": 12},
+    "denominator_stage_counts": {"type": "object"},
+    "denominator_role_counts": {"type": "object"},
+    "attestation": {"const": "INDEPENDENT_EVALUATOR"},
+    "child_ordinal": {"const": 1},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

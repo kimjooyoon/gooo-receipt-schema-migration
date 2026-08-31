@@ -1,0 +1,150 @@
+name: Receipt schema migration conformance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    env:
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SUBJECT_SHA }}
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: 1.27.0
+          cache: false
+
+      - name: Verify Go 1.27
+        run: test "$(go env GOVERSION)" = "go1.27.0"
+
+      - name: Verify formatting
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=$(gofmt -l $(git ls-files '*.go'))
+          test -z "$files"
+
+      - name: Verify inventory exception
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git ls-files 'README.md' | wc -l | tr -d ' ')" = "1"
+          test "$(git ls-files | grep -v '^README\.md$' | grep -c '^README\.md$' || true)" = "0"
+
+      - name: Verify vet
+        run: go vet ./...
+
+      - name: Verify tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/receipt-schema-migration"
+          scripts/measure.sh "$RUNNER_TEMP/receipt-schema-migration/test.metrics" go test ./...
+
+      - name: Verify build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/receipt-schema-migration"
+          scripts/measure.sh "$RUNNER_TEMP/receipt-schema-migration/build.metrics" go build -trimpath -o "$RUNNER_TEMP/receipt-schema-migration/gooo-receipt-schema-migration" ./cmd/gooo-receipt-schema-migration
+
+      - name: Run source to IR to generated adapters and validator to receipts to report
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$RUNNER_TEMP/receipt-schema-migration"
+          bin="$root/gooo-receipt-schema-migration"
+          first="$root/first"
+          replay="$root/replay"
+          source=examples/receipt-schema-migration-v1/migration.gooo
+          contract=contracts/receipt-migration-denominator-v1.json
+          before=$(git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}')
+          scripts/measure.sh "$root/conformance.metrics" "$bin" run --source "$source" --contract "$contract" --out "$first"
+          after=$(git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}')
+          test "$before" = "$after"
+
+          "$bin" run --source "$source" --contract "$contract" --out "$replay" > "$root/replay.stdout"
+          cmp -s "$first/semantic-ir.json" "$replay/semantic-ir.json"
+          cmp -s "$first/generated/adapters/v2.json" "$replay/generated/adapters/v2.json"
+          cmp -s "$first/generated/adapters/v3.json" "$replay/generated/adapters/v3.json"
+          cmp -s "$first/generated/validator.json" "$replay/generated/validator.json"
+          cmp -s "$first/scenario-receipts.json" "$replay/scenario-receipts.json"
+          cmp -s "$first/report.json" "$replay/report.json"
+          cmp -s "$first/human-report.md" "$replay/human-report.md"
+          cmp -s "$first/adoption-proposal.json" "$replay/adoption-proposal.json"
+
+          jq -e '
+            .schema == "gooo/receipt-schema-migration/report/v1" and
+            .fixed_denominator == 12 and
+            .stage_counts == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+            .role_counts == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+            .schema_versions == ["v2","v3"] and
+            .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+            .unknown_fields == ["stage","step","reason","unknown_class","next_operation","blocked_by"] and
+            .summary == {parent_receipt_count:12,child_receipt_count:13,accepted_count:2,unknown_count:3,refuted_count:7,immutable_parent_writes:0} and
+            (.scenarios | length) == 12 and
+            ([.scenarios[].state] | sort) == (["ACCEPTED","ACCEPTED","UNKNOWN","UNKNOWN","UNKNOWN","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED"] | sort) and
+            .authority.repository_writes == 0 and
+            .authority.local_test_executions == 0 and
+            .authority.cross_project_required_gates == 0 and
+            .authority.root_readme_policy == "EXCLUDED_FROM_REPOSITORY_INVENTORY" and
+            .improvement.state == "UNKNOWN" and
+            .improvement.stage != "" and .improvement.step != "" and .improvement.reason != "" and
+            .improvement.unknown_class != "" and .improvement.next_operation != "" and .improvement.blocked_by != null
+          ' "$first/report.json"
+
+          jq -e '
+            .schema == "gooo/receipt-schema-migration/adoption-proposal/v1" and
+            .target_repository == "github.com/kimjooyoon/meta-ontology-go" and
+            .repository_writes == 0 and .local_test_executions == 0 and .cross_project_required_gates == 0 and
+            (.old_schema_ownership | length) == 1 and (.new_schema_ownership | length) == 1 and
+            (.acceptance_cases | length) == 12 and (.expected_protected_paths | length) >= 7 and
+            (.exact_required_semantic_changes | length) >= 7 and (.rollback_conditions | length) >= 4 and
+            (.refutation_conditions | length) >= 4
+          ' "$first/adoption-proposal.json"
+
+      - name: Create CI summary with bound metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$RUNNER_TEMP/receipt-schema-migration"
+          "$root/gooo-receipt-schema-migration" ci-summary \
+            --report "$root/first/report.json" \
+            --build-metrics "$root/build.metrics" \
+            --test-metrics "$root/test.metrics" \
+            --conformance-metrics "$root/conformance.metrics" \
+            --out "$root/first/ci-summary.json"
+          jq -e '
+            .schema == "gooo/receipt-schema-migration/ci-summary/v1" and
+            .schema_versions == ["v2","v3"] and
+            .parent_receipt_count == 12 and .child_receipt_count == 13 and
+            .accepted_count == 2 and .unknown_count == 3 and .refuted_count == 7 and
+            .immutable_parent_writes == 0 and
+            (.adapter_operations | length) == 14 and
+            ([.metrics[].id] | sort) == (["schema_versions","parent_receipt_count","child_receipt_count","accepted_count","unknown_count","refuted_count","immutable_parent_writes","adapter_operations","artifact_digests","build_wall_ms","build_peak_rss_kib","test_wall_ms","test_peak_rss_kib","conformance_wall_ms","conformance_peak_rss_kib"] | sort) and
+            ([.metrics[] | select(.id | endswith("_wall_ms")) | .value] | all(. >= 0)) and
+            ([.metrics[] | select(.id | endswith("_peak_rss_kib")) | .value] | all(. >= 0))
+          ' "$root/first/ci-summary.json"
+
+      - name: Verify final repository write boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Upload conformance evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: receipt-schema-migration-conformance
+          path: ${{ runner.temp }}/receipt-schema-migration/first
+          if-no-files-found: error
