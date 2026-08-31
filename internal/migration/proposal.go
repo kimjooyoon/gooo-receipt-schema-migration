@@ -70,13 +70,12 @@ func BuildAdoptionProposal(ir IR, outputDir string, external *ExternalRelease) (
 		)
 		proposal.ExpectedProtectedPaths = []string{
 			".github/ci-governance.json",
-			".github/workflows/ci-guardian.yml",
 			".github/agent-scope-table.md",
-			"scripts/ci-proof/guardian.js",
-			"scripts/ci-proof/foundation_bootstrap.js",
-			"scripts/ci-proof/foundation_authorization.js",
-			"scripts/ci-proof/guardian_test.js",
-			"internal/verify/scope_schema_coherence_migration_adoption_20260831.go",
+			".github/branch-policy.md",
+			".github/conformance-plan.md",
+			".github/foundation-authorization.json",
+			"go.mod",
+			"go.sum",
 		}
 		proposal.RollbackConditions = append(proposal.RollbackConditions,
 			"Rollback if the upstream commit, protected path, or verified blob SHA differs from the pinned fixture.",
