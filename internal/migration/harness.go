@@ -6,12 +6,16 @@ import (
 )
 
 func GenerateGuardianHarnessCases(ir IR, outputDir string) (GuardianHarnessCasesArtifact, ArtifactRef, error) {
-	if ir.Version != "v2" || len(ir.HarnessCases) == 0 {
-		return GuardianHarnessCasesArtifact{}, ArtifactRef{}, fmt.Errorf("Guardian harness cases require migration v2")
+	if (ir.Version != "v2" && ir.Version != "v3") || len(ir.HarnessCases) == 0 {
+		return GuardianHarnessCasesArtifact{}, ArtifactRef{}, fmt.Errorf("Guardian harness cases require migration v2 or v3")
+	}
+	schema := GuardianHarnessSchema
+	if ir.Version == "v3" {
+		schema = GuardianHarnessSchemaV2
 	}
 	artifact := GuardianHarnessCasesArtifact{
-		Schema: GuardianHarnessSchema, MigrationVersion: ir.Version, IRDigest: ir.IRDigest,
-		Fixture: ir.GuardianFixture, Cases: append([]HarnessCaseDecl(nil), ir.HarnessCases...),
+		Schema: schema, MigrationVersion: ir.Version, IRDigest: ir.IRDigest,
+		Fixture: ir.GuardianFixture, FixtureV3: cloneGuardianV3Fixture(ir.GuardianFixtureV3), Cases: append([]HarnessCaseDecl(nil), ir.HarnessCases...),
 	}
 	var err error
 	artifact.ArtifactDigest, err = unsignedGuardianHarnessCasesDigest(artifact)
@@ -30,8 +34,12 @@ func GenerateGuardianHarnessCases(ir IR, outputDir string) (GuardianHarnessCases
 }
 
 func ValidateGuardianHarnessCases(artifact GuardianHarnessCasesArtifact, ir IR) error {
-	if artifact.Schema != GuardianHarnessSchema || artifact.MigrationVersion != "v2" || artifact.IRDigest != ir.IRDigest || !sameGuardianFixture(artifact.Fixture, ir.GuardianFixture) || !sameHarnessCases(artifact.Cases, ir.HarnessCases) {
-		return fmt.Errorf("generated Guardian harness cases are not bound to v2 IR")
+	expectedSchema := GuardianHarnessSchema
+	if ir.Version == "v3" {
+		expectedSchema = GuardianHarnessSchemaV2
+	}
+	if artifact.Schema != expectedSchema || artifact.MigrationVersion != ir.Version || artifact.IRDigest != ir.IRDigest || !sameGuardianFixture(artifact.Fixture, ir.GuardianFixture) || !sameGuardianV3Fixture(artifact.FixtureV3, ir.GuardianFixtureV3) || !sameHarnessCases(artifact.Cases, ir.HarnessCases) {
+		return fmt.Errorf("generated Guardian harness cases are not bound to %s IR", ir.Version)
 	}
 	digest, err := unsignedGuardianHarnessCasesDigest(artifact)
 	if err != nil || digest != artifact.ArtifactDigest {
@@ -41,7 +49,11 @@ func ValidateGuardianHarnessCases(artifact GuardianHarnessCasesArtifact, ir IR) 
 }
 
 func ValidateGuardianHarnessReport(report GuardianHarnessReport, cases GuardianHarnessCasesArtifact, ir IR) error {
-	if report.Schema != GuardianHarnessSchema || report.MigrationVersion != "v2" || report.IRDigest != ir.IRDigest || !sameGuardianFixture(report.Fixture, cases.Fixture) || report.FixtureFileCount < 1 || len(report.Results) != len(cases.Cases) {
+	expectedSchema := GuardianHarnessSchema
+	if ir.Version == "v3" {
+		expectedSchema = GuardianHarnessSchemaV2
+	}
+	if report.Schema != expectedSchema || report.MigrationVersion != ir.Version || report.IRDigest != ir.IRDigest || !sameGuardianFixture(report.Fixture, cases.Fixture) || !sameGuardianV3Fixture(report.FixtureV3, cases.FixtureV3) || report.FixtureFileCount < 1 || len(report.Results) != len(cases.Cases) {
 		return fmt.Errorf("Guardian harness report is not bound to generated cases")
 	}
 	caseByID := make(map[string]HarnessCaseDecl, len(cases.Cases))
@@ -76,8 +88,15 @@ func ValidateGuardianHarnessReport(report GuardianHarnessReport, cases GuardianH
 			return fmt.Errorf("Guardian case %q has unsupported state %q", result.ID, result.State)
 		}
 	}
+	if ir.Version == "v3" {
+		summary.FoundationAuthorizationCount = report.Summary.FoundationAuthorizationCount
+		summary.FoundationReceiptCount = report.Summary.FoundationReceiptCount
+	}
 	if len(seen) != len(cases.Cases) || report.Summary != summary {
 		return fmt.Errorf("Guardian harness summary is not exact")
+	}
+	if ir.Version == "v3" && (report.Summary.FoundationAuthorizationCount < 1 || report.Summary.FoundationReceiptCount < 1) {
+		return fmt.Errorf("v3 Guardian harness must count Foundation authorization and receipt evaluations")
 	}
 	digest, err := unsignedGuardianHarnessReportDigest(report)
 	if err != nil || digest != report.ArtifactDigest {
@@ -178,6 +197,13 @@ func replaceArtifactRef(refs []ArtifactRef, replacement ArtifactRef) []ArtifactR
 
 func sameGuardianFixture(a, b GuardianFixture) bool {
 	return a.Repository == b.Repository && a.Ref == b.Ref && a.Commit == b.Commit && a.ManifestPath == b.ManifestPath
+}
+
+func sameGuardianV3Fixture(a, b *GuardianV3Fixture) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	return *a == *b
 }
 
 func sameHarnessCases(a, b []HarnessCaseDecl) bool {

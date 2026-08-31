@@ -33,9 +33,20 @@ func RenderReport(report Report) string {
 	for _, artifact := range report.ArtifactDigests {
 		fmt.Fprintf(&b, "| %s | %s | %d |\n", artifact.Path, artifact.Digest, artifact.SizeBytes)
 	}
+	if report.DevelopmentProvenance != nil {
+		provenance := report.DevelopmentProvenance
+		b.WriteString("\n## Development provenance\n\n")
+		fmt.Fprintf(&b, "- event: `%s`\n- class: `%s`\n- purpose: `%s`\n- policy state: `%s`\n- local Go commands (gofmt/build/test/vet): `0/0/0/0`\n- local VM Guardian harness executions: `%d`\n- development policy deviations: `%d`\n- mutation policy: `%s`\n- product/runtime authority repository writes: `%d`\n- product/runtime authority local test executions: `%d`\n- remaining validation: `%s`\n\nThis is a recorded development-policy deviation. The event is append-only; it is not reset, deleted, or rewritten. The local VM execution is intentionally separate from product/runtime authority, and all remaining validation is GitHub Actions only.\n\n", provenance.EventID, provenance.Class, provenance.Purpose, provenance.PolicyState, provenance.DevelopmentLocalVMHarnessExecutions, provenance.DevelopmentPolicyDeviationCount, provenance.EventMutationPolicy, provenance.ProductRuntimeAuthority.RepositoryWrites, provenance.ProductRuntimeAuthority.LocalTestExecutions, provenance.RemainingValidationPolicy)
+	}
 	if report.GuardianHarness != nil {
 		b.WriteString("\n## Actual Guardian harness\n\n")
-		fmt.Fprintf(&b, "- fixture: `%s@%s`\n- fixture manifest: `%s`\n- CLOSED: %d\n- UNKNOWN: %d\n- REFUTED: %d\n\n| case | expected | observed | Guardian | stage | step | reason | next_operation |\n|---|---|---|---|---|---|---|---|\n", report.GuardianHarness.Fixture.Repository, report.GuardianHarness.Fixture.Commit, report.GuardianHarness.Fixture.ManifestPath, report.GuardianHarness.Summary.ClosedCount, report.GuardianHarness.Summary.UnknownCount, report.GuardianHarness.Summary.RefutedCount)
+		fixtureRef := fmt.Sprintf("%s@%s", report.GuardianHarness.Fixture.Repository, report.GuardianHarness.Fixture.Commit)
+		fixtureManifest := report.GuardianHarness.Fixture.ManifestPath
+		if report.GuardianHarness.FixtureV3 != nil {
+			fixtureRef = fmt.Sprintf("%s@%s..%s", report.GuardianHarness.FixtureV3.Repository, report.GuardianHarness.FixtureV3.BaseCommit, report.GuardianHarness.FixtureV3.HeadCommit)
+			fixtureManifest = report.GuardianHarness.FixtureV3.ManifestPath
+		}
+		fmt.Fprintf(&b, "- fixture: `%s`\n- fixture manifest: `%s`\n- CLOSED: %d\n- UNKNOWN: %d\n- REFUTED: %d\n\n| case | expected | observed | Guardian | stage | step | reason | next_operation |\n|---|---|---|---|---|---|---|---|\n", fixtureRef, fixtureManifest, report.GuardianHarness.Summary.ClosedCount, report.GuardianHarness.Summary.UnknownCount, report.GuardianHarness.Summary.RefutedCount)
 		for _, result := range report.GuardianHarness.Results {
 			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", result.ID, result.ExpectedState, result.State, result.GuardianDecision, result.Stage, result.Step, result.Reason, result.NextOperation)
 		}

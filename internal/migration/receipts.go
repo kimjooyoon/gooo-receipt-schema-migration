@@ -187,6 +187,8 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	reportSchema := ReportSchema
 	if ir.Version == "v2" {
 		reportSchema = ReportSchemaV2
+	} else if ir.Version == "v3" {
+		reportSchema = ReportSchemaV3
 	}
 	pipelineSource := "examples/receipt-schema-migration-v1/migration.gooo"
 	if ir.Version == "v2" {
@@ -194,16 +196,22 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	}
 	report := Report{
 		Schema: reportSchema, Decision: "RECEIPT_SCHEMA_MIGRATION_CONFORMANCE_REPORTED",
-		Pipeline:       map[string]string{"source": pipelineSource, "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "guardian_harness_cases": "generated/guardian-harness-cases.json", "guardian_harness_report": "guardian-harness-report.json", "human_report": "human-report.md"},
+		Pipeline:       map[string]string{"source": pipelineSource, "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "guardian_harness_cases": "generated/guardian-harness-cases.json", "guardian_harness_report": "guardian-harness-report.json", "development_provenance": "development-provenance.json", "human_report": "human-report.md"},
 		SchemaVersions: []string{"v2", "v3"}, FixedDenominator: ir.CellCount, StageCounts: cloneCounts(ir.StageCounts), RoleCounts: cloneCounts(ir.RoleCounts),
 		Precedence: append([]string(nil), ir.Precedence...), UnknownFields: append([]string(nil), ir.UnknownFields...), Authority: ir.Authority,
 		AdapterOperations: adapterOperations(ir), MetricBindings: append([]MetricBinding(nil), ir.Metrics...), Scenarios: make([]ScenarioResult, 0, FixedCells),
 		Improvement: unknownClaim("IMPROVEMENT", "compare_before_after", "EXACT_COMPARABLE_PAIR_NOT_PROVIDED", "MISSING_EXACT_PAIR", "PROVIDE_EXACT_COMPARABLE_PAIR", []string{"before-after-evidence"}),
 	}
-	if ir.Version == "v2" {
+	if ir.Version == "v3" {
+		provenance := developmentProvenance()
+		provenance.ProvenanceDigest, _ = unsignedDevelopmentProvenanceDigest(provenance)
+		report.DevelopmentProvenance = &provenance
+	}
+	if ir.Version == "v2" || ir.Version == "v3" {
 		record := ir.Migration
-		report.MigrationVersion = "v2"
+		report.MigrationVersion = ir.Version
 		report.Migration = &record
+		report.GuardianFixtureV3 = cloneGuardianV3Fixture(ir.GuardianFixtureV3)
 	}
 	for _, scenario := range bundle.Scenarios {
 		cell, ok := cellIndex[scenario.CellID]
@@ -234,7 +242,7 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	if err != nil {
 		return Report{}, err
 	}
-	if ir.Version == "v2" {
+	if ir.Version == "v2" || ir.Version == "v3" {
 		ref, err := artifactRef(filepath.Join(outputDir, "generated/guardian-harness-cases.json"), "generated/guardian-harness-cases.json")
 		if err != nil {
 			return Report{}, err

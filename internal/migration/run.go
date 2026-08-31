@@ -24,16 +24,25 @@ func Run(sourcePath, contractPath, outputDir string, external *ExternalRelease) 
 	if err != nil {
 		return Report{}, err
 	}
+	refs := make([]ArtifactRef, 0, 32)
+	if ir.Version == "v3" {
+		_, provenanceRef, err := WriteDevelopmentProvenance(filepath.Join(outputDir, "development-provenance.json"))
+		if err != nil {
+			return Report{}, err
+		}
+		refs = append(refs, provenanceRef)
+	}
 	if err := ValidateIR(ir); err != nil {
 		return Report{}, err
 	}
 	if err := WriteJSON(filepath.Join(outputDir, "semantic-ir.json"), ir); err != nil {
 		return Report{}, err
 	}
-	refs, err := collectArtifactRefs(outputDir, []string{"semantic-ir.json"})
+	semanticRefs, err := collectArtifactRefs(outputDir, []string{"semantic-ir.json"})
 	if err != nil {
 		return Report{}, err
 	}
+	refs = append(refs, semanticRefs...)
 	adapterRefs, err := GenerateAdapters(ir, outputDir)
 	if err != nil {
 		return Report{}, err
@@ -44,7 +53,7 @@ func Run(sourcePath, contractPath, outputDir string, external *ExternalRelease) 
 		return Report{}, err
 	}
 	refs = append(refs, scenarioRefs...)
-	if ir.Version == "v2" {
+	if ir.Version == "v2" || ir.Version == "v3" {
 		_, harnessCasesRef, err := GenerateGuardianHarnessCases(ir, outputDir)
 		if err != nil {
 			return Report{}, err

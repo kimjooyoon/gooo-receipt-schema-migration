@@ -98,6 +98,55 @@ func BuildAdoptionProposal(ir IR, outputDir string, external *ExternalRelease) (
 			{ID: "GUARDIAN_DIGEST_MATCH_CLOSED", ExpectedState: "CLOSED", Invariant: "matching non-null computed and PASS artifact digests close through the actual attestation validator"},
 		}
 	}
+	if ir.Version == "v3" {
+		proposal.Schema = ProposalSchemaV3
+		proposal.ProposalID = "receipt-schema-migration-v3-adoption"
+		proposal.MigrationVersion = "v3"
+		migration := ir.Migration
+		proposal.Migration = &migration
+		proposal.GuardianFixtureV3 = cloneGuardianV3Fixture(ir.GuardianFixtureV3)
+		proposal.ReleaseLineage = append([]ReleaseLineage(nil), ir.ReleaseLineage...)
+		provenance := developmentProvenance()
+		provenance.ProvenanceDigest, _ = unsignedDevelopmentProvenanceDigest(provenance)
+		proposal.DevelopmentProvenance = &provenance
+		proposal.VariableLifetimeOwnership = []string{
+			"Keep the base-controlled workflow, live candidate changed-file tuples, Foundation authorization, and Foundation receipt as separate input lifetimes.",
+			"Dispatch protected-path authorization before any kernel digest or PASS classification; a missing, stale, malformed, exhausted, or replayed authorization is REFUTED.",
+			"Bind the exact 92 changed-file tuples and exact 26-path protected intersection to the pinned PR 609 fixture before Foundation receipt evaluation.",
+			"A PASS authorization must carry non-null kernel before/after digests computed from the exact e440 base and 8b47 head tree input digests.",
+		}
+		proposal.ExactRequiredSemanticChanges = append(proposal.ExactRequiredSemanticChanges,
+			"Preserve every v0.1.0 through v0.2.2 release artifact, tag, digest, and immutable-release state; v0.1.0 remains preserved as the historical REFUTED release.",
+			"Preserve the v2 sixteen-cell denominator and publish v3 as exactly twenty cells with ADD=4, RETIRE=0, SPLIT=0.",
+			"Pin the actual dev base e440cbc99f24ceb8385f1b89c70f8cdada10cdbb, PR 609 head 8b47db349315c02933296423b0ae7fa80ffeb1dc, merge base, changed tuples, Foundation blobs, and kernel tree digests.",
+			"Evaluate protected-path authorization, Foundation receipt, changed-path tuple binding, and fail-closed precedence through the actual Guardian workflow extracted from the pinned base blob.",
+			"Require the exact observed live run 33359548617/job 99388126433 artifact and preserve its FAIL_CLOSED/CI-ROOT-OF-TRUST-001 evidence when live authorization is absent.",
+		)
+		proposal.ExpectedProtectedPaths = []string{".github/ci-governance.json", ".github/agent-scope-table.md", ".github/branch-policy.md", ".github/conformance-plan.md", ".github/foundation-authorization.json", "go.mod", "go.sum"}
+		proposal.RollbackConditions = append(proposal.RollbackConditions,
+			"Rollback if any v0.1.0 through v0.2.2 immutable release, tag target, artifact digest, or release decision is overwritten.",
+			"Rollback if the pinned #609 tuple count/digest, protected intersection count/digest, Foundation blob SHA, or kernel tree digest differs.",
+			"Rollback if authorization or Foundation receipt evaluation occurs after PASS classification, or if missing/stale/malformed/replayed evidence can close.",
+			"Rollback if PASS kernel before/after digests are null or mismatch the e440/8b47 fixture, or if the live failure code is not retained.",
+		)
+		proposal.RefutationConditions = append(proposal.RefutationConditions,
+			"REFUTED on any exact tuple mismatch, extra protected path, absent protected-path authorization, stale or malformed Foundation receipt, exhausted cardinality, or replay.",
+			"REFUTED on null or mismatched kernel digest attestation; UNKNOWN remains available only when the six-field evidence tuple is genuinely unavailable.",
+		)
+		proposal.HarnessAcceptanceCases = []AcceptanceCase{
+			{ID: "GUARDIAN_PROTECTED26_VALID_FOUNDATION_AUTH_CLOSED", ExpectedState: "CLOSED", Invariant: "the actual base workflow reaches authorization and digest evaluation and closes only with exact valid Foundation evidence"},
+			{ID: "GUARDIAN_MISSING_FOUNDATION_AUTH_REFUTED", ExpectedState: "REFUTED", Invariant: "all 26 protected paths fail closed before authorization can be skipped"},
+			{ID: "GUARDIAN_CHANGED_PATH_TUPLE_MISMATCH_REFUTED", ExpectedState: "REFUTED", Invariant: "the candidate changed-file tuple digest must equal the pinned PR tuple digest"},
+			{ID: "GUARDIAN_EXTRA_PROTECTED_PATH_REFUTED", ExpectedState: "REFUTED", Invariant: "the protected intersection is exact and rejects an extra protected path"},
+			{ID: "GUARDIAN_STALE_FOUNDATION_AUTH_REFUTED", ExpectedState: "REFUTED", Invariant: "stale candidate identity or base evidence cannot authorize the feature"},
+			{ID: "GUARDIAN_MALFORMED_FOUNDATION_AUTH_REFUTED", ExpectedState: "REFUTED", Invariant: "malformed Foundation authorization cannot close"},
+			{ID: "GUARDIAN_UNPROTECTED_FEATURE_CLOSED", ExpectedState: "CLOSED", Invariant: "an unprotected feature path closes without a Foundation authorization receipt"},
+			{ID: "GUARDIAN_PASS_NULL_DIGEST_REFUTED", ExpectedState: "REFUTED", Invariant: "a PASS result with null kernel digests is refuted"},
+			{ID: "GUARDIAN_PASS_DIGEST_MISMATCH_REFUTED", ExpectedState: "REFUTED", Invariant: "a PASS result with mismatched kernel digests is refuted"},
+			{ID: "GUARDIAN_FOUNDATION_CARDINALITY_EXHAUSTED_REFUTED", ExpectedState: "REFUTED", Invariant: "a consumed Foundation authorization receipt cannot be reused"},
+			{ID: "GUARDIAN_FOUNDATION_REPLAY_REFUTED", ExpectedState: "REFUTED", Invariant: "a replayed Foundation authorization is refuted before closure"},
+		}
+	}
 	if external != nil {
 		if err := validateExternalRelease(*external); err != nil {
 			return AdoptionProposal{}, ArtifactRef{}, err

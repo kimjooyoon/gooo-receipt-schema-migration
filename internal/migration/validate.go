@@ -11,6 +11,9 @@ func ValidateDeclarations(source SourceDecl, contract Contract) error {
 	if source.Version == "v2" {
 		return validateV2Declarations(source, contract)
 	}
+	if source.Version == "v3" {
+		return validateV3Declarations(source, contract)
+	}
 	if source.Schema != SourceSchema || source.Version != "v1" {
 		return fmt.Errorf("invalid .gooo source declaration")
 	}
@@ -92,6 +95,96 @@ func ValidateDeclarations(source SourceDecl, contract Contract) error {
 			return fmt.Errorf("metric %q is not fully bound to meta code", metric.ID)
 		}
 		seenMetrics[metric.ID] = true
+	}
+	return nil
+}
+
+func validateV3Declarations(source SourceDecl, contract Contract) error {
+	if source.Schema != SourceSchemaV3 || source.Version != "v3" || contract.Schema != ContractSchemaV3 || contract.Version != "v3" || contract.ID != source.DenominatorID || !contract.Fixed {
+		return fmt.Errorf("invalid v3 migration source or contract")
+	}
+	if source.CellCount != MigrationV3Cells || contract.CellCount != MigrationV3Cells || len(source.Cells) != MigrationV3Cells || len(contract.Cells) != MigrationV3Cells || len(source.Scenarios) != MigrationV3Cells || len(contract.Scenarios) != MigrationV3Cells {
+		return fmt.Errorf("v3 denominator must contain exactly twenty cells and scenarios")
+	}
+	if !sameCounts(source.StageCounts, contract.StageCounts) || !sameCounts(source.RoleCounts, contract.RoleCounts) || !sameCounts(source.StageCounts, map[string]int{"FOUNDATION": 8, "COHERENCE": 6, "REGRESSION": 6}) || !sameCounts(source.RoleCounts, map[string]int{"DRIVER": 6, "OUTCOME": 6, "GUARDRAIL": 8}) {
+		return fmt.Errorf("v3 proof and indicator balance must be exact")
+	}
+	if !sameStrings(source.Precedence, []string{"REFUTED", "UNKNOWN", "CLOSED"}) || !sameStrings(contract.Precedence, source.Precedence) || !sameStrings(source.UnknownFields, []string{"stage", "step", "reason", "unknown_class", "next_operation", "blocked_by"}) || !sameStrings(contract.UnknownFields, source.UnknownFields) {
+		return fmt.Errorf("v3 resolution precedence or UNKNOWN tuple is not exact")
+	}
+	if source.Authority.RepositoryWrites != 0 || source.Authority.LocalTestExecutions != 0 || source.Authority.CrossProjectRequiredGates != 0 || source.Authority.ProductGenerationAuthorized || source.Authority.RootReadmePolicy != "EXCLUDED_FROM_REPOSITORY_INVENTORY" {
+		return fmt.Errorf("v3 authority declaration must remain zero and non-escalating")
+	}
+	if len(source.Schemas) != 2 || len(contract.Schemas) != 2 || !sameAdapters(source.Schemas, contract.Schemas) || source.Schemas[0].Version != "v2" || source.Schemas[0].Owner != "parent" || source.Schemas[1].Version != "v3" || source.Schemas[1].Owner != "child" {
+		return fmt.Errorf("v3 must preserve the v2 parent and v3 child ownership adapters")
+	}
+	if err := validateV3MigrationRecord(source.Migration); err != nil {
+		return err
+	}
+	if source.GuardianFixtureV3 == nil || !sameGuardianV3Fixture(source.GuardianFixtureV3, contract.GuardianFixtureV3) {
+		return fmt.Errorf("v3 Guardian fixture is missing or differs between source and contract")
+	}
+	if err := validateGuardianV3Fixture(*source.GuardianFixtureV3); err != nil {
+		return err
+	}
+	if !sameMigrationRecord(source.Migration, contract.Migration) || !sameReleaseLineage(source.ReleaseLineage, contract.ReleaseLineage) || !sameReleaseLineage(source.ReleaseLineage, expectedReleaseLineage()) {
+		return fmt.Errorf("v3 migration or immutable release lineage is not exact")
+	}
+	for i, cell := range source.Cells {
+		if cell.Ordinal != i+1 || cell.ID == "" || cell.Stage == "" || cell.Role == "" || cell.SemanticEdge == "" || !sameCell(cell, contract.Cells[i]) {
+			return fmt.Errorf("v3 cell %d has invalid identity or differs from contract", i+1)
+		}
+	}
+	for i, id := range v2CellIDs() {
+		if source.Cells[i].ID != id {
+			return fmt.Errorf("v2 cell %d was not preserved in v3", i+1)
+		}
+	}
+	expectedCells := []string{"PROTECTED_PATH_AUTHORIZATION_DISPATCH", "FOUNDATION_RECEIPT_EVALUATION", "CHANGED_PATH_TUPLE_BINDING", "UNAUTHORIZED_PROTECTED_PATH_FAIL_CLOSED"}
+	for i, id := range expectedCells {
+		if source.Cells[MigrationV2Cells+i].ID != id {
+			return fmt.Errorf("v3 added cell %d is not exact", MigrationV2Cells+i+1)
+		}
+	}
+	for i, scenario := range source.Scenarios {
+		if scenario.Ordinal != i+1 || scenario.ID == "" || scenario.Cell == "" || scenario.Expected == "" || scenario.Operation == "" || !sameScenario(scenario, contract.Scenarios[i]) {
+			return fmt.Errorf("v3 scenario %d has invalid identity or differs from contract", i+1)
+		}
+		if i < MigrationV2Cells && normalizeScenarioKind(scenario.Kind) != "RECEIPT" && i < FixedCells {
+			return fmt.Errorf("preserved v1 receipt scenario %q changed kind", scenario.ID)
+		}
+		if i >= FixedCells && i < MigrationV2Cells && normalizeScenarioKind(scenario.Kind) != "GUARDIAN" {
+			return fmt.Errorf("preserved v2 Guardian scenario %q changed kind", scenario.ID)
+		}
+		if i >= MigrationV2Cells && normalizeScenarioKind(scenario.Kind) != "GUARDIAN" {
+			return fmt.Errorf("v3 added scenario %q must be a Guardian scenario", scenario.ID)
+		}
+	}
+	for i, id := range v2ScenarioIDs() {
+		if source.Scenarios[i].ID != id {
+			return fmt.Errorf("v2 scenario %d was not preserved in v3", i+1)
+		}
+	}
+	if !sameStrings([]string{source.Scenarios[16].ID, source.Scenarios[17].ID, source.Scenarios[18].ID, source.Scenarios[19].ID}, []string{"PROTECTED_PATH_AUTHORIZATION_DISPATCH", "FOUNDATION_RECEIPT_EVALUATION", "CHANGED_PATH_TUPLE_BINDING", "UNAUTHORIZED_PROTECTED_PATH_FAIL_CLOSED"}) {
+		return fmt.Errorf("v3 added scenario IDs are not exact")
+	}
+	expectedCounts := map[string]int{"ACCEPTED": 0, "UNKNOWN": 0, "REFUTED": 0}
+	for _, scenario := range source.Scenarios {
+		expectedCounts[scenario.Expected]++
+	}
+	if expectedCounts["ACCEPTED"] != 5 || expectedCounts["UNKNOWN"] != 3 || expectedCounts["REFUTED"] != 12 {
+		return fmt.Errorf("v3 scenario denominator must preserve accepted=5, unknown=3, refuted=12 across v2 and the four new cases")
+	}
+	if err := validateV3HarnessCases(source.HarnessCases, contract.HarnessCases, source.Scenarios); err != nil {
+		return err
+	}
+	if len(source.Metrics) != 32 || !sameMetrics(source.Metrics, contract.Metrics) {
+		return fmt.Errorf("v3 metrics must expose exact denominator, lineage, fixture, and Guardian harness bindings")
+	}
+	for _, metric := range source.Metrics {
+		if metric.ID == "" || metric.MetaActivity == "" || metric.SourcePath == "" || metric.IRPath == "" || metric.GeneratedArtifact == "" || metric.Evaluator == "" || strings.Contains(strings.ToLower(metric.ID), "score") || strings.Contains(strings.ToLower(metric.ID), "percentage") {
+			return fmt.Errorf("metric %q is not fully bound or uses a forbidden score/percentage", metric.ID)
+		}
 	}
 	return nil
 }
@@ -188,6 +281,23 @@ func validateV2MigrationRecord(record MigrationRecord) error {
 	return nil
 }
 
+func validateV3MigrationRecord(record MigrationRecord) error {
+	if record.FromVersion != "v2" || record.ToVersion != "v3" || record.Added != 4 || record.Retired != 0 || record.Split != 0 || !sameStrings(record.AddedCellIDs, []string{"PROTECTED_PATH_AUTHORIZATION_DISPATCH", "FOUNDATION_RECEIPT_EVALUATION", "CHANGED_PATH_TUPLE_BINDING", "UNAUTHORIZED_PROTECTED_PATH_FAIL_CLOSED"}) {
+		return fmt.Errorf("v3 migration record must be ADD=4 RETIRE=0 SPLIT=0 with the exact four new cells")
+	}
+	if !sameCounts(record.StageCountsBefore, map[string]int{"FOUNDATION": 6, "COHERENCE": 5, "REGRESSION": 5}) || !sameCounts(record.StageCountsAfter, map[string]int{"FOUNDATION": 8, "COHERENCE": 6, "REGRESSION": 6}) || !sameCounts(record.StageDelta, map[string]int{"FOUNDATION": 2, "COHERENCE": 1, "REGRESSION": 1}) || !sameCounts(record.RoleCountsBefore, map[string]int{"DRIVER": 5, "OUTCOME": 5, "GUARDRAIL": 6}) || !sameCounts(record.RoleCountsAfter, map[string]int{"DRIVER": 6, "OUTCOME": 6, "GUARDRAIL": 8}) || !sameCounts(record.RoleDelta, map[string]int{"DRIVER": 1, "OUTCOME": 1, "GUARDRAIL": 2}) {
+		return fmt.Errorf("v3 migration record proof/indicator balance is not exact")
+	}
+	return nil
+}
+
+func validateGuardianV3Fixture(fixture GuardianV3Fixture) error {
+	if fixture.Repository != "kimjooyoon/meta-ontology-go" || fixture.Ref != "dev" || fixture.BaseCommit != "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb" || fixture.HeadCommit != "8b47db349315c02933296423b0ae7fa80ffeb1dc" || fixture.MergeBase != "bc5dc21788aa4c7d46d1f8ab516f8218bb423fdc" || fixture.ManifestPath != "fixtures/guardian-v3-pr609.json" || fixture.ChangedFilesCount != 92 || fixture.ChangedPathsSHA256 != "sha256:7d50d27859d8e755edcce625c2cef34c5902528b19a3a4ebf73bd59dac296cac" || fixture.ProtectedIntersectionCount != 26 || fixture.ProtectedIntersectionSHA256 != "sha256:204b3569310bffb0d3a6fafaddfec5930e99309281badd768b2c52dfbc07f3bf" || fixture.KernelBeforeTreeSHA != "169fe96d8e1e9b50702b0f2fb2d2cf2e83d467e6" || fixture.KernelAfterTreeSHA != "d8e8f5b9064c8ef7d14daf9f96c8c1df9156e0a6" || fixture.KernelBeforeEntryCount != 321 || fixture.KernelAfterEntryCount != 327 || fixture.KernelBeforeSHA256 != "sha256:e3b0cd0fd2d95a0113b9a6755ebe318e856225630106fa00ccf24572fdfb69f6" || fixture.KernelAfterSHA256 != "sha256:b1e865e5c2f48735dc693b94807b8a8439819985353503ccffceecedac88d582" || fixture.GuardianRunID != 33359548617 || fixture.GuardianJobID != 99388126433 || fixture.ArtifactID != 9746232159 || fixture.ArtifactName != "ci-guardian-33359548617-1" || fixture.ArtifactSizeBytes != 2144 || fixture.ArtifactSHA256 != "sha256:41ae5d2398a001b16ecd72dba937924897234dd748fdcb5374caee7e70f026a8" {
+		return fmt.Errorf("v3 Guardian fixture is not pinned to the actual #609 run and immutable tree inputs")
+	}
+	return nil
+}
+
 func validateGuardianFixture(fixture GuardianFixture) error {
 	if fixture.Repository != "kimjooyoon/meta-ontology-go" || fixture.Ref != "dev" || fixture.Commit != "7f45792e3c23100cbb10cca8b229132060982a7b" || fixture.ManifestPath != "fixtures/meta-ontology-go/dev-7f45792.json" {
 		return fmt.Errorf("Guardian fixture is not pinned to dev@7f45792")
@@ -220,6 +330,28 @@ func validateHarnessCases(source, contract []HarnessCaseDecl, scenarios []Scenar
 	return nil
 }
 
+func validateV3HarnessCases(source, contract []HarnessCaseDecl, scenarios []ScenarioDecl) error {
+	if len(source) != 11 || len(contract) != 11 {
+		return fmt.Errorf("v3 Guardian harness must declare exactly eleven executable cases")
+	}
+	seen := map[string]bool{}
+	for i, item := range source {
+		if item.Ordinal != i+1 || item.ID == "" || seen[item.ID] || item.ScenarioID == "" || item.Cell == "" || item.Expected == "" || item.Mode == "" || item.Operation == "" || !sameHarnessCase(item, contract[i]) || !scenarioIDExists(scenarios, item.ScenarioID) {
+			return fmt.Errorf("v3 Guardian harness case %d has invalid identity or differs from contract", i+1)
+		}
+		seen[item.ID] = true
+	}
+	expected := []string{"GUARDIAN_PROTECTED26_VALID_FOUNDATION_AUTH_CLOSED", "GUARDIAN_MISSING_FOUNDATION_AUTH_REFUTED", "GUARDIAN_CHANGED_PATH_TUPLE_MISMATCH_REFUTED", "GUARDIAN_EXTRA_PROTECTED_PATH_REFUTED", "GUARDIAN_STALE_FOUNDATION_AUTH_REFUTED", "GUARDIAN_MALFORMED_FOUNDATION_AUTH_REFUTED", "GUARDIAN_UNPROTECTED_FEATURE_CLOSED", "GUARDIAN_PASS_NULL_DIGEST_REFUTED", "GUARDIAN_PASS_DIGEST_MISMATCH_REFUTED", "GUARDIAN_FOUNDATION_CARDINALITY_EXHAUSTED_REFUTED", "GUARDIAN_FOUNDATION_REPLAY_REFUTED"}
+	ids := make([]string, 0, len(source))
+	for _, item := range source {
+		ids = append(ids, item.ID)
+	}
+	if !sameStrings(ids, expected) {
+		return fmt.Errorf("v3 Guardian harness case IDs are not exact")
+	}
+	return nil
+}
+
 func scenarioIDExists(scenarios []ScenarioDecl, target string) bool {
 	for _, scenario := range scenarios {
 		if scenario.ID == target {
@@ -241,6 +373,36 @@ func v1ScenarioIDs() []string {
 	return v1CellIDs()
 }
 
+func v2CellIDs() []string {
+	return append(v1CellIDs(), "BASE_CONTROLLED_GUARDIAN_EXECUTION", "FEATURE_PR_VARIABLE_LIVENESS", "PASS_ARTIFACT_DIGEST_PROPAGATION", "REFERENCE_ERROR_FAIL_CLOSED")
+}
+
+func v2ScenarioIDs() []string {
+	return v2CellIDs()
+}
+
+func expectedReleaseLineage() []ReleaseLineage {
+	return []ReleaseLineage{
+		{Version: "v0.1.0", Preserved: true, Immutable: false, Decision: "REFUTED"},
+		{Version: "v0.1.1", Preserved: true, Immutable: true, Decision: "CLOSED"},
+		{Version: "v0.2.0", Preserved: true, Immutable: true, Decision: "CLOSED"},
+		{Version: "v0.2.1", Preserved: true, Immutable: true, Decision: "CLOSED"},
+		{Version: "v0.2.2", Preserved: true, Immutable: true, Decision: "CLOSED"},
+	}
+}
+
+func sameReleaseLineage(a, b []ReleaseLineage) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
 func normalizeScenarioKind(kind string) string {
 	if kind == "" {
 		return "RECEIPT"
@@ -253,7 +415,7 @@ func sameMigrationRecord(a, b MigrationRecord) bool {
 }
 
 func ValidateContract(contract Contract) error {
-	if (contract.Schema != ContractSchema && contract.Schema != ContractSchemaV2) || !contract.Fixed || (contract.Version == "v1" && contract.CellCount != FixedCells) || (contract.Version == "v2" && contract.CellCount != MigrationV2Cells) {
+	if (contract.Schema != ContractSchema && contract.Schema != ContractSchemaV2 && contract.Schema != ContractSchemaV3) || !contract.Fixed || (contract.Version == "v1" && contract.CellCount != FixedCells) || (contract.Version == "v2" && contract.CellCount != MigrationV2Cells) || (contract.Version == "v3" && contract.CellCount != MigrationV3Cells) {
 		return fmt.Errorf("invalid fixed denominator contract")
 	}
 	return nil
@@ -263,8 +425,10 @@ func ValidateIR(ir IR) error {
 	expectedSchema, expectedCells := IRSchema, FixedCells
 	if ir.Version == "v2" {
 		expectedSchema, expectedCells = IRSchemaV2, MigrationV2Cells
+	} else if ir.Version == "v3" {
+		expectedSchema, expectedCells = IRSchemaV3, MigrationV3Cells
 	}
-	if ir.Schema != expectedSchema || (ir.Version != "v1" && ir.Version != "v2") || ir.DenominatorID == "" || ir.CellCount != expectedCells || len(ir.Cells) != expectedCells || len(ir.Scenarios) != expectedCells || len(ir.Adapters) != 2 {
+	if ir.Schema != expectedSchema || (ir.Version != "v1" && ir.Version != "v2" && ir.Version != "v3") || ir.DenominatorID == "" || ir.CellCount != expectedCells || len(ir.Cells) != expectedCells || len(ir.Scenarios) != expectedCells || len(ir.Adapters) != 2 {
 		return fmt.Errorf("semantic IR shape does not match the declared denominator")
 	}
 	if ir.SourceDigest == "" || ir.ContractDigest == "" || ir.IRDigest == "" {

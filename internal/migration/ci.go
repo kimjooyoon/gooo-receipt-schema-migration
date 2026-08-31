@@ -63,6 +63,32 @@ func BuildCISummary(reportPath, buildMetricsPath, testMetricsPath, conformanceMe
 			MetricValue{ID: "guardian_fixture_file_count", Value: fixtureFileCount},
 		)
 	}
+	if report.MigrationVersion == "v3" && report.Migration != nil && report.GuardianFixtureV3 != nil {
+		harnessCaseCount := 0
+		if report.GuardianHarness != nil {
+			harnessCaseCount = len(report.GuardianHarness.Results)
+		}
+		fixture := report.GuardianFixtureV3
+		metrics = append(metrics,
+			MetricValue{ID: "denominator_add_count", Value: report.Migration.Added},
+			MetricValue{ID: "denominator_retire_count", Value: report.Migration.Retired},
+			MetricValue{ID: "denominator_split_count", Value: report.Migration.Split},
+			MetricValue{ID: "guardian_harness_case_count", Value: harnessCaseCount},
+			MetricValue{ID: "guardian_harness_closed_count", Value: guardianSummary.ClosedCount},
+			MetricValue{ID: "guardian_harness_unknown_count", Value: guardianSummary.UnknownCount},
+			MetricValue{ID: "guardian_harness_refuted_count", Value: guardianSummary.RefutedCount},
+			MetricValue{ID: "guardian_fixture_file_count", Value: fixtureFileCount},
+			MetricValue{ID: "guardian_changed_file_count", Value: fixture.ChangedFilesCount},
+			MetricValue{ID: "guardian_protected_intersection_count", Value: fixture.ProtectedIntersectionCount},
+			MetricValue{ID: "guardian_changed_paths_digest", Value: fixture.ChangedPathsSHA256},
+			MetricValue{ID: "guardian_protected_intersection_digest", Value: fixture.ProtectedIntersectionSHA256},
+			MetricValue{ID: "guardian_kernel_before_digest", Value: fixture.KernelBeforeSHA256},
+			MetricValue{ID: "guardian_kernel_after_digest", Value: fixture.KernelAfterSHA256},
+			MetricValue{ID: "guardian_foundation_authorization_count", Value: guardianSummary.FoundationAuthorizationCount},
+			MetricValue{ID: "guardian_foundation_receipt_count", Value: guardianSummary.FoundationReceiptCount},
+			MetricValue{ID: "guardian_canonical_tuple_count", Value: fixture.ChangedFilesCount},
+		)
+	}
 	if err := validateMetricBindings(report.MetricBindings, metrics); err != nil {
 		return CISummary{}, err
 	}
@@ -70,7 +96,7 @@ func BuildCISummary(reportPath, buildMetricsPath, testMetricsPath, conformanceMe
 		Schema: CISummarySchema, MigrationVersion: report.MigrationVersion, Migration: report.Migration, ReportDigest: report.ReportDigest, SchemaVersions: append([]string(nil), report.SchemaVersions...),
 		ParentReceiptCount: report.Summary.ParentReceiptCount, ChildReceiptCount: report.Summary.ChildReceiptCount, AcceptedCount: report.Summary.AcceptedCount,
 		UnknownCount: report.Summary.UnknownCount, RefutedCount: report.Summary.RefutedCount, ImmutableParentWrites: report.Summary.ImmutableParentWrites,
-		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement, GuardianHarness: guardianSummary,
+		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement, GuardianHarness: guardianSummary, GuardianFixtureV3: report.GuardianFixtureV3, DevelopmentProvenance: cloneDevelopmentProvenance(report.DevelopmentProvenance),
 	}
 	if summary.ReportDigest == "" {
 		return CISummary{}, fmt.Errorf("report digest is required")

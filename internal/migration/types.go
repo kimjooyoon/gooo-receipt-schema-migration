@@ -3,27 +3,36 @@ package migration
 import "encoding/json"
 
 const (
-	SourceSchema           = "gooo/receipt-schema-migration/source/v1"
-	SourceSchemaV2         = "gooo/receipt-schema-migration/source/v2"
-	ContractSchema         = "gooo/receipt-schema-migration/denominator/v1"
-	ContractSchemaV2       = "gooo/receipt-schema-migration/denominator/v2"
-	IRSchema               = "gooo/receipt-schema-migration/semantic-ir/v1"
-	IRSchemaV2             = "gooo/receipt-schema-migration/semantic-ir/v2"
-	AdapterSchema          = "gooo/receipt-schema-migration/generated-adapter/v1"
-	ValidatorSchema        = "gooo/receipt-schema-migration/generated-validator/v1"
-	ScenarioSchema         = "gooo/receipt-schema-migration/scenario-receipt/v1"
-	GuardianHarnessSchema  = "gooo/receipt-schema-migration/guardian-harness/v1"
-	ReportSchema           = "gooo/receipt-schema-migration/report/v1"
-	ReportSchemaV2         = "gooo/receipt-schema-migration/report/v2"
-	ProposalSchema         = "gooo/receipt-schema-migration/adoption-proposal/v1"
-	ProposalSchemaV2       = "gooo/receipt-schema-migration/adoption-proposal/v2"
-	ArtifactManifestSchema = "gooo/receipt-schema-migration/artifact-manifest/v1"
-	CISummarySchema        = "gooo/receipt-schema-migration/ci-summary/v1"
-	ParentV2Schema         = "gooo/receipt/parent/v2"
-	ChildV3Schema          = "gooo/receipt/child/v3"
-	FixedCells             = 12
-	MigrationV2Cells       = 16
+	SourceSchema            = "gooo/receipt-schema-migration/source/v1"
+	SourceSchemaV2          = "gooo/receipt-schema-migration/source/v2"
+	SourceSchemaV3          = "gooo/receipt-schema-migration/source/v3"
+	ContractSchema          = "gooo/receipt-schema-migration/denominator/v1"
+	ContractSchemaV2        = "gooo/receipt-schema-migration/denominator/v2"
+	ContractSchemaV3        = "gooo/receipt-schema-migration/denominator/v3"
+	IRSchema                = "gooo/receipt-schema-migration/semantic-ir/v1"
+	IRSchemaV2              = "gooo/receipt-schema-migration/semantic-ir/v2"
+	IRSchemaV3              = "gooo/receipt-schema-migration/semantic-ir/v3"
+	AdapterSchema           = "gooo/receipt-schema-migration/generated-adapter/v1"
+	ValidatorSchema         = "gooo/receipt-schema-migration/generated-validator/v1"
+	ScenarioSchema          = "gooo/receipt-schema-migration/scenario-receipt/v1"
+	GuardianHarnessSchema   = "gooo/receipt-schema-migration/guardian-harness/v1"
+	GuardianHarnessSchemaV2 = "gooo/receipt-schema-migration/guardian-harness/v2"
+	ReportSchema            = "gooo/receipt-schema-migration/report/v1"
+	ReportSchemaV2          = "gooo/receipt-schema-migration/report/v2"
+	ReportSchemaV3          = "gooo/receipt-schema-migration/report/v3"
+	ProposalSchema          = "gooo/receipt-schema-migration/adoption-proposal/v1"
+	ProposalSchemaV2        = "gooo/receipt-schema-migration/adoption-proposal/v2"
+	ProposalSchemaV3        = "gooo/receipt-schema-migration/adoption-proposal/v3"
+	ArtifactManifestSchema  = "gooo/receipt-schema-migration/artifact-manifest/v1"
+	CISummarySchema         = "gooo/receipt-schema-migration/ci-summary/v1"
+	ParentV2Schema          = "gooo/receipt/parent/v2"
+	ChildV3Schema           = "gooo/receipt/child/v3"
+	FixedCells              = 12
+	MigrationV2Cells        = 16
+	MigrationV3Cells        = 20
 )
+
+const DevelopmentProvenanceSchema = "gooo/receipt-schema-migration/development-provenance/v1"
 
 type Authority struct {
 	RepositoryWrites            int    `json:"repository_writes"`
@@ -31,6 +40,21 @@ type Authority struct {
 	CrossProjectRequiredGates   int    `json:"cross_project_required_gates"`
 	ProductGenerationAuthorized bool   `json:"product_generation_authorized"`
 	RootReadmePolicy            string `json:"root_readme_policy"`
+}
+
+type DevelopmentProvenance struct {
+	Schema                              string         `json:"schema"`
+	EventID                             string         `json:"event_id"`
+	DevelopmentLocalGoCommands          map[string]int `json:"development_local_go_commands"`
+	DevelopmentLocalVMHarnessExecutions int            `json:"development_local_vm_harness_executions"`
+	Class                               string         `json:"class"`
+	Purpose                             string         `json:"purpose"`
+	PolicyState                         string         `json:"policy_state"`
+	EventMutationPolicy                 string         `json:"event_mutation_policy"`
+	DevelopmentPolicyDeviationCount     int            `json:"development_policy_deviation_count"`
+	ProductRuntimeAuthority             Authority      `json:"product_runtime_authority"`
+	RemainingValidationPolicy           string         `json:"remaining_validation_policy"`
+	ProvenanceDigest                    string         `json:"provenance_digest,omitempty"`
 }
 
 type Claim struct {
@@ -79,6 +103,38 @@ type GuardianFixture struct {
 	ManifestPath string `json:"manifest_path"`
 }
 
+type GuardianV3Fixture struct {
+	Repository                  string `json:"repository"`
+	Ref                         string `json:"ref"`
+	BaseCommit                  string `json:"base_commit"`
+	HeadCommit                  string `json:"head_commit"`
+	MergeBase                   string `json:"merge_base"`
+	ManifestPath                string `json:"manifest_path"`
+	ChangedFilesCount           int    `json:"changed_files_count"`
+	ChangedPathsSHA256          string `json:"changed_paths_sha256"`
+	ProtectedIntersectionCount  int    `json:"protected_intersection_count"`
+	ProtectedIntersectionSHA256 string `json:"protected_intersection_sha256"`
+	KernelBeforeTreeSHA         string `json:"kernel_before_tree_sha"`
+	KernelAfterTreeSHA          string `json:"kernel_after_tree_sha"`
+	KernelBeforeEntryCount      int    `json:"kernel_before_entry_count"`
+	KernelAfterEntryCount       int    `json:"kernel_after_entry_count"`
+	KernelBeforeSHA256          string `json:"kernel_before_sha256"`
+	KernelAfterSHA256           string `json:"kernel_after_sha256"`
+	GuardianRunID               int64  `json:"guardian_run_id"`
+	GuardianJobID               int64  `json:"guardian_job_id"`
+	ArtifactID                  int64  `json:"artifact_id"`
+	ArtifactName                string `json:"artifact_name"`
+	ArtifactSizeBytes           int64  `json:"artifact_size_bytes"`
+	ArtifactSHA256              string `json:"artifact_sha256"`
+}
+
+type ReleaseLineage struct {
+	Version   string `json:"version"`
+	Preserved bool   `json:"preserved"`
+	Immutable bool   `json:"immutable"`
+	Decision  string `json:"decision"`
+}
+
 type HarnessCaseDecl struct {
 	Ordinal    int    `json:"ordinal"`
 	ID         string `json:"id"`
@@ -121,64 +177,70 @@ type MetricBinding struct {
 }
 
 type SourceDecl struct {
-	Schema          string            `json:"schema"`
-	Version         string            `json:"version"`
-	DenominatorID   string            `json:"denominator_id"`
-	CellCount       int               `json:"cell_count"`
-	StageCounts     map[string]int    `json:"stage_counts"`
-	RoleCounts      map[string]int    `json:"role_counts"`
-	Authority       Authority         `json:"authority"`
-	Precedence      []string          `json:"precedence"`
-	UnknownFields   []string          `json:"unknown_fields"`
-	Schemas         []AdapterDecl     `json:"schemas"`
-	Cells           []Cell            `json:"cells"`
-	Scenarios       []ScenarioDecl    `json:"scenarios"`
-	Metrics         []MetricBinding   `json:"metrics"`
-	Migration       MigrationRecord   `json:"migration"`
-	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
-	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
-	SourceDigest    string            `json:"source_digest"`
+	Schema            string             `json:"schema"`
+	Version           string             `json:"version"`
+	DenominatorID     string             `json:"denominator_id"`
+	CellCount         int                `json:"cell_count"`
+	StageCounts       map[string]int     `json:"stage_counts"`
+	RoleCounts        map[string]int     `json:"role_counts"`
+	Authority         Authority          `json:"authority"`
+	Precedence        []string           `json:"precedence"`
+	UnknownFields     []string           `json:"unknown_fields"`
+	Schemas           []AdapterDecl      `json:"schemas"`
+	Cells             []Cell             `json:"cells"`
+	Scenarios         []ScenarioDecl     `json:"scenarios"`
+	Metrics           []MetricBinding    `json:"metrics"`
+	Migration         MigrationRecord    `json:"migration"`
+	GuardianFixture   GuardianFixture    `json:"guardian_fixture"`
+	GuardianFixtureV3 *GuardianV3Fixture `json:"guardian_fixture_v3,omitempty"`
+	HarnessCases      []HarnessCaseDecl  `json:"harness_cases"`
+	ReleaseLineage    []ReleaseLineage   `json:"release_lineage,omitempty"`
+	SourceDigest      string             `json:"source_digest"`
 }
 
 type Contract struct {
-	Schema          string            `json:"schema"`
-	ID              string            `json:"id"`
-	Version         string            `json:"version"`
-	CellCount       int               `json:"cell_count"`
-	Fixed           bool              `json:"fixed"`
-	StageCounts     map[string]int    `json:"stage_counts"`
-	RoleCounts      map[string]int    `json:"role_counts"`
-	Precedence      []string          `json:"precedence"`
-	UnknownFields   []string          `json:"unknown_fields"`
-	Schemas         []AdapterDecl     `json:"schemas"`
-	Cells           []Cell            `json:"cells"`
-	Scenarios       []ScenarioDecl    `json:"scenarios"`
-	Metrics         []MetricBinding   `json:"metrics"`
-	Migration       MigrationRecord   `json:"migration"`
-	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
-	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
+	Schema            string             `json:"schema"`
+	ID                string             `json:"id"`
+	Version           string             `json:"version"`
+	CellCount         int                `json:"cell_count"`
+	Fixed             bool               `json:"fixed"`
+	StageCounts       map[string]int     `json:"stage_counts"`
+	RoleCounts        map[string]int     `json:"role_counts"`
+	Precedence        []string           `json:"precedence"`
+	UnknownFields     []string           `json:"unknown_fields"`
+	Schemas           []AdapterDecl      `json:"schemas"`
+	Cells             []Cell             `json:"cells"`
+	Scenarios         []ScenarioDecl     `json:"scenarios"`
+	Metrics           []MetricBinding    `json:"metrics"`
+	Migration         MigrationRecord    `json:"migration"`
+	GuardianFixture   GuardianFixture    `json:"guardian_fixture"`
+	GuardianFixtureV3 *GuardianV3Fixture `json:"guardian_fixture_v3,omitempty"`
+	HarnessCases      []HarnessCaseDecl  `json:"harness_cases"`
+	ReleaseLineage    []ReleaseLineage   `json:"release_lineage,omitempty"`
 }
 
 type IR struct {
-	Schema          string            `json:"schema"`
-	Version         string            `json:"version"`
-	SourceDigest    string            `json:"source_digest"`
-	ContractDigest  string            `json:"contract_digest"`
-	DenominatorID   string            `json:"denominator_id"`
-	CellCount       int               `json:"cell_count"`
-	StageCounts     map[string]int    `json:"stage_counts"`
-	RoleCounts      map[string]int    `json:"role_counts"`
-	Authority       Authority         `json:"authority"`
-	Precedence      []string          `json:"precedence"`
-	UnknownFields   []string          `json:"unknown_fields"`
-	Adapters        []AdapterDecl     `json:"adapters"`
-	Cells           []Cell            `json:"cells"`
-	Scenarios       []ScenarioDecl    `json:"scenarios"`
-	Metrics         []MetricBinding   `json:"metrics"`
-	Migration       MigrationRecord   `json:"migration"`
-	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
-	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
-	IRDigest        string            `json:"ir_digest,omitempty"`
+	Schema            string             `json:"schema"`
+	Version           string             `json:"version"`
+	SourceDigest      string             `json:"source_digest"`
+	ContractDigest    string             `json:"contract_digest"`
+	DenominatorID     string             `json:"denominator_id"`
+	CellCount         int                `json:"cell_count"`
+	StageCounts       map[string]int     `json:"stage_counts"`
+	RoleCounts        map[string]int     `json:"role_counts"`
+	Authority         Authority          `json:"authority"`
+	Precedence        []string           `json:"precedence"`
+	UnknownFields     []string           `json:"unknown_fields"`
+	Adapters          []AdapterDecl      `json:"adapters"`
+	Cells             []Cell             `json:"cells"`
+	Scenarios         []ScenarioDecl     `json:"scenarios"`
+	Metrics           []MetricBinding    `json:"metrics"`
+	Migration         MigrationRecord    `json:"migration"`
+	GuardianFixture   GuardianFixture    `json:"guardian_fixture"`
+	GuardianFixtureV3 *GuardianV3Fixture `json:"guardian_fixture_v3,omitempty"`
+	HarnessCases      []HarnessCaseDecl  `json:"harness_cases"`
+	ReleaseLineage    []ReleaseLineage   `json:"release_lineage,omitempty"`
+	IRDigest          string             `json:"ir_digest,omitempty"`
 }
 
 type AdapterArtifact struct {
@@ -277,12 +339,13 @@ type ScenarioBundle struct {
 }
 
 type GuardianHarnessCasesArtifact struct {
-	Schema           string            `json:"schema"`
-	MigrationVersion string            `json:"migration_version"`
-	IRDigest         string            `json:"ir_digest"`
-	Fixture          GuardianFixture   `json:"fixture"`
-	Cases            []HarnessCaseDecl `json:"cases"`
-	ArtifactDigest   string            `json:"artifact_digest,omitempty"`
+	Schema           string             `json:"schema"`
+	MigrationVersion string             `json:"migration_version"`
+	IRDigest         string             `json:"ir_digest"`
+	Fixture          GuardianFixture    `json:"fixture"`
+	FixtureV3        *GuardianV3Fixture `json:"fixture_v3,omitempty"`
+	Cases            []HarnessCaseDecl  `json:"cases"`
+	ArtifactDigest   string             `json:"artifact_digest,omitempty"`
 }
 
 type GuardianHarnessResult struct {
@@ -307,9 +370,11 @@ type GuardianHarnessResult struct {
 }
 
 type GuardianHarnessSummary struct {
-	ClosedCount  int `json:"closed_count"`
-	UnknownCount int `json:"unknown_count"`
-	RefutedCount int `json:"refuted_count"`
+	ClosedCount                  int `json:"closed_count"`
+	UnknownCount                 int `json:"unknown_count"`
+	RefutedCount                 int `json:"refuted_count"`
+	FoundationAuthorizationCount int `json:"foundation_authorization_count,omitempty"`
+	FoundationReceiptCount       int `json:"foundation_receipt_count,omitempty"`
 }
 
 type GuardianHarnessReport struct {
@@ -317,6 +382,7 @@ type GuardianHarnessReport struct {
 	MigrationVersion string                  `json:"migration_version"`
 	IRDigest         string                  `json:"ir_digest"`
 	Fixture          GuardianFixture         `json:"fixture"`
+	FixtureV3        *GuardianV3Fixture      `json:"fixture_v3,omitempty"`
 	FixtureFileCount int                     `json:"fixture_file_count"`
 	Results          []GuardianHarnessResult `json:"results"`
 	Summary          GuardianHarnessSummary  `json:"summary"`
@@ -355,50 +421,55 @@ type ExternalRelease struct {
 }
 
 type AdoptionProposal struct {
-	Schema                       string            `json:"schema"`
-	ProposalID                   string            `json:"proposal_id"`
-	MigrationVersion             string            `json:"migration_version,omitempty"`
-	TargetRepository             string            `json:"target_repository"`
-	RepositoryWrites             int               `json:"repository_writes"`
-	LocalTestExecutions          int               `json:"local_test_executions"`
-	CrossProjectRequiredGates    int               `json:"cross_project_required_gates"`
-	OldSchemaOwnership           []SchemaOwnership `json:"old_schema_ownership"`
-	NewSchemaOwnership           []SchemaOwnership `json:"new_schema_ownership"`
-	ExactRequiredSemanticChanges []string          `json:"exact_required_semantic_changes"`
-	ExpectedProtectedPaths       []string          `json:"expected_protected_paths"`
-	AcceptanceCases              []AcceptanceCase  `json:"acceptance_cases"`
-	RollbackConditions           []string          `json:"rollback_conditions"`
-	RefutationConditions         []string          `json:"refutation_conditions"`
-	Migration                    *MigrationRecord  `json:"migration,omitempty"`
-	GuardianFixture              *GuardianFixture  `json:"guardian_fixture,omitempty"`
-	VariableLifetimeOwnership    []string          `json:"variable_lifetime_ownership,omitempty"`
-	HarnessAcceptanceCases       []AcceptanceCase  `json:"harness_acceptance_cases,omitempty"`
-	GuardianHarnessArtifact      *ArtifactRef      `json:"guardian_harness_artifact,omitempty"`
-	OptionalExternalRelease      *ExternalRelease  `json:"optional_external_release,omitempty"`
-	ProposalDigest               string            `json:"proposal_digest,omitempty"`
+	Schema                       string                 `json:"schema"`
+	ProposalID                   string                 `json:"proposal_id"`
+	MigrationVersion             string                 `json:"migration_version,omitempty"`
+	TargetRepository             string                 `json:"target_repository"`
+	RepositoryWrites             int                    `json:"repository_writes"`
+	LocalTestExecutions          int                    `json:"local_test_executions"`
+	CrossProjectRequiredGates    int                    `json:"cross_project_required_gates"`
+	OldSchemaOwnership           []SchemaOwnership      `json:"old_schema_ownership"`
+	NewSchemaOwnership           []SchemaOwnership      `json:"new_schema_ownership"`
+	ExactRequiredSemanticChanges []string               `json:"exact_required_semantic_changes"`
+	ExpectedProtectedPaths       []string               `json:"expected_protected_paths"`
+	AcceptanceCases              []AcceptanceCase       `json:"acceptance_cases"`
+	RollbackConditions           []string               `json:"rollback_conditions"`
+	RefutationConditions         []string               `json:"refutation_conditions"`
+	Migration                    *MigrationRecord       `json:"migration,omitempty"`
+	GuardianFixture              *GuardianFixture       `json:"guardian_fixture,omitempty"`
+	GuardianFixtureV3            *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	ReleaseLineage               []ReleaseLineage       `json:"release_lineage,omitempty"`
+	VariableLifetimeOwnership    []string               `json:"variable_lifetime_ownership,omitempty"`
+	HarnessAcceptanceCases       []AcceptanceCase       `json:"harness_acceptance_cases,omitempty"`
+	GuardianHarnessArtifact      *ArtifactRef           `json:"guardian_harness_artifact,omitempty"`
+	DevelopmentProvenance        *DevelopmentProvenance `json:"development_provenance,omitempty"`
+	OptionalExternalRelease      *ExternalRelease       `json:"optional_external_release,omitempty"`
+	ProposalDigest               string                 `json:"proposal_digest,omitempty"`
 }
 
 type Report struct {
-	Schema            string                 `json:"schema"`
-	MigrationVersion  string                 `json:"migration_version,omitempty"`
-	Migration         *MigrationRecord       `json:"migration,omitempty"`
-	Decision          string                 `json:"decision"`
-	Pipeline          map[string]string      `json:"pipeline"`
-	SchemaVersions    []string               `json:"schema_versions"`
-	FixedDenominator  int                    `json:"fixed_denominator"`
-	StageCounts       map[string]int         `json:"stage_counts"`
-	RoleCounts        map[string]int         `json:"role_counts"`
-	Precedence        []string               `json:"precedence"`
-	UnknownFields     []string               `json:"unknown_fields"`
-	Authority         Authority              `json:"authority"`
-	Summary           Summary                `json:"summary"`
-	AdapterOperations []string               `json:"adapter_operations"`
-	ArtifactDigests   []ArtifactRef          `json:"artifact_digests"`
-	MetricBindings    []MetricBinding        `json:"metric_bindings"`
-	Scenarios         []ScenarioResult       `json:"scenarios"`
-	GuardianHarness   *GuardianHarnessReport `json:"guardian_harness,omitempty"`
-	Improvement       Claim                  `json:"improvement"`
-	ReportDigest      string                 `json:"report_digest,omitempty"`
+	Schema                string                 `json:"schema"`
+	MigrationVersion      string                 `json:"migration_version,omitempty"`
+	Migration             *MigrationRecord       `json:"migration,omitempty"`
+	Decision              string                 `json:"decision"`
+	Pipeline              map[string]string      `json:"pipeline"`
+	SchemaVersions        []string               `json:"schema_versions"`
+	FixedDenominator      int                    `json:"fixed_denominator"`
+	StageCounts           map[string]int         `json:"stage_counts"`
+	RoleCounts            map[string]int         `json:"role_counts"`
+	Precedence            []string               `json:"precedence"`
+	UnknownFields         []string               `json:"unknown_fields"`
+	Authority             Authority              `json:"authority"`
+	Summary               Summary                `json:"summary"`
+	AdapterOperations     []string               `json:"adapter_operations"`
+	ArtifactDigests       []ArtifactRef          `json:"artifact_digests"`
+	MetricBindings        []MetricBinding        `json:"metric_bindings"`
+	Scenarios             []ScenarioResult       `json:"scenarios"`
+	GuardianHarness       *GuardianHarnessReport `json:"guardian_harness,omitempty"`
+	GuardianFixtureV3     *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	DevelopmentProvenance *DevelopmentProvenance `json:"development_provenance,omitempty"`
+	Improvement           Claim                  `json:"improvement"`
+	ReportDigest          string                 `json:"report_digest,omitempty"`
 }
 
 type Summary struct {
@@ -433,4 +504,6 @@ type CISummary struct {
 	Metrics               []MetricValue          `json:"metrics"`
 	Improvement           Claim                  `json:"improvement"`
 	GuardianHarness       GuardianHarnessSummary `json:"guardian_harness"`
+	GuardianFixtureV3     *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	DevelopmentProvenance *DevelopmentProvenance `json:"development_provenance,omitempty"`
 }
