@@ -187,6 +187,8 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	reportSchema := ReportSchema
 	if ir.Version == "v2" {
 		reportSchema = ReportSchemaV2
+	} else if ir.Version == "v3" {
+		reportSchema = ReportSchemaV3
 	}
 	pipelineSource := "examples/receipt-schema-migration-v1/migration.gooo"
 	if ir.Version == "v2" {
@@ -200,10 +202,11 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 		AdapterOperations: adapterOperations(ir), MetricBindings: append([]MetricBinding(nil), ir.Metrics...), Scenarios: make([]ScenarioResult, 0, FixedCells),
 		Improvement: unknownClaim("IMPROVEMENT", "compare_before_after", "EXACT_COMPARABLE_PAIR_NOT_PROVIDED", "MISSING_EXACT_PAIR", "PROVIDE_EXACT_COMPARABLE_PAIR", []string{"before-after-evidence"}),
 	}
-	if ir.Version == "v2" {
+	if ir.Version == "v2" || ir.Version == "v3" {
 		record := ir.Migration
-		report.MigrationVersion = "v2"
+		report.MigrationVersion = ir.Version
 		report.Migration = &record
+		report.GuardianFixtureV3 = cloneGuardianV3Fixture(ir.GuardianFixtureV3)
 	}
 	for _, scenario := range bundle.Scenarios {
 		cell, ok := cellIndex[scenario.CellID]
@@ -234,7 +237,7 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	if err != nil {
 		return Report{}, err
 	}
-	if ir.Version == "v2" {
+	if ir.Version == "v2" || ir.Version == "v3" {
 		ref, err := artifactRef(filepath.Join(outputDir, "generated/guardian-harness-cases.json"), "generated/guardian-harness-cases.json")
 		if err != nil {
 			return Report{}, err

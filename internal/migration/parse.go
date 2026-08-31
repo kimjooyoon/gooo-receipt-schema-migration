@@ -27,7 +27,7 @@ func ParseSource(path string) (SourceDecl, error) {
 		fields := strings.Fields(line)
 		switch fields[0] {
 		case "gooo":
-			if len(fields) != 3 || fields[1] != "receipt_schema_migration" || (fields[2] != "v1" && fields[2] != "v2") {
+			if len(fields) != 3 || fields[1] != "receipt_schema_migration" || (fields[2] != "v1" && fields[2] != "v2" && fields[2] != "v3") {
 				return SourceDecl{}, fmt.Errorf("line %d: invalid gooo header", lineNumber)
 			}
 			decl.Schema, decl.Version = sourceSchemaForVersion(fields[2]), fields[2]
@@ -125,6 +125,30 @@ func ParseSource(path string) (SourceDecl, error) {
 				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
 			}
 			decl.GuardianFixture = GuardianFixture{Repository: values["repository"], Ref: values["ref"], Commit: values["commit"], ManifestPath: values["manifest"]}
+		case "guardian_fixture_v3":
+			values, err := parseKeyValues(fields[1:])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			fixture, err := parseGuardianV3Fixture(values)
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			decl.GuardianFixtureV3 = &fixture
+		case "lineage":
+			values, err := parseKeyValues(fields[1:])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			preserved, err := strconv.ParseBool(values["preserved"])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: invalid lineage preserved value", lineNumber)
+			}
+			immutable, err := strconv.ParseBool(values["immutable"])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: invalid lineage immutable value", lineNumber)
+			}
+			decl.ReleaseLineage = append(decl.ReleaseLineage, ReleaseLineage{Version: values["version"], Preserved: preserved, Immutable: immutable, Decision: values["decision"]})
 		case "harness_case":
 			values, err := parseKeyValues(fields[1:])
 			if err != nil {
@@ -152,10 +176,66 @@ func ParseSource(path string) (SourceDecl, error) {
 }
 
 func sourceSchemaForVersion(version string) string {
+	if version == "v3" {
+		return SourceSchemaV3
+	}
 	if version == "v2" {
 		return SourceSchemaV2
 	}
 	return SourceSchema
+}
+
+func parseGuardianV3Fixture(values map[string]string) (GuardianV3Fixture, error) {
+	intValue := func(key string) (int, error) { return parseInt(values, key) }
+	int64Value := func(key string) (int64, error) {
+		value, ok := values[key]
+		if !ok {
+			return 0, fmt.Errorf("missing %s", key)
+		}
+		parsed, err := strconv.ParseInt(value, 10, 64)
+		if err != nil {
+			return 0, fmt.Errorf("invalid %s %q", key, value)
+		}
+		return parsed, nil
+	}
+	changedFiles, err := intValue("changed_files")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	protectedIntersection, err := intValue("protected_intersection")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	beforeEntries, err := intValue("kernel_before_entries")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	afterEntries, err := intValue("kernel_after_entries")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	artifactSize, err := int64Value("artifact_size")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	runID, err := int64Value("run_id")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	jobID, err := int64Value("job_id")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	artifactID, err := int64Value("artifact_id")
+	if err != nil {
+		return GuardianV3Fixture{}, err
+	}
+	return GuardianV3Fixture{
+		Repository: values["repository"], Ref: values["ref"], BaseCommit: values["base"], HeadCommit: values["head"], MergeBase: values["merge_base"], ManifestPath: values["manifest"],
+		ChangedFilesCount: changedFiles, ChangedPathsSHA256: values["changed_paths_sha256"], ProtectedIntersectionCount: protectedIntersection, ProtectedIntersectionSHA256: values["protected_intersection_sha256"],
+		KernelBeforeTreeSHA: values["kernel_before_tree"], KernelAfterTreeSHA: values["kernel_after_tree"], KernelBeforeEntryCount: beforeEntries, KernelAfterEntryCount: afterEntries, KernelBeforeSHA256: values["kernel_before_digest"], KernelAfterSHA256: values["kernel_after_digest"],
+		GuardianRunID: runID, GuardianJobID: jobID, ArtifactID: artifactID, ArtifactName: values["artifact_name"], ArtifactSizeBytes: artifactSize, ArtifactSHA256: values["artifact_digest"],
+	}, nil
 }
 
 func parseMigrationRecord(values map[string]string) (MigrationRecord, error) {
@@ -277,7 +357,7 @@ func LoadContract(path string) (Contract, error) {
 	if err := json.Unmarshal(data, &contract); err != nil {
 		return Contract{}, fmt.Errorf("decode contract: %w", err)
 	}
-	if contract.Schema != ContractSchema && contract.Schema != ContractSchemaV2 {
+	if contract.Schema != ContractSchema && contract.Schema != ContractSchemaV2 && contract.Schema != ContractSchemaV3 {
 		return Contract{}, fmt.Errorf("unexpected contract schema %q", contract.Schema)
 	}
 	return contract, nil

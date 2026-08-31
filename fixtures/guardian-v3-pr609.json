@@ -1,0 +1,4606 @@
+{
+  "schema": "gooo/receipt-schema-migration/guardian-fixture/v3",
+  "repository": "kimjooyoon/meta-ontology-go",
+  "ref": "dev",
+  "base_commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+  "head_commit": "8b47db349315c02933296423b0ae7fa80ffeb1dc",
+  "merge_base": "bc5dc21788aa4c7d46d1f8ab516f8218bb423fdc",
+  "manifest_path": "fixtures/guardian-v3-pr609.json",
+  "pinned_files": [
+    {
+      "path": ".github/foundation-authorization.json",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "3c39da5290910d2061bbb0db8a4fb364420fe507",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/.github/foundation-authorization.json"
+    },
+    {
+      "path": ".github/foundation-bootstrap-dev-sync.json",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "b5ff42796d2404065e69fc6f78c19470de05cc10",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/.github/foundation-bootstrap-dev-sync.json"
+    },
+    {
+      "path": ".github/workflows/ci-guardian.yml",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "d783b29871f75004534e52acc8fc2b50daa808c1",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/.github/workflows/ci-guardian.yml"
+    },
+    {
+      "path": "internal/verify/foundation_authorization.go",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "d42f8702ccc26e022716db8ae0d46bee9ecad327",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/internal/verify/foundation_authorization.go"
+    },
+    {
+      "path": "internal/verify/scope_foundation_authorization_dev_sync_20260831.go",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "197becf072c772d1316c766fd6dc4807f0c915b3",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/internal/verify/scope_foundation_authorization_dev_sync_20260831.go"
+    },
+    {
+      "path": "internal/verify/scope_foundation_bootstrap_dev_sync_20260831.go",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "4b31c2e52d2d3e6d4c22881c520db08fc05d1431",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/internal/verify/scope_foundation_bootstrap_dev_sync_20260831.go"
+    },
+    {
+      "path": "scripts/ci-proof/foundation_authorization.js",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "7ac1c623dcb6678cd6a3a3d4d2b3bcdb32dfbf21",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/scripts/ci-proof/foundation_authorization.js"
+    },
+    {
+      "path": "scripts/ci-proof/foundation_bootstrap.js",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "a4d17cc318aa3a2eabb127d182dd7af651c335c6",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/scripts/ci-proof/foundation_bootstrap.js"
+    },
+    {
+      "path": "scripts/ci-proof/guardian.js",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "b553a4e0081cd786c1fac903689fdf2637e379b0",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/scripts/ci-proof/guardian.js"
+    },
+    {
+      "path": "scripts/ci-proof/guardian_test.js",
+      "commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+      "blob_sha": "2825c2009b0cd4a4158c780f0fbb2568cd381929",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/e440cbc99f24ceb8385f1b89c70f8cdada10cdbb/scripts/ci-proof/guardian_test.js"
+    }
+  ],
+  "guardian_run": {
+    "run_id": 33359548617,
+    "job_id": 99388126433,
+    "artifact_id": 9746232159,
+    "artifact_name": "ci-guardian-33359548617-1",
+    "artifact_size_bytes": 2144,
+    "artifact_sha256": "sha256:41ae5d2398a001b16ecd72dba937924897234dd748fdcb5374caee7e70f026a8"
+  },
+  "changed_files_count": 92,
+  "changed_paths_sha256": "sha256:7d50d27859d8e755edcce625c2cef34c5902528b19a3a4ebf73bd59dac296cac",
+  "changed_files": [
+    {
+      "filename": ".github/agent-scope-table.md",
+      "previous_filename": null,
+      "sha": "a226247a91eb539e29e3f70dce034f8291fe03e4",
+      "status": "modified"
+    },
+    {
+      "filename": ".github/ci-governance.json",
+      "previous_filename": null,
+      "sha": "7e1935565e7f3920590e7b44b3f25d53376d1dc9",
+      "status": "modified"
+    },
+    {
+      "filename": ".github/merge-conflict-resolution-manifest.json",
+      "previous_filename": null,
+      "sha": "130e8e93d3c8bd606c533ff6248529bd0ebe42d8",
+      "status": "added"
+    },
+    {
+      "filename": ".github/workflows/ci-guardian.yml",
+      "previous_filename": null,
+      "sha": "9056db2e0f965ee0f1f149e061e7520938058db8",
+      "status": "modified"
+    },
+    {
+      "filename": ".github/workflows/ci.yml",
+      "previous_filename": null,
+      "sha": "5437046c9729191eb0ae6dbb460672c06e49e658",
+      "status": "modified"
+    },
+    {
+      "filename": ".github/workflows/self-improvement-minimal-loop.yml",
+      "previous_filename": null,
+      "sha": "9142e34ff29742b6464f0b9e6d4c0fb74987b91f",
+      "status": "added"
+    },
+    {
+      "filename": ".github/workflows/transformation-effect.yml",
+      "previous_filename": null,
+      "sha": "1cbaff5a74d26522a7ec98c7260af75c0baee0f1",
+      "status": "modified"
+    },
+    {
+      "filename": "bootstrap/repository-projector/command/store.go",
+      "previous_filename": null,
+      "sha": "a25227f0d682f3095a00c6e525fe723cab68f861",
+      "status": "modified"
+    },
+    {
+      "filename": "cmd/feedback-predecessor-witness/io.go",
+      "previous_filename": null,
+      "sha": "3222fd312b480fd5c2274c43023fc0a3b4091e97",
+      "status": "modified"
+    },
+    {
+      "filename": "cmd/feedback-predecessor-witness/types.go",
+      "previous_filename": null,
+      "sha": "2f1cb16692ae0a9710bab1f3694c099d0c8672f1",
+      "status": "modified"
+    },
+    {
+      "filename": "examples/language-syntax-roundtrip/corpus.json",
+      "previous_filename": null,
+      "sha": "5556aae5bc466045b5151d98799fe94303cc9bec",
+      "status": "modified"
+    },
+    {
+      "filename": "examples/self-improvement-minimal-loop/main.gooo",
+      "previous_filename": null,
+      "sha": "38e49057346aa5774b823079a67a7b1cfa35306d",
+      "status": "added"
+    },
+    {
+      "filename": "examples/self-improvement-minimal-loop/normal.json",
+      "previous_filename": null,
+      "sha": "7d83e13b61283d758f3c6e2c99dd5c9f000cb86a",
+      "status": "added"
+    },
+    {
+      "filename": "examples/self-improvement-minimal-loop/refuted.json",
+      "previous_filename": null,
+      "sha": "90605963983c061def7920295ad1fc149c41dd18",
+      "status": "added"
+    },
+    {
+      "filename": "examples/self-improvement-minimal-loop/unknown.json",
+      "previous_filename": null,
+      "sha": "b80b5cb118be7aacb2a3ce3baa22189725383184",
+      "status": "added"
+    },
+    {
+      "filename": "internal/detection/linecaps/observations.go",
+      "previous_filename": null,
+      "sha": "aaa345368c6b8faf59087fca9c514cfb5ebb7c12",
+      "status": "added"
+    },
+    {
+      "filename": "internal/detection/linecaps/stats_part05.go",
+      "previous_filename": null,
+      "sha": "70e2567706c20b8d0095617706cbf6a44f5ec8d9",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/detection/linecaps/stats_part06.go",
+      "previous_filename": null,
+      "sha": "ce6cde37d746e75d8c0b4011f3d16b612b0f444d",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/detection/linecaps/workflow_root.go",
+      "previous_filename": null,
+      "sha": "9775a3b9b4768811e9232ece3130cc7c72ad6e6e",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/contract.go",
+      "previous_filename": null,
+      "sha": "a44d248690593e001568809f90084988fb88fd69",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/decision.go",
+      "previous_filename": null,
+      "sha": "2af7b15e13ad56990d5061b2ebb9bab718be4a2c",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/foundation.go",
+      "previous_filename": null,
+      "sha": "9e2c43039eb4101440fec817b69a1841e2d97250",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/foundation_validation.go",
+      "previous_filename": null,
+      "sha": "618525a2f9f8befa54a88c74caaed25c94e2b4c8",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/select.go",
+      "previous_filename": null,
+      "sha": "9f15afd784c3b3e26bb7855bc4b41971c79879c5",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/feedbackpredecessor/types.go",
+      "previous_filename": null,
+      "sha": "dfd5f2d8ddcaa77a74e0735c5def0444b089ed23",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/generation/applicability_part01.go",
+      "previous_filename": null,
+      "sha": "6f7055a5942060bca7fab5c29e0bc22496db12c1",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/languageassurance/verticalsliceclosureshadow/contract.go",
+      "previous_filename": null,
+      "sha": "f31ca80e8978d04b83d0eb660d1be3a56f726e9a",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/languageassurance/verticalsliceclosureshadow/evidence/denominator.json",
+      "previous_filename": null,
+      "sha": "2d79d2874af5f7fc2d6548033b8a50f63ffa2993",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/languagereadiness/languagesyntax/conformance/evaluate_test.go",
+      "previous_filename": null,
+      "sha": "a167b06db8eace47a5ec2319d10df3b69d1b4d20",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/languagereadiness/languagesyntax/model.go",
+      "previous_filename": null,
+      "sha": "e23f37f78194a5fd3c128f6000769ec364bd9414",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/languagereadiness/languagesyntax/registry.go",
+      "previous_filename": null,
+      "sha": "99dd5a2fca73dd3427bc30a025cc5018296dbda7",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/metabinding/source_bindings.go",
+      "previous_filename": null,
+      "sha": "b159f2843a62e392cd86d060b5b3c4b79faf898c",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/artifact_digest.go",
+      "previous_filename": null,
+      "sha": "8f45ab89bb72476ce6e94bfca6f02641d5374595",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/artifact_io.go",
+      "previous_filename": null,
+      "sha": "304ffd2e4bed88922bc5a201fee63b9cdf77250d",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/artifact_types.go",
+      "previous_filename": null,
+      "sha": "551d284c466647db27fbbcaed05b06c4354235e5",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/artifacts.go",
+      "previous_filename": null,
+      "sha": "fdff1d36dc25b70ca2d31a0ae4b01a90f1b1a3ad",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/constants.go",
+      "previous_filename": null,
+      "sha": "ff1f4bc82429dff3068c52c6976222818104867f",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate.go",
+      "previous_filename": null,
+      "sha": "3f152bf5e303c3f756f6b7605eded30e257277bf",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_cells.go",
+      "previous_filename": null,
+      "sha": "03cd6e89c317e646dcba15dd7179fbcbd3885db6",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_pair.go",
+      "previous_filename": null,
+      "sha": "0a58f61932bcf2bfa1f946923296ca54beedc098",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_result.go",
+      "previous_filename": null,
+      "sha": "80d8c20192f8199152f21ea96026fe62941b7068",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_rules.go",
+      "previous_filename": null,
+      "sha": "280f5267b9c5b8e2da19adb70ec8bbdb8a8c3bf9",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_support.go",
+      "previous_filename": null,
+      "sha": "754e25c9629a72853a16f2d724db68e2b05bcd19",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/evaluate_tail.go",
+      "previous_filename": null,
+      "sha": "fd0b76072fba120a8ad674574f5aedc19129dc75",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/graph.go",
+      "previous_filename": null,
+      "sha": "d425ce0841e4428ec7e09506903bbcaf3b78ab3d",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/graph_support.go",
+      "previous_filename": null,
+      "sha": "26ed3c001ba715721a442f1b453233f0f9202f44",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/graph_types.go",
+      "previous_filename": null,
+      "sha": "481f16e0dea94284c46472b5a7aca4a2b285359c",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/input_evidence_types.go",
+      "previous_filename": null,
+      "sha": "23d5b94140ad07dec499010c61a0562cb9b05bbf",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/input_types.go",
+      "previous_filename": null,
+      "sha": "17e1ee0069f511f6a558e42ce05ec2f45a99b3b6",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/loop_cases_test.go",
+      "previous_filename": null,
+      "sha": "507342e1de46e1272465ed6f778fa23ef9b764fd",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/loop_fixtures_test.go",
+      "previous_filename": null,
+      "sha": "1086270dc3c524ec549e393f12c747740e47ff99",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/loop_graph_test.go",
+      "previous_filename": null,
+      "sha": "1fd7089db4dcd40d56fdac243794f04cc8127c30",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/loop_refutation_test.go",
+      "previous_filename": null,
+      "sha": "82b6836f2905cad582a6c9b9083a4d9e0ecefdd6",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/report_types.go",
+      "previous_filename": null,
+      "sha": "0293e2e554651045580f557727a0d3e55e5cfc12",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/run.go",
+      "previous_filename": null,
+      "sha": "f148237be287e798f33ae43715ea7d604a0b867e",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/selfimprovementloop/state_types.go",
+      "previous_filename": null,
+      "sha": "2cf9d681d4d5d9a6900f934247cd348be25f12f2",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/candidate.go",
+      "previous_filename": null,
+      "sha": "3809f79370d980624ee5fb8f9c0051e16db6ee52",
+      "status": "added"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/evaluate_part02.go",
+      "previous_filename": null,
+      "sha": "b71341ed6947634dd77641b822f387cce59d409b",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/indicator.go",
+      "previous_filename": null,
+      "sha": "dabc2ae176dd349c924dd8f992ca894cd41ce660",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/indicator_domain.go",
+      "previous_filename": null,
+      "sha": "f17cb09c685a7b85a6ff4a21739cc9edf9910d0c",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/policy.go",
+      "previous_filename": null,
+      "sha": "7570d444abade1065e110e99034ba9fd34fe90e7",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/vocabulary_part01.go",
+      "previous_filename": null,
+      "sha": "35d5f84ab9dcfba36f473bb9d6f098cedd58c537",
+      "status": "modified"
+    },
+    {
+      "filename": "internal/meta/sourcepolicy/workflow_root.go",
+      "previous_filename": null,
+      "sha": "790dd2f75143550b16c72e3948006df6159bf820",
+      "status": "added"
+    },
+    {
+      "filename": "internal/verify/foundation_discovery_recovery_scope.go",
+      "previous_filename": null,
+      "sha": "5f1d04151092ff92f2c87d9b8f8f59c3ac942ed7",
+      "status": "added"
+    },
+    {
+      "filename": "internal/verify/foundation_promotion.go",
+      "previous_filename": null,
+      "sha": "0e9cbe3513563ed6b5a3ce2ceb3fbb6ea8c89edc",
+      "status": "added"
+    },
+    {
+      "filename": "internal/verify/scope_dev_main_sync_20260831_rerun.go",
+      "previous_filename": null,
+      "sha": "991dcb8b45b7b7468fdadf38c15ec37a32ffba8e",
+      "status": "added"
+    },
+    {
+      "filename": "internal/verify/self_improvement_minimal_loop_scope.go",
+      "previous_filename": null,
+      "sha": "b4b56209648f73199149149fe84e2a2a09d96877",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/ci-proof/build_part01.go",
+      "previous_filename": null,
+      "sha": "11f5260e8165fea7f03cf01a33c43b779954bf59",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/build_part02.go",
+      "previous_filename": null,
+      "sha": "3e74702c3bf157166605936b4b6130cca12299aa",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/build_part03.go",
+      "previous_filename": null,
+      "sha": "388750f8d4d2f95eaaa77c3605219cd16c9d68ae",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/foundation.go",
+      "previous_filename": null,
+      "sha": "debb4f0218b2f941b08217d92e6ff8163e9d3549",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/ci-proof/foundation_route_test.go",
+      "previous_filename": null,
+      "sha": "6a0d6767aaf8849598c136d2e9f060e1e9f99611",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/ci-proof/foundation_types.go",
+      "previous_filename": null,
+      "sha": "7664797d04251ebce6007d1eba45a9072af59ab0",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/ci-proof/foundation_validate.go",
+      "previous_filename": null,
+      "sha": "fcf7d42e27a76d71d9a0b0972e6e5c391582d352",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/ci-proof/proof_types_part01.go",
+      "previous_filename": null,
+      "sha": "cf7f28d81b5709290474c22617d7615d506150f4",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/route.go",
+      "previous_filename": null,
+      "sha": "166870720d854b605a435b5d708e2b0cc2bc0ff1",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/route.js",
+      "previous_filename": null,
+      "sha": "aef5ddf6682c9641c720b5762c97000a80117f59",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/route_test.js",
+      "previous_filename": null,
+      "sha": "f6d35b958888ace5ea81dc8044e274a4a211db2d",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/types_part02.go",
+      "previous_filename": null,
+      "sha": "a946554d225abe6d62627264d16dff855a5f0ee2",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/types_part05.go",
+      "previous_filename": null,
+      "sha": "d9d2554d5f58c95c5932bd2b5b79686980f547b3",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/ci-proof/validate_part01.go",
+      "previous_filename": null,
+      "sha": "5a6ccaa510d5c58eb5bd584f502dbe86c6921d1f",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/collect.go",
+      "previous_filename": null,
+      "sha": "3f6a14749501748dd6b890d2307efc9a647407f1",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/foundation.go",
+      "previous_filename": null,
+      "sha": "63ffeb108dfb7bb0ebde3341747ba5b2db20e0e7",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/foundation_artifact.go",
+      "previous_filename": null,
+      "sha": "e0b6eab2d867bdf989edeb1f0e67620a4312c3c7",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/foundation_collect.go",
+      "previous_filename": null,
+      "sha": "159bf846d6fe93ae64a1c272c38bb6d41951c34f",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/foundation_history.go",
+      "previous_filename": null,
+      "sha": "6bb61a6abb86b1e564a8aab66a5d2783f01c632b",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/foundation_types.go",
+      "previous_filename": null,
+      "sha": "95460cadb859731a1dc81c99c54a753e2a8ec046",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/sort.go",
+      "previous_filename": null,
+      "sha": "a74c55e2e82b91b44ace1647a3d3db7d50aec45d",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/feedback-predecessor-ci/types.go",
+      "previous_filename": null,
+      "sha": "0befbc7022692e7549ab266e3c7f6d2e0fa67475",
+      "status": "modified"
+    },
+    {
+      "filename": "scripts/self-improvement-minimal-loop/main.go",
+      "previous_filename": null,
+      "sha": "575c345e78f9f853da0e7af5e043e8b86f5f591d",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/verify/foundation_promotion.go",
+      "previous_filename": null,
+      "sha": "9c3f6d017254c8ef1f618b7b93797d692b5b80da",
+      "status": "added"
+    },
+    {
+      "filename": "scripts/verify/main_part02.go",
+      "previous_filename": null,
+      "sha": "f3e4836efe8388cea0834a7fb0f4a9ab5f2dfc58",
+      "status": "modified"
+    }
+  ],
+  "protected_intersection_count": 26,
+  "protected_intersection_sha256": "sha256:204b3569310bffb0d3a6fafaddfec5930e99309281badd768b2c52dfbc07f3bf",
+  "protected_intersection": [
+    ".github/agent-scope-table.md",
+    ".github/ci-governance.json",
+    ".github/workflows/ci-guardian.yml",
+    ".github/workflows/ci.yml",
+    ".github/workflows/self-improvement-minimal-loop.yml",
+    ".github/workflows/transformation-effect.yml",
+    "internal/verify/foundation_discovery_recovery_scope.go",
+    "internal/verify/foundation_promotion.go",
+    "internal/verify/scope_dev_main_sync_20260831_rerun.go",
+    "internal/verify/self_improvement_minimal_loop_scope.go",
+    "scripts/ci-proof/build_part01.go",
+    "scripts/ci-proof/build_part02.go",
+    "scripts/ci-proof/build_part03.go",
+    "scripts/ci-proof/foundation.go",
+    "scripts/ci-proof/foundation_route_test.go",
+    "scripts/ci-proof/foundation_types.go",
+    "scripts/ci-proof/foundation_validate.go",
+    "scripts/ci-proof/proof_types_part01.go",
+    "scripts/ci-proof/route.go",
+    "scripts/ci-proof/route.js",
+    "scripts/ci-proof/route_test.js",
+    "scripts/ci-proof/types_part02.go",
+    "scripts/ci-proof/types_part05.go",
+    "scripts/ci-proof/validate_part01.go",
+    "scripts/verify/foundation_promotion.go",
+    "scripts/verify/main_part02.go"
+  ],
+  "kernel_before_tree_sha": "169fe96d8e1e9b50702b0f2fb2d2cf2e83d467e6",
+  "kernel_after_tree_sha": "d8e8f5b9064c8ef7d14daf9f96c8c1df9156e0a6",
+  "kernel_before_entry_count": 321,
+  "kernel_after_entry_count": 327,
+  "kernel_before_sha256": "sha256:e3b0cd0fd2d95a0113b9a6755ebe318e856225630106fa00ccf24572fdfb69f6",
+  "kernel_after_sha256": "sha256:b1e865e5c2f48735dc693b94807b8a8439819985353503ccffceecedac88d582",
+  "base_parents": [
+    "7f45792e3c23100cbb10cca8b229132060982a7b"
+  ],
+  "kernel_before_entries": [
+    {
+      "mode": "100644",
+      "path": ".github/agent-scope-table.md",
+      "sha": "58de2cee5cbb03fb04f52487c8074553221bcfb9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/branch-policy.md",
+      "sha": "7a8265808c4c94cac16ae152d6512b444a416a50",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/ci-governance.json",
+      "sha": "32d8f5f6d92239dfeeeeafa0a211ec39449021f2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/conformance-plan.md",
+      "sha": "5a034c2d286724ac4b276b52c7cb89e87f9085d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/foundation-authorization.json",
+      "sha": "3c39da5290910d2061bbb0db8a4fb364420fe507",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/action-runtime-conformance.yml",
+      "sha": "7fec08c0c2087658402395cda1b58d75376bbe68",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/activity-cardinality-conformance.yml",
+      "sha": "73821fd8fbad7d7731b356ae6141c7cee10007c3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/artifact-resolution-experiment.yml",
+      "sha": "cf7f57e742124b8ab78204b5f72061065cfcbab8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/causal-ci-selection.yml",
+      "sha": "e117a93fffc8e19f4c396b78a736002c5dbab924",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-effort-observation.yml",
+      "sha": "2a8f6c8bcf4bb1363f8ee662db46b42fbff9aab4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-guardian.yml",
+      "sha": "d783b29871f75004534e52acc8fc2b50daa808c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-plan-usecase.yml",
+      "sha": "c242d000b5f706582ad455e1fb738107695fe6b5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci.yml",
+      "sha": "94b15c861bd9542f142325c87b820ef0917b7cc2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/entity-fields-v1.yml",
+      "sha": "d58489b4674310e3ec053f2c4f32e91bb45ce21a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/go-package-partition-remediation.yml",
+      "sha": "c4ac799356e339d772fdb4d818059f6d36abb2e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/gooo-release-publish.yml",
+      "sha": "c125a90b455be04e9c02dc0263f21aa542099254",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/gooo-release-readiness.yml",
+      "sha": "2995a75f4030fd11db6681c5a5e263b120e27714",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/integration-progress-evidence.yml",
+      "sha": "3c25006383ba4e4695a93a6bbae1203aeef1795f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-example-experiment.yml",
+      "sha": "72b2136a2c9ab7b96655fac69e87d1130b0a4b5c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-operation-catalog.yml",
+      "sha": "fa0a92444cb24c5fd863167b6148b99c3f760102",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-utility-evidence.yml",
+      "sha": "51c3d85218b361dee908d769a8191ad5ae36f9af",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-value-witness.yml",
+      "sha": "a63d284b2e6f16f191e3b1d8d50aec69021b1577",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/live-governance-snapshot.yml",
+      "sha": "d7360474b22bddf16b6dac3ff4a07561712b7ebb",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/metric-counterfactual.yml",
+      "sha": "a24825ccbbdbc66c633d21a91ba6961c6f98079d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/metric-transition.yml",
+      "sha": "1c81087df7c800fbfffb96e990e49bac5fa240c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/opentofu-observation.yml",
+      "sha": "1ff89d3f7e0137f4d6672fb06b8adb3042ba3a89",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/repository-projection-diagnostics.yml",
+      "sha": "e744d05d356f7fcf09a2f8f944358a576f615f63",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/repository-projection.yml",
+      "sha": "6c3298a4a7489b66b4fb07ca6f80ee45e0a64ff0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-attestation-resolution.yml",
+      "sha": "74c1f8dfdfb42ae430e75d77e886fb2cb2ab1d43",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-contract.yml",
+      "sha": "b6208619df5e89642523918a9119a5f141c8abee",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-cycle.yml",
+      "sha": "bc6112673a1a181c5a0e537e7f0ca020023658d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-language-candidate.yml",
+      "sha": "f56c0c68c90476dc8ad530b26398c366132293e2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-language-observation.yml",
+      "sha": "662142c606e7a81a841fc5a762352de1ad87f873",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/source-subject-witness.yml",
+      "sha": "d73936847408402a9311b770548ccd2d271c2ae5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/symbolic-invocation-schema.yml",
+      "sha": "cc24340a8615922a62221ed81b1066d83ac6360f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/symbolic-invocation-usecase.yml",
+      "sha": "5c1d36ab8a47ffe1c4a159832a4e7c3b2c7bbe26",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/temporal-transition-ticket-v1.yml",
+      "sha": "9c71eedaadf34cc309d27bd8b352799f36e28608",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/transformation-effect.yml",
+      "sha": "25893a998bb801d6a8717b70a7440bee61fe52b0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/workgraph-pilot.yml",
+      "sha": "1ebc66a5d0aed6f170b347ca09e5750f7601ae41",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "go.mod",
+      "sha": "47809dee55cbc37656136a1c8008cd8decf1bb76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/caps_boundary_test.go",
+      "sha": "3044c061450e091f7022a2252b03ec6de73bbaba",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/conformance_part01_test.go",
+      "sha": "aa4f32aa402afb47690778a7185cae6ac1375412",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/conformance_part02_test.go",
+      "sha": "d9fc2efa557163b9e83cacefba48c6f76f3b3d83",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part01.go",
+      "sha": "10bb482c34c0511e8ca547cf21585b416c473180",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part01_test.go",
+      "sha": "98a2230dfb30b0493b35008050cc588802f64b67",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part02.go",
+      "sha": "1546d48ea491832f29b723c7f6e78beec6f0e856",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part02_test.go",
+      "sha": "cac3459640ed743d38ed56e67e5a789d3186b0a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part03.go",
+      "sha": "efce8590c6cafbc6377ec643c52b9b068613a060",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/foundation_authorization.go",
+      "sha": "d42f8702ccc26e022716db8ae0d46bee9ecad327",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part01.go",
+      "sha": "76568a831d5b9d7ef19b5ac5655ede05a30acab6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part01_test.go",
+      "sha": "e91b07afaf189f34b33bdc2424a5928b8ad858e3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part02.go",
+      "sha": "b530eaabbeed1ff9a57a558a339d305c6662c720",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part02_test.go",
+      "sha": "37336e826ed6374dc141c63346c2cde18fe0dc3b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part03.go",
+      "sha": "2f36b974efebc1643b6c79672b395d933ee9989e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part04.go",
+      "sha": "177d75cf7946e66eaaf5473691a10b1025f79453",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/guardian_suite_test.go",
+      "sha": "27fe4399a42bf5a8ea484918b3a64196c10ba274",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part01.go",
+      "sha": "98b40911feea521d5df26c53a85f5bb7a8a1eff1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part01_test.go",
+      "sha": "25c96823c739e3202fc7fc76d2289c4f1bd007a0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part02.go",
+      "sha": "ac6d538532528c903fb5258b6e7ea32d32b67867",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part02_test.go",
+      "sha": "969b02d1b017852270ba0a92dc872a7416dee699",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part03.go",
+      "sha": "913b430a1e7567e013c2703d1a4d1446fa992a7f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part03_test.go",
+      "sha": "ea283b9482ff6a2fdba0b84699cd4e2dca09734d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part04.go",
+      "sha": "c3a979a969eba60c1968b4ce3404295927ed792b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part04_test.go",
+      "sha": "eaae2cf808365add40b2d0991745cfba4e3beb74",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part05.go",
+      "sha": "965b583b40b48fde2d6ecbd9c458e067a71a1479",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part05_test.go",
+      "sha": "be6126fec43212b1c4c952d976526128b7f92d97",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part06.go",
+      "sha": "53eda34fe93096863b80c840ec6cc2b4c740fafe",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part06_test.go",
+      "sha": "012db1ff5ad0c7e9af235d3f800bd7f1d9ce7365",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part07_test.go",
+      "sha": "b1f837a5f21103e36d0fff4b9452812eb426ef19",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part08.go",
+      "sha": "44c6a15b9854a7467b82ae2c21de2df82bb09a63",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_projection_test.go",
+      "sha": "8aa5df3b1489f67b3e523d36388e92dc75d3e7e1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/readiness_push_continuity_test.go",
+      "sha": "4de7038c11d02d1e33e1b34ae1bcd535955f8aa8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_base_repair_repository_projection.go",
+      "sha": "ba9bbe1f6496cc98fd5b56f6d1bde947f6e2a8c8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_base_repair_repository_projection_test.go",
+      "sha": "e74eefc9a349920cc38956c9a709f3714b034cff",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage.go",
+      "sha": "c26a0bf248e7ae7f4a25741cf27694a53bff9e27",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage_activation.go",
+      "sha": "9abb1eb5ce5a7b4e36a715cf9eea1b5fd40c3d0f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage_eligibility.go",
+      "sha": "846c1eec662a3cdae6c2b032610b2498732a74f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt.go",
+      "sha": "6aad00aa45277ba21170ef4be571456ecefa2265",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt_activation.go",
+      "sha": "f7f277bf45f3dfd6c13f180b5351404ffe7bf532",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt_eligibility.go",
+      "sha": "f0bd18945f322a4257540d8df1d6300a0f34fdab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_artifact_lineage.go",
+      "sha": "b45b4d17dce589424399ae78e4021e435ca5e073",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_concurrency_lane.go",
+      "sha": "ce39368398757d00e8390529ebaba8ace0327315",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_effort_observation_v1.go",
+      "sha": "adde352da1ac95bd1388a6009dfa76cb4bd638f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_effort_observation_v1_test.go",
+      "sha": "dd99b437cb06ed280dc3ffb586faf0883d9e9c42",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_plan_usecase.go",
+      "sha": "fc45e678bdca5d194ec97ee00765120fab8e490a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_concept_strategy.go",
+      "sha": "8ccf623f7cf4ac7a38b1dd0efad1c6faab1d4302",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_core_rss_observability.go",
+      "sha": "e0c02d772e376297806515f7732def092ae5c025",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_debugging_utility_observed_v1.go",
+      "sha": "62de3b405e68bec824f0050ad424fd8a85126704",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_debugging_utility_observed_v1_test.go",
+      "sha": "9c67d798a60cabab15762a43fd464c61908cd7e7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_entity_fields_v1.go",
+      "sha": "79ab542f6f3a5b2d4a29c99ff315029836e45742",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_entity_fields_v1_test.go",
+      "sha": "eb0229853d7a6ee856a409cc004a76393e4bd0f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_executable_guardian_scope_adoption_20260831.go",
+      "sha": "1ec14211f4ce238c5d53255c5c374a16765cfc03",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_capability_authorization_foundation.go",
+      "sha": "1b957d07889ec4690e60614e1ec0dfc9a2e5d75f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_capability_execution.go",
+      "sha": "a94e90d54a7508c5c4f45a98465d844b287b9961",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_conformance_activation.go",
+      "sha": "8576ac73172d94bfa59d8683285efd1844523d96",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_ecosystem_conformance.go",
+      "sha": "cca14ae934cf1126282b9b49e59e0be1ed88a0a9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_ecosystem_execution.go",
+      "sha": "0ff05e74d97d74760029186a8509d8d903335b3a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_feedback_predecessor_baseline.go",
+      "sha": "e1aacfb3509edc1d20c8b4104d893cd9b1f67c18",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_authorization_dev_sync_20260831.go",
+      "sha": "197becf072c772d1316c766fd6dc4807f0c915b3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_bootstrap_dev_sync_20260831.go",
+      "sha": "4b31c2e52d2d3e6d4c22881c520db08fc05d1431",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_correction_child_20260831.go",
+      "sha": "9890f8754925816c5c9f4ab7917bb653ec3fb163",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_regression_repair_20260831.go",
+      "sha": "db12bd9d422d2bc8c671ac0e57030d9f86348f4a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_artifact_attempt_binding.go",
+      "sha": "9acdbbd71fe4ff2839e0482835edb1f8bb33930b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_artifact_lifecycle_receipt.go",
+      "sha": "8e453981511007745af1324df0091c6b1c05b8c3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_attestation_resolution.go",
+      "sha": "b77bc43b71e351f5df4971221ccd52563b04160c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_attestation_summary.go",
+      "sha": "59163c6d41b864e859b3ba74975f1bbc84d911aa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_candidate_lineage_fix.go",
+      "sha": "3cb4f99c6edc0ed7036f0bffecf0a54853f4fec4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_closed_generation_example.go",
+      "sha": "317744af96f63d8e7a6cb9ce5c844ac28996d962",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_closed_value.go",
+      "sha": "90018d7b29075387b7bca34b074bfb69b5df06c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_exact_subject_transport.go",
+      "sha": "7874bcd61faaa15eba69d3118a34fda9f75218d7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_experimental_release.go",
+      "sha": "c3c86794350b207950fb9d905add2d50608f3f9c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_nonexecuting_candidate.go",
+      "sha": "8e512095fdd747c7da230c77346153e0ee512376",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_observation_input.go",
+      "sha": "cb4f48d05b016ad275064478bb8bf5506e8e2674",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_operation_catalog.go",
+      "sha": "8a7697d12124edab34f2418d40cd6fae25b6a8ce",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_peak_rss_evidence.go",
+      "sha": "e8661a4081aa0c8d392f7707ec194e74a9ce9612",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_producer_attestation.go",
+      "sha": "b459c618108e3abf3e0046a547438ddfe4ae68b6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_release_readiness.go",
+      "sha": "ccf61ada4dfbaaeb02d08e70c92838b71316c6be",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_value_witness.go",
+      "sha": "1e219f26deb1ec863412c1a41f3971d481dd2f10",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_artifact_oracle.go",
+      "sha": "8208dba57b291d721cbd863cfaf173a7ddaed9f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_assurance.go",
+      "sha": "e28cc6dc00241b8262289c7fdfb7b6497c20ee62",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_delivery_scorecard.go",
+      "sha": "0cca794405907b735ee752111fafea2f8c877d69",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_deterministic_query.go",
+      "sha": "fa4b0a92b0211505aa4f1bea1d0f6c49e3155107",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_diagnostic_provenance.go",
+      "sha": "5103d0f4aecf4a070f8148745afc13d76a5d667e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_go_interoperation.go",
+      "sha": "51b15dd1af0863b0d1486b4dac379351b0ea60a1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_package_execution.go",
+      "sha": "c6545dcb3d94d6f4dd94c4b239eeb820c0b0f32d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_package_runtime.go",
+      "sha": "dda4873744113b4d100b4454e439ab8ba2c43fb5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_readiness.go",
+      "sha": "9d86f8601cbd31fbe0c7f39f55aaec081a5f29a4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_readiness_foundation_seed.go",
+      "sha": "dbe8e34f4b237cb8cce58572cf86f3743b8fcbed",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_semantic_model.go",
+      "sha": "60bb656165bf84b7e99b80dfbc57ba37f87c395e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_source_binding_promotion.go",
+      "sha": "5ee42ef291e81083cac45a9e1858ac6a3d2e1b92",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_source_execution.go",
+      "sha": "5305c8a7b6f3c0cdfd9e4eb3acb9fd12e71df672",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_syntax_roundtrip.go",
+      "sha": "01aac78249c56f6ea77704f7896e8d1c23344843",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_live_governance_snapshot_v1.go",
+      "sha": "a2f3b9817e0df68a3152827fabbb3ccce36d7fef",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_live_governance_snapshot_v1_test.go",
+      "sha": "951d0a47b618eb98758aca1013ed6ea71b6cc3e9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_luna_meta_09.go",
+      "sha": "c020df690804d7d74566c29aed56fd6327e86a99",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_mixed_outcome_terminal_v1.go",
+      "sha": "21c5375088da1d88023935da6945efbf653a1634",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_mixed_outcome_terminal_v1_test.go",
+      "sha": "6b745b4b0e1c02781fb1a880e0fcdfece4687a6a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_exact_reuse_v1.go",
+      "sha": "428f2f4f6f871e61e62dc72af8c05aca64e20394",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_exact_reuse_v1_test.go",
+      "sha": "69d0a60c0bb987b7dfb4a2fd194f67a10549564b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_observation_v1.go",
+      "sha": "2fcf3b4235f33b020bd6968f29d1c5f284824c2f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_observation_v1_test.go",
+      "sha": "63191eb17b22ee651cba20c1d89c7368a714bc71",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part01.go",
+      "sha": "7fd031439c4efc3e6b507b62a6e50dae96b450f4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part02.go",
+      "sha": "9626c7797ab8c433a9d6c080c1aac6fe2a0fe299",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part03.go",
+      "sha": "fc6773dcce6cbdfcd8fea0a4fe64b6ac12ebc022",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_projection_write_set_union.go",
+      "sha": "cfbc196cf604aef016f5c612450ee84012b79396",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_promotion_authorized_continuity.go",
+      "sha": "dff2d91c11d70162841d311e397f2d67ebe690e8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_guarded_capability.go",
+      "sha": "6f4ff59289bd0072cdadde1d5589fe65c4f3fe2e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_push_continuity.go",
+      "sha": "0c88aeb6d8244a9d618a09ce60b52e44dc05f8cf",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_rollback_fixed_point.go",
+      "sha": "a7575daf74bd1a8b1e24ea521cae993dcf5e7cda",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_repository_topology_usecase.go",
+      "sha": "178265ea98d1cc65d86c955bbaca8010645b6864",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_reproducibility_semantics.go",
+      "sha": "aeb74e2c412aee0b052ff3dd8f64c6c4a6f50cb1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_activation.go",
+      "sha": "1addaaa37cfc70561e4e88d07d6775b35030637f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_eligibility.go",
+      "sha": "f9cd9ec18f5582c8d6cbb2a4509c621c4ad13005",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_shadow.go",
+      "sha": "073122a35779843bf58335bf6a3a8a2625f034bc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_schema_coherence_migration_adoption_20260831.go",
+      "sha": "402b0c7ef33aeffbd4b5a03e2ec4e4a73310c732",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_security_part01_test.go",
+      "sha": "4b695ea97ffcde38debb3a5ff3886b2e548a3d82",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_security_part02_test.go",
+      "sha": "c312203d156959ef227410583f75eb1fbc3a076f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_activation.go",
+      "sha": "15a54d0d812251986b69fc9ea848566357a07ac5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_promotion.go",
+      "sha": "bd4b5608d36b5c03061a51673248df5e3b46f7ab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_shadow.go",
+      "sha": "c076a5722a680db808e22261cac8d6a8967b0ce6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_upstream.go",
+      "sha": "0d514973e5e6cfd63eeee1a6d165ba43cab062f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_splitter_conformance.go",
+      "sha": "4330afbc67a907293fd5598695e4828e8f4842ec",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_observed_v1.go",
+      "sha": "4006bd7e48e3cfa271d6e96d44ee539a4522f88e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_observed_v1_test.go",
+      "sha": "0184184b1977b616cd87e1e67a02a946e7c278f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_producer_v1.go",
+      "sha": "0c429220c57a57fd8857ab9c039cb87227c53378",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_producer_v1_test.go",
+      "sha": "39d3cb8985b1d20da51511a3d561223ed0341116",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_temporal_transition_ticket_v1.go",
+      "sha": "d87efdfe8152e4ff79ec5e7a999cb7242eb447f5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_temporal_transition_ticket_v1_test.go",
+      "sha": "b8bf8e4d03f5526912a0510bc18c96739224aa34",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_cli.go",
+      "sha": "1ebfcf3484f4057629fcde27102181745fcb835d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_conformance.go",
+      "sha": "c4d41eadad96a182a9d4fbf183cee85cbeda3fac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_cross_platform_release.go",
+      "sha": "feca9a91075d0878cb3f2fcffcb3d85dbfb6b755",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_executable_usecases.go",
+      "sha": "4798c8b1d3f9705e60479ed1859be759edc066a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_format_fix.go",
+      "sha": "f96b3dce1612e1287122a178dcefec51e61ae401",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_lsp.go",
+      "sha": "8fecea78c4d78f4d464ec0a3660742e896ce8241",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_transformation_executor_binding_v1.go",
+      "sha": "81f36c4f3b73c5cd444cf259d5807ee7ed7ceb76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_transformation_replay_envelope_v1.go",
+      "sha": "9e91796c5ee2179f8a8f94b445b82f7ce8779d32",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_user_journey_scorecard.go",
+      "sha": "e14bf71e3a353ac2d2d613c43e6b3296e24148a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_activation.go",
+      "sha": "e4fc1322cdbfbb3cf02d3178655ca0d3e312c4a3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_eligibility.go",
+      "sha": "c300f43cba9a86a436cb39f159efb6e3832ce501",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_shadow.go",
+      "sha": "01f0c8d8867182bb46fd06bca50adb291c89a19a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/transition_policy_test.go",
+      "sha": "e849b959b8c149d9c48130bef87bf94dcbd756b5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/trust_kernel_vocabulary_test.go",
+      "sha": "d1f6776c6b2e059ec01d1780763cc1f95c4ce79f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part01_test.go",
+      "sha": "46b2632306abd4ae7898f08e7fb918b39d8f0714",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part02_test.go",
+      "sha": "a4e03916912fedd6afcaa12868d52d0b2378ea76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part03_test.go",
+      "sha": "1807b0e2b8d732aa47aa86f09accce5297a6c9fa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part04_test.go",
+      "sha": "524889e706f33ddf51f2efadf57c1e281fe379c0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/bundle.go",
+      "sha": "3dc9b287c8d518070bc3e85134d0fddaac941910",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part01.go",
+      "sha": "05b50d07d59c5f8cb56f0140597bc23715cdde1c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part02.go",
+      "sha": "8e49ba23e2a3af166b71f80115ff004966a007c5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part03.go",
+      "sha": "b6ac40dcef593ddf743e9de2ad95325f177c2f68",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part04.go",
+      "sha": "7bf20a1d5f029e14809c276d09f5f4ed220bc8ce",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part01.go",
+      "sha": "a5e25ce4d233af80b73fd62251be435ad6241d57",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part02.go",
+      "sha": "f0f61aac4cdd5834481598f2e42b4458d52de6a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part03.go",
+      "sha": "a896a99cf366506c85a3206eaf57bf75b69e8218",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/main.go",
+      "sha": "67f15b0d9bb9b9eac0ebfc1dac82ee03b94a9a4b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/main_test.go",
+      "sha": "5d3c5254e913f056ed6999793471a71de1e864b1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/provenance.go",
+      "sha": "92e55b7fde85fe5c048a8f9ac316322e4865afae",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/provenance_test.go",
+      "sha": "6f2a93838163f134b67acc6d132e533d9f8deb9b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifact_provenance.go",
+      "sha": "34a3e3ea86085279df48004a60ecada26aaf07f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifact_provenance_fixture_test.go",
+      "sha": "1148fce509f24b1865ac004d8f1bc4a622f00bab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifacts.js",
+      "sha": "51d2e9a255ac544d77a858f29e69a0211f0cf2f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifacts_test.js",
+      "sha": "671905ee17886baf323acd1584cf6a00ff1c0054",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part01.go",
+      "sha": "efdf90cb36b32d02e5ba8a2c709f68514d05a8fa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part02.go",
+      "sha": "8f88cc3cef8d753a56d1db76bcc19b2d2da6352f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part03.go",
+      "sha": "1cd2b5267c0de934279c7682e3a47a97777eb3a0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/cache_test.go",
+      "sha": "ecc61e37f982878b5cf43f191aa191b0ab5ec939",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part01.go",
+      "sha": "e398fec40f6b9a5fb33ec7671e40cd1209d94b23",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part02.go",
+      "sha": "bc7b8a43d845afcaf3813446ad7419e52da93b3f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part03.go",
+      "sha": "671a72a565bb6b530b40db33afcc6496184d69a3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part04.go",
+      "sha": "8c4491df74c35f537153c2d3e41a33dd668936f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part05.go",
+      "sha": "e49134e0640605eccda68a4eb577b94287d8108b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part01_test.go",
+      "sha": "9c9669c711bf9c710074cd9475646b3528782478",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part02_test.go",
+      "sha": "adfa4c60f0983bc66cbd4ad02394bc1d73e00a42",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part03_test.go",
+      "sha": "b91718b7e1b18b8f7b21dbfba8d584a199f95828",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part04_test.go",
+      "sha": "51cd703e4668a7de3104dc37595340faff307b6e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part01.go",
+      "sha": "365d6debce6bb7608598eef1be3b70003c7973c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part01_test.go",
+      "sha": "346931a6ce9bdeb4f56b643d923d041bdba8544b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part02.go",
+      "sha": "c90447d99d5c52794c48ef7c72ff8fe1f9415881",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part02_test.go",
+      "sha": "6f6b961a658b8681b788941629452e770261e347",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/concurrency.js",
+      "sha": "c476069f76721c1b1eef42bcc017dce6414a868e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/concurrency_test.js",
+      "sha": "ee0d91c79ef9c7d88ba7d3459cdd07df73ce603d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part01.go",
+      "sha": "03e0be9cf5d27dc2330cad290e3d7f9d7bc4ef76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part02.go",
+      "sha": "efdcb65f3436d4f22044c10e4948558f645e201e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part03.go",
+      "sha": "0f9cac81582958c2c0a0738a6923abf645499198",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part04.go",
+      "sha": "7fa2c1a162838b005b838a93d3e307adbad75fcc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part05.go",
+      "sha": "fd0f986047c75a69a894fce633eee5f29d508cf2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_test.go",
+      "sha": "72c869221b7fe4e5009a27b9d519fa9ff1c12f64",
+      "type": "blob"
+    },
+    {
+      "mode": "040000",
+      "path": "scripts/ci-proof/docs",
+      "sha": "bb7cb7db2d771408a7a8c9c3d4233b4f50a309d2",
+      "type": "tree"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/docs/agent-workflow.md",
+      "sha": "48e453731ee76e4f74a8ec3afd0b6c905106b868",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/docs/failure-reasons.md",
+      "sha": "6a9d6e054ba71e410d35dbe05c6ff287c754575c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/domain.go",
+      "sha": "f53356bc3766397c9438e1aa4210a837c5ead1a5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/domain_test.go",
+      "sha": "7b25d7cd70780389c560f0df93dce1b10f7211a7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_binding_part01.go",
+      "sha": "c955f1143a1eadae0b40bc978fc41b48a8759cfa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_binding_part02.go",
+      "sha": "39c3577f385f84ee288ca5287773ba4042f3919d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part01.go",
+      "sha": "01a5e11733eded6ecbd93fad4e67e81b7314d65e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part02.go",
+      "sha": "367e38b6300398e75f86fda3e9a52e1579fa0181",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part03.go",
+      "sha": "718dcd391ac7639f9e300072285e7026fcf32715",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part04.go",
+      "sha": "1776a06e1267e3cf3a16e08a83bde0d9100426d1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_helpers_test.go",
+      "sha": "ac12ab85885b4b34d4c64f9db8b6fde46856de52",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_manifest_part01_test.go",
+      "sha": "db6f8189212e0e6f09b1e87335eea2d72d398fac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_manifest_part02_test.go",
+      "sha": "89a0439f3de6778c9ce4a95b81a3e67ce0638520",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part01.go",
+      "sha": "c5e7465192545a69baa5b9b6c0d3200ef5a701d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part01_test.go",
+      "sha": "82e805e6049bc41efcdfb53e2c6dca0d8edc81c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part02.go",
+      "sha": "5aa77132a5dc3b4d2467243ca8864e1de2570bf7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part02_test.go",
+      "sha": "2ff0512c3042acf9c94cc1273b46217f57463712",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part03.go",
+      "sha": "81ae783302f795b711a8b812c917f7bf21d6ca02",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part03_test.go",
+      "sha": "c3133c57f923134b30d3d093ab71c00a04d9d2bb",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part04.go",
+      "sha": "4cf102b155627a065eb17998a4c88a7eaed6cc79",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part04_test.go",
+      "sha": "e05031bbba9f2054764ecb6af071da2c9c833b4e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part05.go",
+      "sha": "7aa4d045e0b77243a2f4c4e675147babc42b22c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part05_test.go",
+      "sha": "f15316bae617b7e03f89febb11797f0b27cffc59",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part06.go",
+      "sha": "3c4d8fd1696736711412628d63ac90475367b6e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_push_part01_test.go",
+      "sha": "14917b9b0a6af3603392149bc71743dbdb1395dc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_push_part02_test.go",
+      "sha": "4906f3e56a4a8f1b868983703cc23feeb85e5331",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_authorization.js",
+      "sha": "7ac1c623dcb6678cd6a3a3d4d2b3bcdb32dfbf21",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_authorization_test.js",
+      "sha": "85c44f4ec03cc6d7c0337988ba154d70258f2680",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_bootstrap.js",
+      "sha": "a4d17cc318aa3a2eabb127d182dd7af651c335c6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/freshness.go",
+      "sha": "a22d86f41aea10a28d8e2c0fd70f5d3a7eaf4235",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian.js",
+      "sha": "b553a4e0081cd786c1fac903689fdf2637e379b0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part01.go",
+      "sha": "30bd8577482b700c3437b62a022e11a20cb2c009",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part01_test.go",
+      "sha": "3a0dc9891d7a229d9a0dbd65313dad5bdca6f470",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part02.go",
+      "sha": "81911cf69c048a1456e16b3a0fcf2069b524eaf7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part02_test.go",
+      "sha": "4b79a7c38b9fae00627b2b84d757faa5c2c9035d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part03_test.go",
+      "sha": "a5d8dfd1c3448dfe267ecb082685a23b30cf2a35",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_types.go",
+      "sha": "c6567ca6b71f58fd0477570fea0dc4e00ab60835",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_test.js",
+      "sha": "2825c2009b0cd4a4158c780f0fbb2568cd381929",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part01.go",
+      "sha": "ab7ee82a04cb44c8d7ffddbde67cce4425043a16",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part02.go",
+      "sha": "146806cccf08ad95cc6689810ce0cb2277b85d91",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part03.go",
+      "sha": "1888c45b4ae01c229a9124829ba464b056868fd7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part04.go",
+      "sha": "749875843588d8e3504d8cdf69546bc84573139d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part05.go",
+      "sha": "e65ad310970570efd6483cdcaf63f086938e6a76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_fixture_test.go",
+      "sha": "199a2137ff970d9510d5773efd39c860c940e3f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part01_test.go",
+      "sha": "6025da8264f2789f1e5cd1df792cead4a7ac2f01",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part02_test.go",
+      "sha": "5ca9ca2b4d63b8a976885a6d1240b03f9eb198a0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part03_test.go",
+      "sha": "4d6cc0ed42b73577b060eb670a7f044a6978a934",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part04_test.go",
+      "sha": "1dac5f0419d929bd05132f6cf5d7fba770420d4f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part01.go",
+      "sha": "5e1053f9197a2aafff8305a8c5721056cab1e6d6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part01_test.go",
+      "sha": "07e07ecba399d4bee0adca170247f4fe50105ac3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part02.go",
+      "sha": "01e8b57699fe61160d27d70d6eab89a818bff397",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part02_test.go",
+      "sha": "1999c0aebb192c592c2fce1440b1e7e114d134e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part03_test.go",
+      "sha": "11b83ede52f4447dc9aa1da977f4125780a71cac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part04_test.go",
+      "sha": "1e9ac16ec9c9737d4e8390525d3cc43e3415b851",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part05_test.go",
+      "sha": "e8ae0e1f08a3d8739c2dac67420bc51ae063fee3",
+      "type": "blob"
+    },
+    {
+      "mode": "040000",
+      "path": "scripts/ci-proof/manifest",
+      "sha": "5b3c9b92514ac4dbbc9b540ee7cc22476a482684",
+      "type": "tree"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_part01.go",
+      "sha": "052ca232cd3cb0d83418d6a114964c48f618bab9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_part02.go",
+      "sha": "140fde020f37589f4da98be31f53cfc1f8185d3b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_test.go",
+      "sha": "ce93acc594fcfbd4ba6d13b1550fbbe87df1ea33",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part01_test.go",
+      "sha": "ed5851af5d86d8d948e62d0a692cadccd531abf0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part02_test.go",
+      "sha": "f558c809a9b45813b717d23e923da9da6b1a36d6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part03_test.go",
+      "sha": "97ddab7f551f4d13c264a301f3a9fecc60e93d82",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part01.go",
+      "sha": "25d52781eefa0ed968d07c5d8157a0089fea0025",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part01_test.go",
+      "sha": "90fce78492eeee125568ef63424f5cb15dfc4737",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part02.go",
+      "sha": "dca2f26c3b85c4336184aa2d38eb92a818c58e40",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part02_test.go",
+      "sha": "a70ac2de122ff5368f0599bb74f62e2ba5b4ad0f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_types.go",
+      "sha": "dd84d17d50939b44335dae072ccac72d63dac7fd",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/proof_types_part01.go",
+      "sha": "3c5aa617ddd2be18bb7c509d0dfa58daa0a47ea1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/proof_types_part02.go",
+      "sha": "603da5ace39bff0842549e7c949a0ddc7c97df3e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/protection_types.go",
+      "sha": "abf0a932d000cddc9a297a7d7a7646b1851725c8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/refs.js",
+      "sha": "3900683c2e3e5d7cf280d974931cdb7c27ed5314",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/refs_test.js",
+      "sha": "72aa92f225a1a8388075e8192b5e2aebcd914db2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route.go",
+      "sha": "973441ecee1a61e70b905aceabaf36e2a866c462",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route.js",
+      "sha": "896104af95065ae214f18aa2d8a207297dfca1c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route_test.go",
+      "sha": "9bed55e9f0531e767684eecad319633533469ba1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route_test.js",
+      "sha": "4f258a9d93ca6d5c4c8e7014ce8108484c1e6121",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part01.go",
+      "sha": "15e8c938ccc064f01bb763d317db9ae7b6e707c4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part02.go",
+      "sha": "b0ff2473193c27499525a69dc7bcf00b08035408",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part03.go",
+      "sha": "3ba7793975d50e3e57fe23025b1f18ecea08633d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part04.go",
+      "sha": "8c5b77f457f3fa02e739b9d4c5b563164a132af8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part05.go",
+      "sha": "e1887106530812f313f0843ce46c3a94bf8946f5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part01.go",
+      "sha": "b92bc0f8077bf461528ce41eb8e7032f4ece951f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part02.go",
+      "sha": "02df8d29b314075e9e59abba81079b6b653cb573",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part03.go",
+      "sha": "5c150e69e1418330bd45bc20710633e363e817f9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part01.go",
+      "sha": "6c952ee33bc20c491926f43eeedda70a6ac66cbf",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part01_test.go",
+      "sha": "de0bd8ab6663020682157c488e0b0ce6c382052a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02.go",
+      "sha": "7b3d7f2aa7ca777e29b360fc32b04e1ebc8ccc5c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02_split02.go",
+      "sha": "38a43a9e8e7dca9b10dfd9d17ba9d6205e93ec14",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02_test.go",
+      "sha": "737544c92d6fa8ccd98fc75af940fce809ba13ed",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part03.go",
+      "sha": "0fb6b209ccc5f61a48f08b47a7803b2e8856e9c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part04.go",
+      "sha": "caac8c08fb63eb62b54170d1d1db30b85c87e520",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/source_policy.go",
+      "sha": "79b5d4d1c23fcbdfcbdebd61a314ce1f5f0119bd",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/validate-source-observations.sh",
+      "sha": "107f586dc123afa0f038e423eac936515360052a",
+      "type": "blob"
+    }
+  ],
+  "kernel_after_entries": [
+    {
+      "mode": "100644",
+      "path": ".github/agent-scope-table.md",
+      "sha": "a226247a91eb539e29e3f70dce034f8291fe03e4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/branch-policy.md",
+      "sha": "7a8265808c4c94cac16ae152d6512b444a416a50",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/ci-governance.json",
+      "sha": "7e1935565e7f3920590e7b44b3f25d53376d1dc9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/conformance-plan.md",
+      "sha": "5a034c2d286724ac4b276b52c7cb89e87f9085d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/foundation-authorization.json",
+      "sha": "3c39da5290910d2061bbb0db8a4fb364420fe507",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/action-runtime-conformance.yml",
+      "sha": "7fec08c0c2087658402395cda1b58d75376bbe68",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/activity-cardinality-conformance.yml",
+      "sha": "73821fd8fbad7d7731b356ae6141c7cee10007c3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/artifact-resolution-experiment.yml",
+      "sha": "cf7f57e742124b8ab78204b5f72061065cfcbab8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/causal-ci-selection.yml",
+      "sha": "e117a93fffc8e19f4c396b78a736002c5dbab924",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-effort-observation.yml",
+      "sha": "2a8f6c8bcf4bb1363f8ee662db46b42fbff9aab4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-guardian.yml",
+      "sha": "9056db2e0f965ee0f1f149e061e7520938058db8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci-plan-usecase.yml",
+      "sha": "c242d000b5f706582ad455e1fb738107695fe6b5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci.yml",
+      "sha": "5437046c9729191eb0ae6dbb460672c06e49e658",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/entity-fields-v1.yml",
+      "sha": "d58489b4674310e3ec053f2c4f32e91bb45ce21a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/go-package-partition-remediation.yml",
+      "sha": "c4ac799356e339d772fdb4d818059f6d36abb2e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/gooo-release-publish.yml",
+      "sha": "c125a90b455be04e9c02dc0263f21aa542099254",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/gooo-release-readiness.yml",
+      "sha": "2995a75f4030fd11db6681c5a5e263b120e27714",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/integration-progress-evidence.yml",
+      "sha": "3c25006383ba4e4695a93a6bbae1203aeef1795f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-example-experiment.yml",
+      "sha": "72b2136a2c9ab7b96655fac69e87d1130b0a4b5c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-operation-catalog.yml",
+      "sha": "fa0a92444cb24c5fd863167b6148b99c3f760102",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-utility-evidence.yml",
+      "sha": "51c3d85218b361dee908d769a8191ad5ae36f9af",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/language-value-witness.yml",
+      "sha": "a63d284b2e6f16f191e3b1d8d50aec69021b1577",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/live-governance-snapshot.yml",
+      "sha": "d7360474b22bddf16b6dac3ff4a07561712b7ebb",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/metric-counterfactual.yml",
+      "sha": "a24825ccbbdbc66c633d21a91ba6961c6f98079d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/metric-transition.yml",
+      "sha": "1c81087df7c800fbfffb96e990e49bac5fa240c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/opentofu-observation.yml",
+      "sha": "1ff89d3f7e0137f4d6672fb06b8adb3042ba3a89",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/repository-projection-diagnostics.yml",
+      "sha": "e744d05d356f7fcf09a2f8f944358a576f615f63",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/repository-projection.yml",
+      "sha": "6c3298a4a7489b66b4fb07ca6f80ee45e0a64ff0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-attestation-resolution.yml",
+      "sha": "74c1f8dfdfb42ae430e75d77e886fb2cb2ab1d43",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-contract.yml",
+      "sha": "b6208619df5e89642523918a9119a5f141c8abee",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-cycle.yml",
+      "sha": "bc6112673a1a181c5a0e537e7f0ca020023658d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-language-candidate.yml",
+      "sha": "f56c0c68c90476dc8ad530b26398c366132293e2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-language-observation.yml",
+      "sha": "662142c606e7a81a841fc5a762352de1ad87f873",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/self-improvement-minimal-loop.yml",
+      "sha": "9142e34ff29742b6464f0b9e6d4c0fb74987b91f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/source-subject-witness.yml",
+      "sha": "d73936847408402a9311b770548ccd2d271c2ae5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/symbolic-invocation-schema.yml",
+      "sha": "cc24340a8615922a62221ed81b1066d83ac6360f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/symbolic-invocation-usecase.yml",
+      "sha": "5c1d36ab8a47ffe1c4a159832a4e7c3b2c7bbe26",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/temporal-transition-ticket-v1.yml",
+      "sha": "9c71eedaadf34cc309d27bd8b352799f36e28608",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/transformation-effect.yml",
+      "sha": "1cbaff5a74d26522a7ec98c7260af75c0baee0f1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/workgraph-pilot.yml",
+      "sha": "1ebc66a5d0aed6f170b347ca09e5750f7601ae41",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "go.mod",
+      "sha": "47809dee55cbc37656136a1c8008cd8decf1bb76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/caps_boundary_test.go",
+      "sha": "3044c061450e091f7022a2252b03ec6de73bbaba",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/conformance_part01_test.go",
+      "sha": "aa4f32aa402afb47690778a7185cae6ac1375412",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/conformance_part02_test.go",
+      "sha": "d9fc2efa557163b9e83cacefba48c6f76f3b3d83",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part01.go",
+      "sha": "10bb482c34c0511e8ca547cf21585b416c473180",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part01_test.go",
+      "sha": "98a2230dfb30b0493b35008050cc588802f64b67",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part02.go",
+      "sha": "1546d48ea491832f29b723c7f6e78beec6f0e856",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part02_test.go",
+      "sha": "cac3459640ed743d38ed56e67e5a789d3186b0a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/evidence_part03.go",
+      "sha": "efce8590c6cafbc6377ec643c52b9b068613a060",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/foundation_authorization.go",
+      "sha": "d42f8702ccc26e022716db8ae0d46bee9ecad327",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/foundation_discovery_recovery_scope.go",
+      "sha": "5f1d04151092ff92f2c87d9b8f8f59c3ac942ed7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/foundation_promotion.go",
+      "sha": "0e9cbe3513563ed6b5a3ce2ceb3fbb6ea8c89edc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part01.go",
+      "sha": "76568a831d5b9d7ef19b5ac5655ede05a30acab6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part01_test.go",
+      "sha": "e91b07afaf189f34b33bdc2424a5928b8ad858e3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part02.go",
+      "sha": "b530eaabbeed1ff9a57a558a339d305c6662c720",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part02_test.go",
+      "sha": "37336e826ed6374dc141c63346c2cde18fe0dc3b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part03.go",
+      "sha": "2f36b974efebc1643b6c79672b395d933ee9989e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/governance_part04.go",
+      "sha": "177d75cf7946e66eaaf5473691a10b1025f79453",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/guardian_suite_test.go",
+      "sha": "27fe4399a42bf5a8ea484918b3a64196c10ba274",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part01.go",
+      "sha": "98b40911feea521d5df26c53a85f5bb7a8a1eff1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part01_test.go",
+      "sha": "25c96823c739e3202fc7fc76d2289c4f1bd007a0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part02.go",
+      "sha": "ac6d538532528c903fb5258b6e7ea32d32b67867",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part02_test.go",
+      "sha": "969b02d1b017852270ba0a92dc872a7416dee699",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part03.go",
+      "sha": "913b430a1e7567e013c2703d1a4d1446fa992a7f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part03_test.go",
+      "sha": "ea283b9482ff6a2fdba0b84699cd4e2dca09734d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part04.go",
+      "sha": "c3a979a969eba60c1968b4ce3404295927ed792b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part04_test.go",
+      "sha": "eaae2cf808365add40b2d0991745cfba4e3beb74",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part05.go",
+      "sha": "965b583b40b48fde2d6ecbd9c458e067a71a1479",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part05_test.go",
+      "sha": "be6126fec43212b1c4c952d976526128b7f92d97",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part06.go",
+      "sha": "53eda34fe93096863b80c840ec6cc2b4c740fafe",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part06_test.go",
+      "sha": "012db1ff5ad0c7e9af235d3f800bd7f1d9ce7365",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part07_test.go",
+      "sha": "b1f837a5f21103e36d0fff4b9452812eb426ef19",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_part08.go",
+      "sha": "44c6a15b9854a7467b82ae2c21de2df82bb09a63",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/policy_projection_test.go",
+      "sha": "8aa5df3b1489f67b3e523d36388e92dc75d3e7e1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/readiness_push_continuity_test.go",
+      "sha": "4de7038c11d02d1e33e1b34ae1bcd535955f8aa8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_base_repair_repository_projection.go",
+      "sha": "ba9bbe1f6496cc98fd5b56f6d1bde947f6e2a8c8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_base_repair_repository_projection_test.go",
+      "sha": "e74eefc9a349920cc38956c9a709f3714b034cff",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage.go",
+      "sha": "c26a0bf248e7ae7f4a25741cf27694a53bff9e27",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage_activation.go",
+      "sha": "9abb1eb5ce5a7b4e36a715cf9eea1b5fd40c3d0f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_candidate_leakage_eligibility.go",
+      "sha": "846c1eec662a3cdae6c2b032610b2498732a74f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt.go",
+      "sha": "6aad00aa45277ba21170ef4be571456ecefa2265",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt_activation.go",
+      "sha": "f7f277bf45f3dfd6c13f180b5351404ffe7bf532",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_changed_surface_receipt_eligibility.go",
+      "sha": "f0bd18945f322a4257540d8df1d6300a0f34fdab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_artifact_lineage.go",
+      "sha": "b45b4d17dce589424399ae78e4021e435ca5e073",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_concurrency_lane.go",
+      "sha": "ce39368398757d00e8390529ebaba8ace0327315",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_effort_observation_v1.go",
+      "sha": "adde352da1ac95bd1388a6009dfa76cb4bd638f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_effort_observation_v1_test.go",
+      "sha": "dd99b437cb06ed280dc3ffb586faf0883d9e9c42",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_ci_plan_usecase.go",
+      "sha": "fc45e678bdca5d194ec97ee00765120fab8e490a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_concept_strategy.go",
+      "sha": "8ccf623f7cf4ac7a38b1dd0efad1c6faab1d4302",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_core_rss_observability.go",
+      "sha": "e0c02d772e376297806515f7732def092ae5c025",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_debugging_utility_observed_v1.go",
+      "sha": "62de3b405e68bec824f0050ad424fd8a85126704",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_debugging_utility_observed_v1_test.go",
+      "sha": "9c67d798a60cabab15762a43fd464c61908cd7e7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_dev_main_sync_20260831_rerun.go",
+      "sha": "991dcb8b45b7b7468fdadf38c15ec37a32ffba8e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_entity_fields_v1.go",
+      "sha": "79ab542f6f3a5b2d4a29c99ff315029836e45742",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_entity_fields_v1_test.go",
+      "sha": "eb0229853d7a6ee856a409cc004a76393e4bd0f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_capability_authorization_foundation.go",
+      "sha": "1b957d07889ec4690e60614e1ec0dfc9a2e5d75f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_capability_execution.go",
+      "sha": "a94e90d54a7508c5c4f45a98465d844b287b9961",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_conformance_activation.go",
+      "sha": "8576ac73172d94bfa59d8683285efd1844523d96",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_ecosystem_conformance.go",
+      "sha": "cca14ae934cf1126282b9b49e59e0be1ed88a0a9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_external_ecosystem_execution.go",
+      "sha": "0ff05e74d97d74760029186a8509d8d903335b3a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_feedback_predecessor_baseline.go",
+      "sha": "e1aacfb3509edc1d20c8b4104d893cd9b1f67c18",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_authorization_dev_sync_20260831.go",
+      "sha": "197becf072c772d1316c766fd6dc4807f0c915b3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_foundation_bootstrap_dev_sync_20260831.go",
+      "sha": "4b31c2e52d2d3e6d4c22881c520db08fc05d1431",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_artifact_attempt_binding.go",
+      "sha": "9acdbbd71fe4ff2839e0482835edb1f8bb33930b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_artifact_lifecycle_receipt.go",
+      "sha": "8e453981511007745af1324df0091c6b1c05b8c3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_attestation_resolution.go",
+      "sha": "b77bc43b71e351f5df4971221ccd52563b04160c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_attestation_summary.go",
+      "sha": "59163c6d41b864e859b3ba74975f1bbc84d911aa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_candidate_lineage_fix.go",
+      "sha": "3cb4f99c6edc0ed7036f0bffecf0a54853f4fec4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_closed_generation_example.go",
+      "sha": "317744af96f63d8e7a6cb9ce5c844ac28996d962",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_closed_value.go",
+      "sha": "90018d7b29075387b7bca34b074bfb69b5df06c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_exact_subject_transport.go",
+      "sha": "7874bcd61faaa15eba69d3118a34fda9f75218d7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_experimental_release.go",
+      "sha": "c3c86794350b207950fb9d905add2d50608f3f9c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_nonexecuting_candidate.go",
+      "sha": "8e512095fdd747c7da230c77346153e0ee512376",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_observation_input.go",
+      "sha": "cb4f48d05b016ad275064478bb8bf5506e8e2674",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_operation_catalog.go",
+      "sha": "8a7697d12124edab34f2418d40cd6fae25b6a8ce",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_peak_rss_evidence.go",
+      "sha": "e8661a4081aa0c8d392f7707ec194e74a9ce9612",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_producer_attestation.go",
+      "sha": "b459c618108e3abf3e0046a547438ddfe4ae68b6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_release_readiness.go",
+      "sha": "ccf61ada4dfbaaeb02d08e70c92838b71316c6be",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_gooo_value_witness.go",
+      "sha": "1e219f26deb1ec863412c1a41f3971d481dd2f10",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_artifact_oracle.go",
+      "sha": "8208dba57b291d721cbd863cfaf173a7ddaed9f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_assurance.go",
+      "sha": "e28cc6dc00241b8262289c7fdfb7b6497c20ee62",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_delivery_scorecard.go",
+      "sha": "0cca794405907b735ee752111fafea2f8c877d69",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_deterministic_query.go",
+      "sha": "fa4b0a92b0211505aa4f1bea1d0f6c49e3155107",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_diagnostic_provenance.go",
+      "sha": "5103d0f4aecf4a070f8148745afc13d76a5d667e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_go_interoperation.go",
+      "sha": "51b15dd1af0863b0d1486b4dac379351b0ea60a1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_package_execution.go",
+      "sha": "c6545dcb3d94d6f4dd94c4b239eeb820c0b0f32d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_package_runtime.go",
+      "sha": "dda4873744113b4d100b4454e439ab8ba2c43fb5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_readiness.go",
+      "sha": "9d86f8601cbd31fbe0c7f39f55aaec081a5f29a4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_readiness_foundation_seed.go",
+      "sha": "dbe8e34f4b237cb8cce58572cf86f3743b8fcbed",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_semantic_model.go",
+      "sha": "60bb656165bf84b7e99b80dfbc57ba37f87c395e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_source_binding_promotion.go",
+      "sha": "5ee42ef291e81083cac45a9e1858ac6a3d2e1b92",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_source_execution.go",
+      "sha": "5305c8a7b6f3c0cdfd9e4eb3acb9fd12e71df672",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_language_syntax_roundtrip.go",
+      "sha": "01aac78249c56f6ea77704f7896e8d1c23344843",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_live_governance_snapshot_v1.go",
+      "sha": "a2f3b9817e0df68a3152827fabbb3ccce36d7fef",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_live_governance_snapshot_v1_test.go",
+      "sha": "951d0a47b618eb98758aca1013ed6ea71b6cc3e9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_luna_meta_09.go",
+      "sha": "c020df690804d7d74566c29aed56fd6327e86a99",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_mixed_outcome_terminal_v1.go",
+      "sha": "21c5375088da1d88023935da6945efbf653a1634",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_mixed_outcome_terminal_v1_test.go",
+      "sha": "6b745b4b0e1c02781fb1a880e0fcdfece4687a6a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_exact_reuse_v1.go",
+      "sha": "428f2f4f6f871e61e62dc72af8c05aca64e20394",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_exact_reuse_v1_test.go",
+      "sha": "69d0a60c0bb987b7dfb4a2fd194f67a10549564b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_observation_v1.go",
+      "sha": "2fcf3b4235f33b020bd6968f29d1c5f284824c2f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_opentofu_observation_v1_test.go",
+      "sha": "63191eb17b22ee651cba20c1d89c7368a714bc71",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part01.go",
+      "sha": "7fd031439c4efc3e6b507b62a6e50dae96b450f4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part02.go",
+      "sha": "9626c7797ab8c433a9d6c080c1aac6fe2a0fe299",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_part03.go",
+      "sha": "fc6773dcce6cbdfcd8fea0a4fe64b6ac12ebc022",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_projection_write_set_union.go",
+      "sha": "cfbc196cf604aef016f5c612450ee84012b79396",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_promotion_authorized_continuity.go",
+      "sha": "dff2d91c11d70162841d311e397f2d67ebe690e8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_guarded_capability.go",
+      "sha": "6f4ff59289bd0072cdadde1d5589fe65c4f3fe2e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_push_continuity.go",
+      "sha": "0c88aeb6d8244a9d618a09ce60b52e44dc05f8cf",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_readiness_rollback_fixed_point.go",
+      "sha": "a7575daf74bd1a8b1e24ea521cae993dcf5e7cda",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_repository_topology_usecase.go",
+      "sha": "178265ea98d1cc65d86c955bbaca8010645b6864",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_reproducibility_semantics.go",
+      "sha": "aeb74e2c412aee0b052ff3dd8f64c6c4a6f50cb1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_activation.go",
+      "sha": "1addaaa37cfc70561e4e88d07d6775b35030637f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_eligibility.go",
+      "sha": "f9cd9ec18f5582c8d6cbb2a4509c621c4ad13005",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_rollback_integrity_shadow.go",
+      "sha": "073122a35779843bf58335bf6a3a8a2625f034bc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_security_part01_test.go",
+      "sha": "4b695ea97ffcde38debb3a5ff3886b2e548a3d82",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_security_part02_test.go",
+      "sha": "c312203d156959ef227410583f75eb1fbc3a076f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_activation.go",
+      "sha": "15a54d0d812251986b69fc9ea848566357a07ac5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_promotion.go",
+      "sha": "bd4b5608d36b5c03061a51673248df5e3b46f7ab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_shadow.go",
+      "sha": "c076a5722a680db808e22261cac8d6a8967b0ce6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_authority_upstream.go",
+      "sha": "0d514973e5e6cfd63eeee1a6d165ba43cab062f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_splitter_conformance.go",
+      "sha": "4330afbc67a907293fd5598695e4828e8f4842ec",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_observed_v1.go",
+      "sha": "4006bd7e48e3cfa271d6e96d44ee539a4522f88e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_observed_v1_test.go",
+      "sha": "0184184b1977b616cd87e1e67a02a946e7c278f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_producer_v1.go",
+      "sha": "0c429220c57a57fd8857ab9c039cb87227c53378",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_source_subject_witness_producer_v1_test.go",
+      "sha": "39d3cb8985b1d20da51511a3d561223ed0341116",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_temporal_transition_ticket_v1.go",
+      "sha": "d87efdfe8152e4ff79ec5e7a999cb7242eb447f5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_temporal_transition_ticket_v1_test.go",
+      "sha": "b8bf8e4d03f5526912a0510bc18c96739224aa34",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_cli.go",
+      "sha": "1ebfcf3484f4057629fcde27102181745fcb835d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_conformance.go",
+      "sha": "c4d41eadad96a182a9d4fbf183cee85cbeda3fac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_cross_platform_release.go",
+      "sha": "feca9a91075d0878cb3f2fcffcb3d85dbfb6b755",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_executable_usecases.go",
+      "sha": "4798c8b1d3f9705e60479ed1859be759edc066a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_format_fix.go",
+      "sha": "f96b3dce1612e1287122a178dcefec51e61ae401",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_toolchain_lsp.go",
+      "sha": "8fecea78c4d78f4d464ec0a3660742e896ce8241",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_transformation_executor_binding_v1.go",
+      "sha": "81f36c4f3b73c5cd444cf259d5807ee7ed7ceb76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_transformation_replay_envelope_v1.go",
+      "sha": "9e91796c5ee2179f8a8f94b445b82f7ce8779d32",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_user_journey_scorecard.go",
+      "sha": "e14bf71e3a353ac2d2d613c43e6b3296e24148a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_activation.go",
+      "sha": "e4fc1322cdbfbb3cf02d3178655ca0d3e312c4a3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_eligibility.go",
+      "sha": "c300f43cba9a86a436cb39f159efb6e3832ce501",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/scope_vertical_slice_closure_shadow.go",
+      "sha": "01f0c8d8867182bb46fd06bca50adb291c89a19a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/self_improvement_minimal_loop_scope.go",
+      "sha": "b4b56209648f73199149149fe84e2a2a09d96877",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/transition_policy_test.go",
+      "sha": "e849b959b8c149d9c48130bef87bf94dcbd756b5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/trust_kernel_vocabulary_test.go",
+      "sha": "d1f6776c6b2e059ec01d1780763cc1f95c4ce79f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part01_test.go",
+      "sha": "46b2632306abd4ae7898f08e7fb918b39d8f0714",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part02_test.go",
+      "sha": "a4e03916912fedd6afcaa12868d52d0b2378ea76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part03_test.go",
+      "sha": "1807b0e2b8d732aa47aa86f09accce5297a6c9fa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "internal/verify/workflow_part04_test.go",
+      "sha": "524889e706f33ddf51f2efadf57c1e281fe379c0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/bundle.go",
+      "sha": "3dc9b287c8d518070bc3e85134d0fddaac941910",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part01.go",
+      "sha": "05b50d07d59c5f8cb56f0140597bc23715cdde1c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part02.go",
+      "sha": "8e49ba23e2a3af166b71f80115ff004966a007c5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part03.go",
+      "sha": "b6ac40dcef593ddf743e9de2ad95325f177c2f68",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/digests_part04.go",
+      "sha": "7bf20a1d5f029e14809c276d09f5f4ed220bc8ce",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part01.go",
+      "sha": "a5e25ce4d233af80b73fd62251be435ad6241d57",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part02.go",
+      "sha": "f0f61aac4cdd5834481598f2e42b4458d52de6a2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/jobs_part03.go",
+      "sha": "a896a99cf366506c85a3206eaf57bf75b69e8218",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/main.go",
+      "sha": "67f15b0d9bb9b9eac0ebfc1dac82ee03b94a9a4b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/main_test.go",
+      "sha": "5d3c5254e913f056ed6999793471a71de1e864b1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/provenance.go",
+      "sha": "92e55b7fde85fe5c048a8f9ac316322e4865afae",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-evidence/provenance_test.go",
+      "sha": "6f2a93838163f134b67acc6d132e533d9f8deb9b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifact_provenance.go",
+      "sha": "34a3e3ea86085279df48004a60ecada26aaf07f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifact_provenance_fixture_test.go",
+      "sha": "1148fce509f24b1865ac004d8f1bc4a622f00bab",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifacts.js",
+      "sha": "51d2e9a255ac544d77a858f29e69a0211f0cf2f3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/artifacts_test.js",
+      "sha": "671905ee17886baf323acd1584cf6a00ff1c0054",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part01.go",
+      "sha": "11f5260e8165fea7f03cf01a33c43b779954bf59",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part02.go",
+      "sha": "3e74702c3bf157166605936b4b6130cca12299aa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/build_part03.go",
+      "sha": "388750f8d4d2f95eaaa77c3605219cd16c9d68ae",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/cache_test.go",
+      "sha": "ecc61e37f982878b5cf43f191aa191b0ab5ec939",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part01.go",
+      "sha": "e398fec40f6b9a5fb33ec7671e40cd1209d94b23",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part02.go",
+      "sha": "bc7b8a43d845afcaf3813446ad7419e52da93b3f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part03.go",
+      "sha": "671a72a565bb6b530b40db33afcc6496184d69a3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part04.go",
+      "sha": "8c4491df74c35f537153c2d3e41a33dd668936f6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/catalog_part05.go",
+      "sha": "e49134e0640605eccda68a4eb577b94287d8108b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part01_test.go",
+      "sha": "9c9669c711bf9c710074cd9475646b3528782478",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part02_test.go",
+      "sha": "adfa4c60f0983bc66cbd4ad02394bc1d73e00a42",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part03_test.go",
+      "sha": "b91718b7e1b18b8f7b21dbfba8d584a199f95828",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/ci_only_part04_test.go",
+      "sha": "51cd703e4668a7de3104dc37595340faff307b6e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part01.go",
+      "sha": "365d6debce6bb7608598eef1be3b70003c7973c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part01_test.go",
+      "sha": "346931a6ce9bdeb4f56b643d923d041bdba8544b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part02.go",
+      "sha": "c90447d99d5c52794c48ef7c72ff8fe1f9415881",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/closure_part02_test.go",
+      "sha": "6f6b961a658b8681b788941629452e770261e347",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/concurrency.js",
+      "sha": "c476069f76721c1b1eef42bcc017dce6414a868e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/concurrency_test.js",
+      "sha": "ee0d91c79ef9c7d88ba7d3459cdd07df73ce603d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part01.go",
+      "sha": "03e0be9cf5d27dc2330cad290e3d7f9d7bc4ef76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part02.go",
+      "sha": "efdcb65f3436d4f22044c10e4948558f645e201e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part03.go",
+      "sha": "0f9cac81582958c2c0a0738a6923abf645499198",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part04.go",
+      "sha": "7fa2c1a162838b005b838a93d3e307adbad75fcc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_part05.go",
+      "sha": "fd0f986047c75a69a894fce633eee5f29d508cf2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/digests_test.go",
+      "sha": "72c869221b7fe4e5009a27b9d519fa9ff1c12f64",
+      "type": "blob"
+    },
+    {
+      "mode": "040000",
+      "path": "scripts/ci-proof/docs",
+      "sha": "bb7cb7db2d771408a7a8c9c3d4233b4f50a309d2",
+      "type": "tree"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/docs/agent-workflow.md",
+      "sha": "48e453731ee76e4f74a8ec3afd0b6c905106b868",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/docs/failure-reasons.md",
+      "sha": "6a9d6e054ba71e410d35dbe05c6ff287c754575c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/domain.go",
+      "sha": "f53356bc3766397c9438e1aa4210a837c5ead1a5",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/domain_test.go",
+      "sha": "7b25d7cd70780389c560f0df93dce1b10f7211a7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_binding_part01.go",
+      "sha": "c955f1143a1eadae0b40bc978fc41b48a8759cfa",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_binding_part02.go",
+      "sha": "39c3577f385f84ee288ca5287773ba4042f3919d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part01.go",
+      "sha": "01a5e11733eded6ecbd93fad4e67e81b7314d65e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part02.go",
+      "sha": "367e38b6300398e75f86fda3e9a52e1579fa0181",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part03.go",
+      "sha": "718dcd391ac7639f9e300072285e7026fcf32715",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_contract_part04.go",
+      "sha": "1776a06e1267e3cf3a16e08a83bde0d9100426d1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_helpers_test.go",
+      "sha": "ac12ab85885b4b34d4c64f9db8b6fde46856de52",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_manifest_part01_test.go",
+      "sha": "db6f8189212e0e6f09b1e87335eea2d72d398fac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_manifest_part02_test.go",
+      "sha": "89a0439f3de6778c9ce4a95b81a3e67ce0638520",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part01.go",
+      "sha": "c5e7465192545a69baa5b9b6c0d3200ef5a701d3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part01_test.go",
+      "sha": "82e805e6049bc41efcdfb53e2c6dca0d8edc81c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part02.go",
+      "sha": "5aa77132a5dc3b4d2467243ca8864e1de2570bf7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part02_test.go",
+      "sha": "2ff0512c3042acf9c94cc1273b46217f57463712",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part03.go",
+      "sha": "81ae783302f795b711a8b812c917f7bf21d6ca02",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part03_test.go",
+      "sha": "c3133c57f923134b30d3d093ab71c00a04d9d2bb",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part04.go",
+      "sha": "4cf102b155627a065eb17998a4c88a7eaed6cc79",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part04_test.go",
+      "sha": "e05031bbba9f2054764ecb6af071da2c9c833b4e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part05.go",
+      "sha": "7aa4d045e0b77243a2f4c4e675147babc42b22c1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part05_test.go",
+      "sha": "f15316bae617b7e03f89febb11797f0b27cffc59",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_part06.go",
+      "sha": "3c4d8fd1696736711412628d63ac90475367b6e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_push_part01_test.go",
+      "sha": "14917b9b0a6af3603392149bc71743dbdb1395dc",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/failure_push_part02_test.go",
+      "sha": "4906f3e56a4a8f1b868983703cc23feeb85e5331",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation.go",
+      "sha": "debb4f0218b2f941b08217d92e6ff8163e9d3549",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_authorization.js",
+      "sha": "4669501d095f06590c4051053b42dbafb329da9c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_authorization_test.js",
+      "sha": "ed8370613049a7aed356537e76833d81e1e4d60c",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_bootstrap.js",
+      "sha": "a4d17cc318aa3a2eabb127d182dd7af651c335c6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_route_test.go",
+      "sha": "6a0d6767aaf8849598c136d2e9f060e1e9f99611",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_types.go",
+      "sha": "7664797d04251ebce6007d1eba45a9072af59ab0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/foundation_validate.go",
+      "sha": "fcf7d42e27a76d71d9a0b0972e6e5c391582d352",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/freshness.go",
+      "sha": "a22d86f41aea10a28d8e2c0fd70f5d3a7eaf4235",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian.js",
+      "sha": "d381df19f117533e740df4363a95e3a8447661a9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part01.go",
+      "sha": "30bd8577482b700c3437b62a022e11a20cb2c009",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part01_test.go",
+      "sha": "3a0dc9891d7a229d9a0dbd65313dad5bdca6f470",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part02.go",
+      "sha": "81911cf69c048a1456e16b3a0fcf2069b524eaf7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part02_test.go",
+      "sha": "4b79a7c38b9fae00627b2b84d757faa5c2c9035d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_part03_test.go",
+      "sha": "a5d8dfd1c3448dfe267ecb082685a23b30cf2a35",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_evidence_types.go",
+      "sha": "c6567ca6b71f58fd0477570fea0dc4e00ab60835",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/guardian_test.js",
+      "sha": "7434a1ea4ab9762cc3e176253720bf639c299a3f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part01.go",
+      "sha": "ab7ee82a04cb44c8d7ffddbde67cce4425043a16",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part02.go",
+      "sha": "146806cccf08ad95cc6689810ce0cb2277b85d91",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part03.go",
+      "sha": "1888c45b4ae01c229a9124829ba464b056868fd7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part04.go",
+      "sha": "749875843588d8e3504d8cdf69546bc84573139d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/input_part05.go",
+      "sha": "e65ad310970570efd6483cdcaf63f086938e6a76",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_fixture_test.go",
+      "sha": "199a2137ff970d9510d5773efd39c860c940e3f7",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part01_test.go",
+      "sha": "6025da8264f2789f1e5cd1df792cead4a7ac2f01",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part02_test.go",
+      "sha": "5ca9ca2b4d63b8a976885a6d1240b03f9eb198a0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part03_test.go",
+      "sha": "4d6cc0ed42b73577b060eb670a7f044a6978a934",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_history_reconciliation_part04_test.go",
+      "sha": "1dac5f0419d929bd05132f6cf5d7fba770420d4f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part01.go",
+      "sha": "5e1053f9197a2aafff8305a8c5721056cab1e6d6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part01_test.go",
+      "sha": "07e07ecba399d4bee0adca170247f4fe50105ac3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part02.go",
+      "sha": "01e8b57699fe61160d27d70d6eab89a818bff397",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part02_test.go",
+      "sha": "1999c0aebb192c592c2fce1440b1e7e114d134e0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part03_test.go",
+      "sha": "11b83ede52f4447dc9aa1da977f4125780a71cac",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part04_test.go",
+      "sha": "1e9ac16ec9c9737d4e8390525d3cc43e3415b851",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/main_part05_test.go",
+      "sha": "e8ae0e1f08a3d8739c2dac67420bc51ae063fee3",
+      "type": "blob"
+    },
+    {
+      "mode": "040000",
+      "path": "scripts/ci-proof/manifest",
+      "sha": "5b3c9b92514ac4dbbc9b540ee7cc22476a482684",
+      "type": "tree"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_part01.go",
+      "sha": "052ca232cd3cb0d83418d6a114964c48f618bab9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_part02.go",
+      "sha": "140fde020f37589f4da98be31f53cfc1f8185d3b",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/manifest/manifest_test.go",
+      "sha": "ce93acc594fcfbd4ba6d13b1550fbbe87df1ea33",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part01_test.go",
+      "sha": "ed5851af5d86d8d948e62d0a692cadccd531abf0",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part02_test.go",
+      "sha": "f558c809a9b45813b717d23e923da9da6b1a36d6",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/owner_registry_part03_test.go",
+      "sha": "97ddab7f551f4d13c264a301f3a9fecc60e93d82",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part01.go",
+      "sha": "25d52781eefa0ed968d07c5d8157a0089fea0025",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part01_test.go",
+      "sha": "90fce78492eeee125568ef63424f5cb15dfc4737",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part02.go",
+      "sha": "dca2f26c3b85c4336184aa2d38eb92a818c58e40",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_part02_test.go",
+      "sha": "a70ac2de122ff5368f0599bb74f62e2ba5b4ad0f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/promotion_types.go",
+      "sha": "dd84d17d50939b44335dae072ccac72d63dac7fd",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/proof_types_part01.go",
+      "sha": "cf7f28d81b5709290474c22617d7615d506150f4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/proof_types_part02.go",
+      "sha": "603da5ace39bff0842549e7c949a0ddc7c97df3e",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/protection_types.go",
+      "sha": "abf0a932d000cddc9a297a7d7a7646b1851725c8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/refs.js",
+      "sha": "3900683c2e3e5d7cf280d974931cdb7c27ed5314",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/refs_test.js",
+      "sha": "72aa92f225a1a8388075e8192b5e2aebcd914db2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route.go",
+      "sha": "166870720d854b605a435b5d708e2b0cc2bc0ff1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route.js",
+      "sha": "aef5ddf6682c9641c720b5762c97000a80117f59",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route_test.go",
+      "sha": "9bed55e9f0531e767684eecad319633533469ba1",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/route_test.js",
+      "sha": "f6d35b958888ace5ea81dc8044e274a4a211db2d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part01.go",
+      "sha": "15e8c938ccc064f01bb763d317db9ae7b6e707c4",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part02.go",
+      "sha": "a946554d225abe6d62627264d16dff855a5f0ee2",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part03.go",
+      "sha": "3ba7793975d50e3e57fe23025b1f18ecea08633d",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part04.go",
+      "sha": "8c5b77f457f3fa02e739b9d4c5b563164a132af8",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/types_part05.go",
+      "sha": "d9d2554d5f58c95c5932bd2b5b79686980f547b3",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part01.go",
+      "sha": "5a6ccaa510d5c58eb5bd584f502dbe86c6921d1f",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part02.go",
+      "sha": "02df8d29b314075e9e59abba81079b6b653cb573",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/ci-proof/validate_part03.go",
+      "sha": "5c150e69e1418330bd45bc20710633e363e817f9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/foundation_promotion.go",
+      "sha": "9c3f6d017254c8ef1f618b7b93797d692b5b80da",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part01.go",
+      "sha": "6c952ee33bc20c491926f43eeedda70a6ac66cbf",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part01_test.go",
+      "sha": "de0bd8ab6663020682157c488e0b0ce6c382052a",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02.go",
+      "sha": "f3e4836efe8388cea0834a7fb0f4a9ab5f2dfc58",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02_split02.go",
+      "sha": "38a43a9e8e7dca9b10dfd9d17ba9d6205e93ec14",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part02_test.go",
+      "sha": "737544c92d6fa8ccd98fc75af940fce809ba13ed",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part03.go",
+      "sha": "0fb6b209ccc5f61a48f08b47a7803b2e8856e9c9",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/main_part04.go",
+      "sha": "caac8c08fb63eb62b54170d1d1db30b85c87e520",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/source_policy.go",
+      "sha": "79b5d4d1c23fcbdfcbdebd61a314ce1f5f0119bd",
+      "type": "blob"
+    },
+    {
+      "mode": "100644",
+      "path": "scripts/verify/validate-source-observations.sh",
+      "sha": "107f586dc123afa0f038e423eac936515360052a",
+      "type": "blob"
+    }
+  ],
+  "observed_failure": {
+    "decision": "FAIL_CLOSED",
+    "code": "CI-ROOT-OF-TRUST-001",
+    "route": "feature_dev",
+    "foundation_bootstrap": null,
+    "foundation_authorization": null,
+    "kernel_before_sha256": null,
+    "kernel_after_sha256": null,
+    "stage": null,
+    "step": null,
+    "blocked_by": null,
+    "reason": [
+      ".github/agent-scope-table.md",
+      ".github/ci-governance.json",
+      ".github/workflows/ci-guardian.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/self-improvement-minimal-loop.yml",
+      ".github/workflows/transformation-effect.yml",
+      "internal/verify/foundation_discovery_recovery_scope.go",
+      "internal/verify/foundation_promotion.go",
+      "internal/verify/scope_dev_main_sync_20260831_rerun.go",
+      "internal/verify/self_improvement_minimal_loop_scope.go",
+      "scripts/ci-proof/build_part01.go",
+      "scripts/ci-proof/build_part02.go",
+      "scripts/ci-proof/build_part03.go",
+      "scripts/ci-proof/foundation.go",
+      "scripts/ci-proof/foundation_route_test.go",
+      "scripts/ci-proof/foundation_types.go",
+      "scripts/ci-proof/foundation_validate.go",
+      "scripts/ci-proof/proof_types_part01.go",
+      "scripts/ci-proof/route.go",
+      "scripts/ci-proof/route.js",
+      "scripts/ci-proof/route_test.js",
+      "scripts/ci-proof/types_part02.go",
+      "scripts/ci-proof/types_part05.go",
+      "scripts/ci-proof/validate_part01.go",
+      "scripts/verify/foundation_promotion.go",
+      "scripts/verify/main_part02.go"
+    ]
+  }
+}

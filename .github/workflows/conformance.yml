@@ -66,8 +66,8 @@ jobs:
           bin="$root/gooo-receipt-schema-migration"
           first="$root/first"
           replay="$root/replay"
-          source=examples/receipt-schema-migration-v2/migration.gooo
-          contract=contracts/receipt-migration-denominator-v2.json
+          source=examples/receipt-schema-migration-v3/migration.gooo
+          contract=contracts/receipt-migration-denominator-v3.json
           before=$(git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}')
           scripts/measure.sh "$root/conformance.metrics" "$bin" run --source "$source" --contract "$contract" --out "$first"
           after=$(git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}')
@@ -85,13 +85,14 @@ jobs:
           cmp -s "$first/adoption-proposal.json" "$replay/adoption-proposal.json"
 
           jq -e '
-            .schema == "gooo/receipt-schema-migration/report/v2" and
-            .migration_version == "v2" and
-            .fixed_denominator == 16 and
-            .stage_counts == {FOUNDATION:6,COHERENCE:5,REGRESSION:5} and
-            .role_counts == {DRIVER:5,OUTCOME:5,GUARDRAIL:6} and
+            .schema == "gooo/receipt-schema-migration/report/v3" and
+            .migration_version == "v3" and
+            .fixed_denominator == 20 and
+            .stage_counts == {FOUNDATION:8,COHERENCE:6,REGRESSION:6} and
+            .role_counts == {DRIVER:6,OUTCOME:6,GUARDRAIL:8} and
             .migration.added == 4 and .migration.retired == 0 and .migration.split == 0 and
-            .migration.added_cell_ids == ["BASE_CONTROLLED_GUARDIAN_EXECUTION","FEATURE_PR_VARIABLE_LIVENESS","PASS_ARTIFACT_DIGEST_PROPAGATION","REFERENCE_ERROR_FAIL_CLOSED"] and
+            .migration.from_version == "v2" and .migration.to_version == "v3" and
+            .migration.added_cell_ids == ["PROTECTED_PATH_AUTHORIZATION_DISPATCH","FOUNDATION_RECEIPT_EVALUATION","CHANGED_PATH_TUPLE_BINDING","UNAUTHORIZED_PROTECTED_PATH_FAIL_CLOSED"] and
             .migration.stage_delta == {FOUNDATION:2,COHERENCE:1,REGRESSION:1} and
             .migration.role_delta == {DRIVER:1,OUTCOME:1,GUARDRAIL:2} and
             .schema_versions == ["v2","v3"] and
@@ -110,24 +111,27 @@ jobs:
           ' "$first/report.json"
 
           jq -e '
-            .schema == "gooo/receipt-schema-migration/adoption-proposal/v2" and
-            .migration_version == "v2" and
+            .schema == "gooo/receipt-schema-migration/adoption-proposal/v3" and
+            .migration_version == "v3" and
             .target_repository == "github.com/kimjooyoon/meta-ontology-go" and
             .repository_writes == 0 and .local_test_executions == 0 and .cross_project_required_gates == 0 and
             (.old_schema_ownership | length) == 1 and (.new_schema_ownership | length) == 1 and
             (.acceptance_cases | length) == 12 and
             .expected_protected_paths == [".github/ci-governance.json",".github/agent-scope-table.md",".github/branch-policy.md",".github/conformance-plan.md",".github/foundation-authorization.json","go.mod","go.sum"] and
             (.exact_required_semantic_changes | length) >= 12 and (.rollback_conditions | length) >= 8 and
-            (.refutation_conditions | length) >= 6 and (.harness_acceptance_cases | length) == 8 and
-            .guardian_fixture.commit == "7f45792e3c23100cbb10cca8b229132060982a7b" and
+            (.refutation_conditions | length) >= 6 and (.harness_acceptance_cases | length) == 11 and
+            .guardian_fixture_v3.base_commit == "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb" and
+            .guardian_fixture_v3.head_commit == "8b47db349315c02933296423b0ae7fa80ffeb1dc" and
+            .guardian_fixture_v3.changed_files_count == 92 and .guardian_fixture_v3.protected_intersection_count == 26 and
+            (.release_lineage | length) == 5 and
             (.variable_lifetime_ownership | length) == 4
           ' "$first/adoption-proposal.json"
 
           jq -e '
-            .schema == "gooo/receipt-schema-migration/guardian-harness/v1" and
-            .migration_version == "v2" and .ir_digest != "" and
-            .fixture.commit == "7f45792e3c23100cbb10cca8b229132060982a7b" and
-            (.cases | length) == 8
+            .schema == "gooo/receipt-schema-migration/guardian-harness/v2" and
+            .migration_version == "v3" and .ir_digest != "" and
+            .fixture_v3.base_commit == "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb" and
+            (.cases | length) == 11
           ' "$first/generated/guardian-harness-cases.json"
 
       - name: Run actual Guardian harness from pinned fixture
@@ -135,7 +139,7 @@ jobs:
         run: |
           set -euo pipefail
           root="$RUNNER_TEMP/receipt-schema-migration"
-          node scripts/run-guardian-harness.js \
+          node scripts/run-guardian-harness-v3.js \
             --cases "$root/first/generated/guardian-harness-cases.json" \
             --report "$root/first/report.json" \
             --out "$root/first/guardian-harness-report.json"
@@ -152,17 +156,16 @@ jobs:
             --manifest "$root/first/artifact-manifest.json" \
             --human "$root/first/human-report.md"
           jq -e '
-            .schema == "gooo/receipt-schema-migration/guardian-harness/v1" and
-            .fixture_file_count == 5 and
-            .summary == {closed_count:3,unknown_count:1,refuted_count:4} and
-            ([.results[].state] | sort) == (["CLOSED","CLOSED","CLOSED","UNKNOWN","REFUTED","REFUTED","REFUTED","REFUTED"] | sort) and
-            ([.results[] | select(.id == "GUARDIAN_CURRENT_SNAPSHOT_REFERENCE_ERROR") | .reason] | .[0]) == "ReferenceError: beforeDigest is not defined" and
-            ([.results[] | select(.id == "GUARDIAN_CURRENT_SNAPSHOT_REFERENCE_ERROR") | .step] | .[0]) == "execute_actual_pull_request_target_script" and
-            ([.results[] | select(.id == "GUARDIAN_CURRENT_SNAPSHOT_REFERENCE_ERROR") | .next_operation] | .[0]) == "INITIALIZE_DIGEST_VARIABLES_BEFORE_POLICY_BRANCH" and
-            ([.results[] | select(.id == "GUARDIAN_UNSUPPORTED_FUTURE_SCHEMA_UNKNOWN") | .claim | keys] | .[0] | sort) == ["blocked_by","next_operation","reason","stage","state","step","unknown_class"]
+            .schema == "gooo/receipt-schema-migration/guardian-harness/v2" and
+            .fixture_file_count == 10 and
+            .summary == {closed_count:2,unknown_count:0,refuted_count:9,foundation_authorization_count:8,foundation_receipt_count:8} and
+            ([.results[].state] | sort) == (["CLOSED","CLOSED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED"] | sort) and
+            ([.results[] | select(.id == "GUARDIAN_PROTECTED26_VALID_FOUNDATION_AUTH_CLOSED") | .guardian_decision] | .[0]) == "PASS" and
+            ([.results[] | select(.id == "GUARDIAN_MISSING_FOUNDATION_AUTH_REFUTED") | .state] | .[0]) == "REFUTED" and
+            ([.results[] | select(.id == "GUARDIAN_PASS_NULL_DIGEST_REFUTED") | .claim | keys] | .[0] | sort) == ["blocked_by","next_operation","reason","stage","state","step","unknown_class"]
           ' "$root/first/guardian-harness-report.json"
           jq -e '
-            .guardian_harness.summary == {closed_count:3,unknown_count:1,refuted_count:4} and
+            .guardian_harness.summary == {closed_count:2,unknown_count:0,refuted_count:9,foundation_authorization_count:8,foundation_receipt_count:8} and
             ([.artifact_digests[].path] | index("guardian-harness-report.json")) != null and
             .guardian_harness.results != null
           ' "$root/first/report.json"
@@ -181,15 +184,15 @@ jobs:
             --out "$root/first/ci-summary.json"
           jq -e '
             .schema == "gooo/receipt-schema-migration/ci-summary/v1" and
-            .migration_version == "v2" and
+            .migration_version == "v3" and
             .schema_versions == ["v2","v3"] and
             .parent_receipt_count == 12 and .child_receipt_count == 13 and
             .accepted_count == 2 and .unknown_count == 3 and .refuted_count == 7 and
             .immutable_parent_writes == 0 and
-            .guardian_harness == {closed_count:3,unknown_count:1,refuted_count:4} and
+            .guardian_harness == {closed_count:2,unknown_count:0,refuted_count:9,foundation_authorization_count:8,foundation_receipt_count:8} and
             .migration.added == 4 and .migration.retired == 0 and .migration.split == 0 and
-            (.adapter_operations | length) == 19 and
-            ([.metrics[].id] | sort) == (["schema_versions","parent_receipt_count","child_receipt_count","accepted_count","unknown_count","refuted_count","immutable_parent_writes","adapter_operations","artifact_digests","build_wall_ms","build_peak_rss_kib","test_wall_ms","test_peak_rss_kib","conformance_wall_ms","conformance_peak_rss_kib","denominator_add_count","denominator_retire_count","denominator_split_count","guardian_harness_case_count","guardian_harness_closed_count","guardian_harness_unknown_count","guardian_harness_refuted_count","guardian_fixture_file_count"] | sort) and
+            (.adapter_operations | length) == 25 and
+            ([.metrics[].id] | sort) == (["schema_versions","parent_receipt_count","child_receipt_count","accepted_count","unknown_count","refuted_count","immutable_parent_writes","adapter_operations","artifact_digests","build_wall_ms","build_peak_rss_kib","test_wall_ms","test_peak_rss_kib","conformance_wall_ms","conformance_peak_rss_kib","denominator_add_count","denominator_retire_count","denominator_split_count","guardian_harness_case_count","guardian_harness_closed_count","guardian_harness_unknown_count","guardian_harness_refuted_count","guardian_fixture_file_count","guardian_changed_file_count","guardian_protected_intersection_count","guardian_changed_paths_digest","guardian_protected_intersection_digest","guardian_kernel_before_digest","guardian_kernel_after_digest","guardian_foundation_authorization_count","guardian_foundation_receipt_count","guardian_canonical_tuple_count"] | sort) and
             ([.metrics[].id | select(test("score|percentage";"i"))] | length) == 0 and
             ([.metrics[] | select(.id == "denominator_add_count") | .value] | .[0]) == 4 and
             ([.metrics[] | select(.id == "denominator_retire_count") | .value] | .[0]) == 0 and

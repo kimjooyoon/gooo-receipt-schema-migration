@@ -35,7 +35,13 @@ func RenderReport(report Report) string {
 	}
 	if report.GuardianHarness != nil {
 		b.WriteString("\n## Actual Guardian harness\n\n")
-		fmt.Fprintf(&b, "- fixture: `%s@%s`\n- fixture manifest: `%s`\n- CLOSED: %d\n- UNKNOWN: %d\n- REFUTED: %d\n\n| case | expected | observed | Guardian | stage | step | reason | next_operation |\n|---|---|---|---|---|---|---|---|\n", report.GuardianHarness.Fixture.Repository, report.GuardianHarness.Fixture.Commit, report.GuardianHarness.Fixture.ManifestPath, report.GuardianHarness.Summary.ClosedCount, report.GuardianHarness.Summary.UnknownCount, report.GuardianHarness.Summary.RefutedCount)
+		fixtureRef := fmt.Sprintf("%s@%s", report.GuardianHarness.Fixture.Repository, report.GuardianHarness.Fixture.Commit)
+		fixtureManifest := report.GuardianHarness.Fixture.ManifestPath
+		if report.GuardianHarness.FixtureV3 != nil {
+			fixtureRef = fmt.Sprintf("%s@%s..%s", report.GuardianHarness.FixtureV3.Repository, report.GuardianHarness.FixtureV3.BaseCommit, report.GuardianHarness.FixtureV3.HeadCommit)
+			fixtureManifest = report.GuardianHarness.FixtureV3.ManifestPath
+		}
+		fmt.Fprintf(&b, "- fixture: `%s`\n- fixture manifest: `%s`\n- CLOSED: %d\n- UNKNOWN: %d\n- REFUTED: %d\n\n| case | expected | observed | Guardian | stage | step | reason | next_operation |\n|---|---|---|---|---|---|---|---|\n", fixtureRef, fixtureManifest, report.GuardianHarness.Summary.ClosedCount, report.GuardianHarness.Summary.UnknownCount, report.GuardianHarness.Summary.RefutedCount)
 		for _, result := range report.GuardianHarness.Results {
 			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", result.ID, result.ExpectedState, result.State, result.GuardianDecision, result.Stage, result.Step, result.Reason, result.NextOperation)
 		}

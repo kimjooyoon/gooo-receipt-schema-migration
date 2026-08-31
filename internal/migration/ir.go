@@ -13,6 +13,8 @@ func BuildIR(source SourceDecl, contract Contract) (IR, error) {
 	irSchema := IRSchema
 	if source.Version == "v2" {
 		irSchema = IRSchemaV2
+	} else if source.Version == "v3" {
+		irSchema = IRSchemaV3
 	}
 	ir := IR{
 		Schema: irSchema, Version: source.Version, SourceDigest: source.SourceDigest, ContractDigest: contractDigest,
@@ -21,13 +23,21 @@ func BuildIR(source SourceDecl, contract Contract) (IR, error) {
 		Authority: source.Authority, Precedence: append([]string(nil), source.Precedence...),
 		UnknownFields: append([]string(nil), source.UnknownFields...), Adapters: cloneAdapters(source.Schemas),
 		Cells: cloneCells(source.Cells), Scenarios: cloneScenarios(source.Scenarios), Metrics: cloneMetrics(source.Metrics),
-		Migration: source.Migration, GuardianFixture: source.GuardianFixture, HarnessCases: append([]HarnessCaseDecl(nil), source.HarnessCases...),
+		Migration: source.Migration, GuardianFixture: source.GuardianFixture, GuardianFixtureV3: cloneGuardianV3Fixture(source.GuardianFixtureV3), HarnessCases: append([]HarnessCaseDecl(nil), source.HarnessCases...), ReleaseLineage: append([]ReleaseLineage(nil), source.ReleaseLineage...),
 	}
 	ir.IRDigest, err = unsignedIRDigest(ir)
 	if err != nil {
 		return IR{}, err
 	}
 	return ir, nil
+}
+
+func cloneGuardianV3Fixture(input *GuardianV3Fixture) *GuardianV3Fixture {
+	if input == nil {
+		return nil
+	}
+	output := *input
+	return &output
 }
 
 func cloneCounts(input map[string]int) map[string]int {

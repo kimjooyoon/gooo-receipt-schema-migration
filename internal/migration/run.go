@@ -44,7 +44,7 @@ func Run(sourcePath, contractPath, outputDir string, external *ExternalRelease) 
 		return Report{}, err
 	}
 	refs = append(refs, scenarioRefs...)
-	if ir.Version == "v2" {
+	if ir.Version == "v2" || ir.Version == "v3" {
 		_, harnessCasesRef, err := GenerateGuardianHarnessCases(ir, outputDir)
 		if err != nil {
 			return Report{}, err
