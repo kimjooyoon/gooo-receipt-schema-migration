@@ -106,6 +106,9 @@ func BuildAdoptionProposal(ir IR, outputDir string, external *ExternalRelease) (
 		proposal.Migration = &migration
 		proposal.GuardianFixtureV3 = cloneGuardianV3Fixture(ir.GuardianFixtureV3)
 		proposal.ReleaseLineage = append([]ReleaseLineage(nil), ir.ReleaseLineage...)
+		provenance := developmentProvenance()
+		provenance.ProvenanceDigest, _ = unsignedDevelopmentProvenanceDigest(provenance)
+		proposal.DevelopmentProvenance = &provenance
 		proposal.VariableLifetimeOwnership = []string{
 			"Keep the base-controlled workflow, live candidate changed-file tuples, Foundation authorization, and Foundation receipt as separate input lifetimes.",
 			"Dispatch protected-path authorization before any kernel digest or PASS classification; a missing, stale, malformed, exhausted, or replayed authorization is REFUTED.",

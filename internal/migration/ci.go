@@ -96,7 +96,7 @@ func BuildCISummary(reportPath, buildMetricsPath, testMetricsPath, conformanceMe
 		Schema: CISummarySchema, MigrationVersion: report.MigrationVersion, Migration: report.Migration, ReportDigest: report.ReportDigest, SchemaVersions: append([]string(nil), report.SchemaVersions...),
 		ParentReceiptCount: report.Summary.ParentReceiptCount, ChildReceiptCount: report.Summary.ChildReceiptCount, AcceptedCount: report.Summary.AcceptedCount,
 		UnknownCount: report.Summary.UnknownCount, RefutedCount: report.Summary.RefutedCount, ImmutableParentWrites: report.Summary.ImmutableParentWrites,
-		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement, GuardianHarness: guardianSummary, GuardianFixtureV3: report.GuardianFixtureV3,
+		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement, GuardianHarness: guardianSummary, GuardianFixtureV3: report.GuardianFixtureV3, DevelopmentProvenance: cloneDevelopmentProvenance(report.DevelopmentProvenance),
 	}
 	if summary.ReportDigest == "" {
 		return CISummary{}, fmt.Errorf("report digest is required")

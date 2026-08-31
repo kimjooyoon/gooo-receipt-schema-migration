@@ -25,6 +25,7 @@ const (
 	ProposalSchemaV3        = "gooo/receipt-schema-migration/adoption-proposal/v3"
 	ArtifactManifestSchema  = "gooo/receipt-schema-migration/artifact-manifest/v1"
 	CISummarySchema         = "gooo/receipt-schema-migration/ci-summary/v1"
+	DevelopmentProvenanceSchema = "gooo/receipt-schema-migration/development-provenance/v1"
 	ParentV2Schema          = "gooo/receipt/parent/v2"
 	ChildV3Schema           = "gooo/receipt/child/v3"
 	FixedCells              = 12
@@ -38,6 +39,21 @@ type Authority struct {
 	CrossProjectRequiredGates   int    `json:"cross_project_required_gates"`
 	ProductGenerationAuthorized bool   `json:"product_generation_authorized"`
 	RootReadmePolicy            string `json:"root_readme_policy"`
+}
+
+type DevelopmentProvenance struct {
+	Schema                              string    `json:"schema"`
+	EventID                             string    `json:"event_id"`
+	DevelopmentLocalGoCommands          map[string]int `json:"development_local_go_commands"`
+	DevelopmentLocalVMHarnessExecutions int       `json:"development_local_vm_harness_executions"`
+	Class                               string    `json:"class"`
+	Purpose                             string    `json:"purpose"`
+	PolicyState                         string    `json:"policy_state"`
+	EventMutationPolicy                 string    `json:"event_mutation_policy"`
+	DevelopmentPolicyDeviationCount    int       `json:"development_policy_deviation_count"`
+	ProductRuntimeAuthority             Authority `json:"product_runtime_authority"`
+	RemainingValidationPolicy           string    `json:"remaining_validation_policy"`
+	ProvenanceDigest                    string    `json:"provenance_digest,omitempty"`
 }
 
 type Claim struct {
@@ -425,6 +441,7 @@ type AdoptionProposal struct {
 	VariableLifetimeOwnership    []string           `json:"variable_lifetime_ownership,omitempty"`
 	HarnessAcceptanceCases       []AcceptanceCase   `json:"harness_acceptance_cases,omitempty"`
 	GuardianHarnessArtifact      *ArtifactRef       `json:"guardian_harness_artifact,omitempty"`
+	DevelopmentProvenance        *DevelopmentProvenance `json:"development_provenance,omitempty"`
 	OptionalExternalRelease      *ExternalRelease   `json:"optional_external_release,omitempty"`
 	ProposalDigest               string             `json:"proposal_digest,omitempty"`
 }
@@ -449,6 +466,7 @@ type Report struct {
 	Scenarios         []ScenarioResult       `json:"scenarios"`
 	GuardianHarness   *GuardianHarnessReport `json:"guardian_harness,omitempty"`
 	GuardianFixtureV3 *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	DevelopmentProvenance *DevelopmentProvenance `json:"development_provenance,omitempty"`
 	Improvement       Claim                  `json:"improvement"`
 	ReportDigest      string                 `json:"report_digest,omitempty"`
 }
@@ -486,4 +504,5 @@ type CISummary struct {
 	Improvement           Claim                  `json:"improvement"`
 	GuardianHarness       GuardianHarnessSummary `json:"guardian_harness"`
 	GuardianFixtureV3     *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	DevelopmentProvenance *DevelopmentProvenance `json:"development_provenance,omitempty"`
 }

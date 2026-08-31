@@ -107,7 +107,11 @@ jobs:
             .authority.root_readme_policy == "EXCLUDED_FROM_REPOSITORY_INVENTORY" and
             .improvement.state == "UNKNOWN" and
             .improvement.stage != "" and .improvement.step != "" and .improvement.reason != "" and
-            .improvement.unknown_class != "" and .improvement.next_operation != "" and .improvement.blocked_by != null
+            .improvement.unknown_class != "" and .improvement.next_operation != "" and .improvement.blocked_by != null and
+            .development_provenance.event_mutation_policy == "APPEND_ONLY_NO_RESET_DELETE_REWRITE" and
+            .development_provenance.development_policy_deviation_count == 1 and
+            .development_provenance.product_runtime_authority.repository_writes == 0 and
+            .development_provenance.product_runtime_authority.local_test_executions == 0
           ' "$first/report.json"
 
           jq -e '
@@ -124,7 +128,9 @@ jobs:
             .guardian_fixture_v3.head_commit == "8b47db349315c02933296423b0ae7fa80ffeb1dc" and
             .guardian_fixture_v3.changed_files_count == 92 and .guardian_fixture_v3.protected_intersection_count == 26 and
             (.release_lineage | length) == 5 and
-            (.variable_lifetime_ownership | length) == 4
+            (.variable_lifetime_ownership | length) == 4 and
+            .development_provenance.development_local_vm_harness_executions == 1 and
+            .development_provenance.policy_state == "RECORDED_DEVELOPMENT_POLICY_DEVIATION"
           ' "$first/adoption-proposal.json"
 
           jq -e '
@@ -169,6 +175,7 @@ jobs:
             ([.artifact_digests[].path] | index("guardian-harness-report.json")) != null and
             .guardian_harness.results != null
           ' "$root/first/report.json"
+          jq -e '([.artifacts[].path] | index("development-provenance.json")) != null' "$root/first/artifact-manifest.json"
           jq -e '(.guardian_harness_artifact.path == "guardian-harness-report.json" and (.guardian_harness_artifact.digest | startswith("sha256:")))' "$root/first/adoption-proposal.json"
 
       - name: Create CI summary with bound metrics
@@ -191,14 +198,24 @@ jobs:
             .immutable_parent_writes == 0 and
             .guardian_harness == {closed_count:2,unknown_count:0,refuted_count:9,foundation_authorization_count:8,foundation_receipt_count:8} and
             .migration.added == 4 and .migration.retired == 0 and .migration.split == 0 and
-            (.adapter_operations | length) == 25 and
+            (.adapter_operations | length) == 20 and
             ([.metrics[].id] | sort) == (["schema_versions","parent_receipt_count","child_receipt_count","accepted_count","unknown_count","refuted_count","immutable_parent_writes","adapter_operations","artifact_digests","build_wall_ms","build_peak_rss_kib","test_wall_ms","test_peak_rss_kib","conformance_wall_ms","conformance_peak_rss_kib","denominator_add_count","denominator_retire_count","denominator_split_count","guardian_harness_case_count","guardian_harness_closed_count","guardian_harness_unknown_count","guardian_harness_refuted_count","guardian_fixture_file_count","guardian_changed_file_count","guardian_protected_intersection_count","guardian_changed_paths_digest","guardian_protected_intersection_digest","guardian_kernel_before_digest","guardian_kernel_after_digest","guardian_foundation_authorization_count","guardian_foundation_receipt_count","guardian_canonical_tuple_count"] | sort) and
             ([.metrics[].id | select(test("score|percentage";"i"))] | length) == 0 and
             ([.metrics[] | select(.id == "denominator_add_count") | .value] | .[0]) == 4 and
             ([.metrics[] | select(.id == "denominator_retire_count") | .value] | .[0]) == 0 and
             ([.metrics[] | select(.id == "denominator_split_count") | .value] | .[0]) == 0 and
             ([.metrics[] | select(.id | endswith("_wall_ms")) | .value] | all(. >= 0)) and
-            ([.metrics[] | select(.id | endswith("_peak_rss_kib")) | .value] | all(. >= 0))
+            ([.metrics[] | select(.id | endswith("_peak_rss_kib")) | .value] | all(. >= 0)) and
+            .development_provenance.schema == "gooo/receipt-schema-migration/development-provenance/v1" and
+            .development_provenance.development_local_go_commands == {build:0,gofmt:0,test:0,vet:0} and
+            .development_provenance.development_local_vm_harness_executions == 1 and
+            .development_provenance.class == "NODE_VM_GUARDIAN_HARNESS" and
+            .development_provenance.purpose == "DEBUG_AUTH_MERGE_VS_BASE_COMMIT_MOCK" and
+            .development_provenance.policy_state == "RECORDED_DEVELOPMENT_POLICY_DEVIATION" and
+            .development_provenance.development_policy_deviation_count == 1 and
+            .development_provenance.product_runtime_authority.repository_writes == 0 and
+            .development_provenance.product_runtime_authority.local_test_executions == 0 and
+            .development_provenance.remaining_validation_policy == "GITHUB_ACTIONS_ONLY_AFTER_THIS_RECORD"
           ' "$root/first/ci-summary.json"
 
       - name: Verify final repository write boundary
