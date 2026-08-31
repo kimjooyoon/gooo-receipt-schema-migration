@@ -25,13 +25,14 @@ const (
 	ProposalSchemaV3        = "gooo/receipt-schema-migration/adoption-proposal/v3"
 	ArtifactManifestSchema  = "gooo/receipt-schema-migration/artifact-manifest/v1"
 	CISummarySchema         = "gooo/receipt-schema-migration/ci-summary/v1"
-	DevelopmentProvenanceSchema = "gooo/receipt-schema-migration/development-provenance/v1"
 	ParentV2Schema          = "gooo/receipt/parent/v2"
 	ChildV3Schema           = "gooo/receipt/child/v3"
 	FixedCells              = 12
 	MigrationV2Cells        = 16
 	MigrationV3Cells        = 20
 )
+
+const DevelopmentProvenanceSchema = "gooo/receipt-schema-migration/development-provenance/v1"
 
 type Authority struct {
 	RepositoryWrites            int    `json:"repository_writes"`
@@ -42,18 +43,18 @@ type Authority struct {
 }
 
 type DevelopmentProvenance struct {
-	Schema                              string    `json:"schema"`
-	EventID                             string    `json:"event_id"`
+	Schema                              string         `json:"schema"`
+	EventID                             string         `json:"event_id"`
 	DevelopmentLocalGoCommands          map[string]int `json:"development_local_go_commands"`
-	DevelopmentLocalVMHarnessExecutions int       `json:"development_local_vm_harness_executions"`
-	Class                               string    `json:"class"`
-	Purpose                             string    `json:"purpose"`
-	PolicyState                         string    `json:"policy_state"`
-	EventMutationPolicy                 string    `json:"event_mutation_policy"`
-	DevelopmentPolicyDeviationCount    int       `json:"development_policy_deviation_count"`
-	ProductRuntimeAuthority             Authority `json:"product_runtime_authority"`
-	RemainingValidationPolicy           string    `json:"remaining_validation_policy"`
-	ProvenanceDigest                    string    `json:"provenance_digest,omitempty"`
+	DevelopmentLocalVMHarnessExecutions int            `json:"development_local_vm_harness_executions"`
+	Class                               string         `json:"class"`
+	Purpose                             string         `json:"purpose"`
+	PolicyState                         string         `json:"policy_state"`
+	EventMutationPolicy                 string         `json:"event_mutation_policy"`
+	DevelopmentPolicyDeviationCount     int             `json:"development_policy_deviation_count"`
+	ProductRuntimeAuthority             Authority     `json:"product_runtime_authority"`
+	RemainingValidationPolicy           string         `json:"remaining_validation_policy"`
+	ProvenanceDigest                    string         `json:"provenance_digest,omitempty"`
 }
 
 type Claim struct {
@@ -447,28 +448,28 @@ type AdoptionProposal struct {
 }
 
 type Report struct {
-	Schema            string                 `json:"schema"`
-	MigrationVersion  string                 `json:"migration_version,omitempty"`
-	Migration         *MigrationRecord       `json:"migration,omitempty"`
-	Decision          string                 `json:"decision"`
-	Pipeline          map[string]string      `json:"pipeline"`
-	SchemaVersions    []string               `json:"schema_versions"`
-	FixedDenominator  int                    `json:"fixed_denominator"`
-	StageCounts       map[string]int         `json:"stage_counts"`
-	RoleCounts        map[string]int         `json:"role_counts"`
-	Precedence        []string               `json:"precedence"`
-	UnknownFields     []string               `json:"unknown_fields"`
-	Authority         Authority              `json:"authority"`
-	Summary           Summary                `json:"summary"`
-	AdapterOperations []string               `json:"adapter_operations"`
-	ArtifactDigests   []ArtifactRef          `json:"artifact_digests"`
-	MetricBindings    []MetricBinding        `json:"metric_bindings"`
-	Scenarios         []ScenarioResult       `json:"scenarios"`
-	GuardianHarness   *GuardianHarnessReport `json:"guardian_harness,omitempty"`
-	GuardianFixtureV3 *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
+	Schema                string                 `json:"schema"`
+	MigrationVersion      string                 `json:"migration_version,omitempty"`
+	Migration             *MigrationRecord       `json:"migration,omitempty"`
+	Decision              string                 `json:"decision"`
+	Pipeline              map[string]string      `json:"pipeline"`
+	SchemaVersions        []string               `json:"schema_versions"`
+	FixedDenominator      int                    `json:"fixed_denominator"`
+	StageCounts           map[string]int         `json:"stage_counts"`
+	RoleCounts            map[string]int         `json:"role_counts"`
+	Precedence            []string               `json:"precedence"`
+	UnknownFields         []string               `json:"unknown_fields"`
+	Authority             Authority              `json:"authority"`
+	Summary               Summary                `json:"summary"`
+	AdapterOperations     []string               `json:"adapter_operations"`
+	ArtifactDigests       []ArtifactRef          `json:"artifact_digests"`
+	MetricBindings        []MetricBinding        `json:"metric_bindings"`
+	Scenarios             []ScenarioResult       `json:"scenarios"`
+	GuardianHarness       *GuardianHarnessReport `json:"guardian_harness,omitempty"`
+	GuardianFixtureV3     *GuardianV3Fixture     `json:"guardian_fixture_v3,omitempty"`
 	DevelopmentProvenance *DevelopmentProvenance `json:"development_provenance,omitempty"`
-	Improvement       Claim                  `json:"improvement"`
-	ReportDigest      string                 `json:"report_digest,omitempty"`
+	Improvement           Claim                  `json:"improvement"`
+	ReportDigest          string                 `json:"report_digest,omitempty"`
 }
 
 type Summary struct {
