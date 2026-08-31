@@ -394,7 +394,7 @@ async function main() {
     schema: 'gooo/receipt-schema-migration/guardian-harness/v2',
     migration_version: 'v3',
     ir_digest: cases.ir_digest,
-    fixture: {},
+    fixture: {repository: '', ref: '', commit: '', manifest_path: ''},
     fixture_v3: fixture,
     fixture_file_count: manifest.pinned_files.length,
     results,
