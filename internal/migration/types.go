@@ -221,10 +221,10 @@ type ScenarioResult struct {
 }
 
 type ScenarioBundle struct {
-	Schema        string             `json:"schema"`
-	IRDigest      string             `json:"ir_digest"`
-	Scenarios     []ScenarioArtifact `json:"scenarios"`
-	ArtifactDigest string            `json:"artifact_digest,omitempty"`
+	Schema         string             `json:"schema"`
+	IRDigest       string             `json:"ir_digest"`
+	Scenarios      []ScenarioArtifact `json:"scenarios"`
+	ArtifactDigest string             `json:"artifact_digest,omitempty"`
 }
 
 type ArtifactRef struct {
@@ -270,10 +270,10 @@ type AdoptionProposal struct {
 	ExactRequiredSemanticChanges []string          `json:"exact_required_semantic_changes"`
 	ExpectedProtectedPaths       []string          `json:"expected_protected_paths"`
 	AcceptanceCases              []AcceptanceCase  `json:"acceptance_cases"`
-	RollbackConditions            []string          `json:"rollback_conditions"`
-	RefutationConditions          []string          `json:"refutation_conditions"`
-	OptionalExternalRelease       *ExternalRelease  `json:"optional_external_release,omitempty"`
-	ProposalDigest                string            `json:"proposal_digest,omitempty"`
+	RollbackConditions           []string          `json:"rollback_conditions"`
+	RefutationConditions         []string          `json:"refutation_conditions"`
+	OptionalExternalRelease      *ExternalRelease `json:"optional_external_release,omitempty"`
+	ProposalDigest               string            `json:"proposal_digest,omitempty"`
 }
 
 type Report struct {
