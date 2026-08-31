@@ -11,7 +11,7 @@ func BuildIR(source SourceDecl, contract Contract) (IR, error) {
 		return IR{}, err
 	}
 	ir := IR{
-		Schema: IRScheme, Version: "v1", SourceDigest: source.SourceDigest, ContractDigest: contractDigest,
+		Schema: IRSchema, Version: "v1", SourceDigest: source.SourceDigest, ContractDigest: contractDigest,
 		DenominatorID: source.DenominatorID, CellCount: FixedCells,
 		StageCounts: cloneCounts(source.StageCounts), RoleCounts: cloneCounts(source.RoleCounts),
 		Authority: source.Authority, Precedence: append([]string(nil), source.Precedence...),
