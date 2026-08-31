@@ -58,3 +58,13 @@ func unsignedProposalDigest(proposal AdoptionProposal) (string, error) {
 	proposal.ProposalDigest = ""
 	return DigestValue(proposal)
 }
+
+func unsignedGuardianHarnessCasesDigest(artifact GuardianHarnessCasesArtifact) (string, error) {
+	artifact.ArtifactDigest = ""
+	return DigestValue(artifact)
+}
+
+func unsignedGuardianHarnessReportDigest(report GuardianHarnessReport) (string, error) {
+	report.ArtifactDigest = ""
+	return DigestValue(report)
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "gooo/receipt-schema-migration/upstream-fixture/v1",
+  "repository": "kimjooyoon/meta-ontology-go",
+  "ref": "dev",
+  "commit": "7f45792e3c23100cbb10cca8b229132060982a7b",
+  "fetch_mode": "raw_at_immutable_commit_with_git_blob_sha1_verification",
+  "files": [
+    {
+      "path": ".github/workflows/ci-guardian.yml",
+      "role": "base-controlled-workflow-authority",
+      "blob_sha": "eee90d8410efb40c9fca965139cce293eafca895",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/7f45792e3c23100cbb10cca8b229132060982a7b/.github/workflows/ci-guardian.yml"
+    },
+    {
+      "path": "scripts/ci-proof/guardian.js",
+      "role": "actual-guardian-validator",
+      "blob_sha": "c4f4af5b604110c4d98185422f0887cb21017c86",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/7f45792e3c23100cbb10cca8b229132060982a7b/scripts/ci-proof/guardian.js"
+    },
+    {
+      "path": "scripts/ci-proof/foundation_bootstrap.js",
+      "role": "guardian-runtime-dependency",
+      "blob_sha": "a4d17cc318aa3a2eabb127d182dd7af651c335c6",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/7f45792e3c23100cbb10cca8b229132060982a7b/scripts/ci-proof/foundation_bootstrap.js"
+    },
+    {
+      "path": "scripts/ci-proof/foundation_authorization.js",
+      "role": "guardian-runtime-dependency",
+      "blob_sha": "62d9fc83eea1b7dce69ef0dafabb3d60f5b24a84",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/7f45792e3c23100cbb10cca8b229132060982a7b/scripts/ci-proof/foundation_authorization.js"
+    },
+    {
+      "path": "internal/verify/scope_schema_coherence_migration_adoption_20260831.go",
+      "role": "related-core-validator-scope",
+      "blob_sha": "402b0c7ef33aeffbd4b5a03e2ec4e4a73310c732",
+      "source": "https://raw.githubusercontent.com/kimjooyoon/meta-ontology-go/7f45792e3c23100cbb10cca8b229132060982a7b/internal/verify/scope_schema_coherence_migration_adoption_20260831.go"
+    }
+  ],
+  "workflow_script_markers": {
+    "feature_pull_marker": "const eventPull = context.payload.pull_request;",
+    "inner_digest_declaration": "let beforeDigest = null;",
+    "artifact_digest_use": "computedBeforeDigest: beforeDigest",
+    "fail_closed_call": "core.setFailed"
+  }
+}

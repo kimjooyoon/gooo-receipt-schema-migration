@@ -17,6 +17,10 @@ func RenderReport(report Report) string {
 	b.WriteString("\n\n## Exact state counts\n\n")
 	fmt.Fprintf(&b, "- parent receipts: %d\n- child receipts: %d\n- accepted: %d\n- unknown: %d\n- refuted: %d\n- immutable parent writes: %d\n", report.Summary.ParentReceiptCount, report.Summary.ChildReceiptCount, report.Summary.AcceptedCount, report.Summary.UnknownCount, report.Summary.RefutedCount, report.Summary.ImmutableParentWrites)
 	b.WriteString("\nResolution precedence: `REFUTED > UNKNOWN > CLOSED`.\n\n")
+	if report.Migration != nil {
+		migration := report.Migration
+		fmt.Fprintf(&b, "## Denominator migration\n\n- version: %s → %s\n- ADD: %d\n- RETIRE: %d\n- SPLIT: %d\n- stage counts before: %v\n- stage counts after: %v\n- stage delta: %v\n- role counts before: %v\n- role counts after: %v\n- role delta: %v\n\n", migration.FromVersion, migration.ToVersion, migration.Added, migration.Retired, migration.Split, migration.StageCountsBefore, migration.StageCountsAfter, migration.StageDelta, migration.RoleCountsBefore, migration.RoleCountsAfter, migration.RoleDelta)
+	}
 	b.WriteString("## Scenarios\n\n| scenario | stage | role | expected | observed | reason | parent digest | child digests |\n|---|---|---|---|---|---|---|---|\n")
 	for _, scenario := range report.Scenarios {
 		fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", scenario.ScenarioID, scenario.Stage, scenario.Role, scenario.ExpectedState, scenario.State, scenario.ObservedReason, scenario.ParentDigest, join(scenario.ChildDigests))
@@ -28,6 +32,13 @@ func RenderReport(report Report) string {
 	b.WriteString("\n## Artifact digests\n\n| path | digest | size_bytes |\n|---|---|---|\n")
 	for _, artifact := range report.ArtifactDigests {
 		fmt.Fprintf(&b, "| %s | %s | %d |\n", artifact.Path, artifact.Digest, artifact.SizeBytes)
+	}
+	if report.GuardianHarness != nil {
+		b.WriteString("\n## Actual Guardian harness\n\n")
+		fmt.Fprintf(&b, "- fixture: `%s@%s`\n- fixture manifest: `%s`\n- CLOSED: %d\n- UNKNOWN: %d\n- REFUTED: %d\n\n| case | expected | observed | Guardian | stage | step | reason | next_operation |\n|---|---|---|---|---|---|---|---|\n", report.GuardianHarness.Fixture.Repository, report.GuardianHarness.Fixture.Commit, report.GuardianHarness.Fixture.ManifestPath, report.GuardianHarness.Summary.ClosedCount, report.GuardianHarness.Summary.UnknownCount, report.GuardianHarness.Summary.RefutedCount)
+		for _, result := range report.GuardianHarness.Results {
+			fmt.Fprintf(&b, "| %s | %s | %s | %s | %s | %s | %s | %s |\n", result.ID, result.ExpectedState, result.State, result.GuardianDecision, result.Stage, result.Step, result.Reason, result.NextOperation)
+		}
 	}
 	b.WriteString("\n## Improvement\n\n`UNKNOWN`: exact comparable before/after pair was not provided.\n")
 	return b.String()

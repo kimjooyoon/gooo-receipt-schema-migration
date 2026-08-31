@@ -10,9 +10,12 @@ func GenerateScenarios(ir IR, outputDir string) (ScenarioBundle, []ArtifactRef, 
 	if err := ValidateIR(ir); err != nil {
 		return ScenarioBundle{}, nil, err
 	}
-	scenarios := make([]ScenarioArtifact, 0, len(ir.Scenarios))
-	refs := make([]ArtifactRef, 0, len(ir.Scenarios)+1)
+	scenarios := make([]ScenarioArtifact, 0, FixedCells)
+	refs := make([]ArtifactRef, 0, FixedCells+1)
 	for _, declaration := range ir.Scenarios {
+		if normalizeScenarioKind(declaration.Kind) != "RECEIPT" {
+			continue
+		}
 		cell, err := cellByID(ir, declaration.Cell)
 		if err != nil {
 			return ScenarioBundle{}, nil, err
@@ -49,6 +52,9 @@ func GenerateScenarios(ir IR, outputDir string) (ScenarioBundle, []ArtifactRef, 
 		scenarios = append(scenarios, artifact)
 	}
 	bundle := ScenarioBundle{Schema: ScenarioSchema, IRDigest: ir.IRDigest, Scenarios: scenarios}
+	if len(bundle.Scenarios) != FixedCells {
+		return ScenarioBundle{}, nil, fmt.Errorf("receipt scenario bundle must preserve exactly twelve v1 scenarios")
+	}
 	bundle.ArtifactDigest, _ = unsignedScenarioBundleDigest(bundle)
 	bundlePath := filepath.Join(outputDir, "scenario-receipts.json")
 	if err := WriteJSON(bundlePath, bundle); err != nil {
@@ -65,8 +71,8 @@ func GenerateScenarios(ir IR, outputDir string) (ScenarioBundle, []ArtifactRef, 
 func makeParent(declaration ScenarioDecl, ir IR) (json.RawMessage, string, error) {
 	parent := ParentReceipt{
 		Schema: ParentV2Schema, SchemaVersion: "v2", ReceiptID: "parent:" + declaration.ID, Kind: "REGRESSION_REPAIR",
-		DenominatorID: ir.DenominatorID, DenominatorCellCount: FixedCells, DenominatorStageCounts: cloneCounts(ir.StageCounts), DenominatorRoleCounts: cloneCounts(ir.RoleCounts),
-		Immutable: true, CreatedBy: "gooo-receipt-schema-migration/v1",
+		DenominatorID: ir.DenominatorID, DenominatorCellCount: ir.CellCount, DenominatorStageCounts: cloneCounts(ir.StageCounts), DenominatorRoleCounts: cloneCounts(ir.RoleCounts),
+		Immutable: true, CreatedBy: "gooo-receipt-schema-migration/" + ir.Version,
 	}
 	var extras map[string]json.RawMessage
 	if declaration.ParentMode == "V2_FUTURE_FIELD" {
@@ -87,7 +93,7 @@ func makeChildren(declaration ScenarioDecl, ir IR, parentDigest string) ([]json.
 			Schema: ChildV3Schema, SchemaVersion: "v3", ReceiptID: fmt.Sprintf("child:%s:%d", declaration.ID, ordinal),
 			ParentReceiptID: "parent:" + declaration.ID, ParentDigest: parentDigest, ParentOutcome: "REFUTED_INCOMPLETE_PROPAGATION",
 			Outcome: "CORRECTION_APPLIED", CauseCode: "OUTCOME_NOT_PROPAGATED", CausalChain: []string{"REGRESSION_REPAIR", "CORRECTION_CHILD"},
-			NextOperation: "CONSUME_CHILD_OUTCOME", DenominatorID: ir.DenominatorID, DenominatorCellCount: FixedCells,
+			NextOperation: "CONSUME_CHILD_OUTCOME", DenominatorID: ir.DenominatorID, DenominatorCellCount: ir.CellCount,
 			DenominatorStageCounts: cloneCounts(ir.StageCounts), DenominatorRoleCounts: cloneCounts(ir.RoleCounts), Attestation: "INDEPENDENT_EVALUATOR", ChildOrdinal: ordinal,
 		}
 		extras := map[string]json.RawMessage{}
@@ -178,13 +184,26 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	for _, cell := range ir.Cells {
 		cellIndex[cell.ID] = cell
 	}
+	reportSchema := ReportSchema
+	if ir.Version == "v2" {
+		reportSchema = ReportSchemaV2
+	}
+	pipelineSource := "examples/receipt-schema-migration-v1/migration.gooo"
+	if ir.Version == "v2" {
+		pipelineSource = "examples/receipt-schema-migration-v2/migration.gooo"
+	}
 	report := Report{
-		Schema: ReportSchema, Decision: "RECEIPT_SCHEMA_MIGRATION_CONFORMANCE_REPORTED",
-		Pipeline:       map[string]string{"source": "examples/receipt-schema-migration-v1/migration.gooo", "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "human_report": "human-report.md"},
-		SchemaVersions: []string{"v2", "v3"}, FixedDenominator: FixedCells, StageCounts: cloneCounts(ir.StageCounts), RoleCounts: cloneCounts(ir.RoleCounts),
+		Schema: reportSchema, Decision: "RECEIPT_SCHEMA_MIGRATION_CONFORMANCE_REPORTED",
+		Pipeline:       map[string]string{"source": pipelineSource, "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "guardian_harness_cases": "generated/guardian-harness-cases.json", "guardian_harness_report": "guardian-harness-report.json", "human_report": "human-report.md"},
+		SchemaVersions: []string{"v2", "v3"}, FixedDenominator: ir.CellCount, StageCounts: cloneCounts(ir.StageCounts), RoleCounts: cloneCounts(ir.RoleCounts),
 		Precedence: append([]string(nil), ir.Precedence...), UnknownFields: append([]string(nil), ir.UnknownFields...), Authority: ir.Authority,
 		AdapterOperations: adapterOperations(ir), MetricBindings: append([]MetricBinding(nil), ir.Metrics...), Scenarios: make([]ScenarioResult, 0, FixedCells),
 		Improvement: unknownClaim("IMPROVEMENT", "compare_before_after", "EXACT_COMPARABLE_PAIR_NOT_PROVIDED", "MISSING_EXACT_PAIR", "PROVIDE_EXACT_COMPARABLE_PAIR", []string{"before-after-evidence"}),
+	}
+	if ir.Version == "v2" {
+		record := ir.Migration
+		report.MigrationVersion = "v2"
+		report.Migration = &record
 	}
 	for _, scenario := range bundle.Scenarios {
 		cell, ok := cellIndex[scenario.CellID]
@@ -214,6 +233,13 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	refs, err := collectArtifactRefs(outputDir, []string{"semantic-ir.json", "generated/adapters/v2.json", "generated/adapters/v3.json", "generated/validator.json", "scenario-receipts.json", "adoption-proposal.json"})
 	if err != nil {
 		return Report{}, err
+	}
+	if ir.Version == "v2" {
+		ref, err := artifactRef(filepath.Join(outputDir, "generated/guardian-harness-cases.json"), "generated/guardian-harness-cases.json")
+		if err != nil {
+			return Report{}, err
+		}
+		refs = append(refs, ref)
 	}
 	report.ArtifactDigests = refs
 	return report, nil
@@ -284,7 +310,7 @@ func evaluateScenario(ir IR, artifact ScenarioArtifact, cell Cell) ScenarioResul
 		result.Claim = refutedClaim("AUTHORITY", "validate_attestation", result.ObservedReason, "OBTAIN_INDEPENDENT_EVALUATOR_ATTESTATION")
 		return result
 	}
-	if child.DenominatorCellCount != FixedCells || !sameCounts(child.DenominatorStageCounts, ir.StageCounts) || !sameCounts(child.DenominatorRoleCounts, ir.RoleCounts) {
+	if child.DenominatorCellCount != ir.CellCount || !sameCounts(child.DenominatorStageCounts, ir.StageCounts) || !sameCounts(child.DenominatorRoleCounts, ir.RoleCounts) {
 		result.ObservedReason = "DENOMINATOR_DOWNGRADE"
 		result.Claim = refutedClaim("DENOMINATOR", "validate_child_denominator", result.ObservedReason, "RESTORE_FIXED_TWELVE_CELL_DENOMINATOR")
 		return result
@@ -356,7 +382,7 @@ func validateParentV2(raw json.RawMessage, parent ParentReceipt, ir IR, digest s
 	if parent.Digest == "" || parent.Digest != digest {
 		return "V2_PARENT_DIGEST_INVALID"
 	}
-	if parent.DenominatorID != ir.DenominatorID || parent.DenominatorCellCount != FixedCells || !sameCounts(parent.DenominatorStageCounts, ir.StageCounts) || !sameCounts(parent.DenominatorRoleCounts, ir.RoleCounts) {
+	if parent.DenominatorID != ir.DenominatorID || parent.DenominatorCellCount != ir.CellCount || !sameCounts(parent.DenominatorStageCounts, ir.StageCounts) || !sameCounts(parent.DenominatorRoleCounts, ir.RoleCounts) {
 		return "V2_PARENT_DENOMINATOR_INVALID"
 	}
 	return ""

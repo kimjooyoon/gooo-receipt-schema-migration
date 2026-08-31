@@ -38,6 +38,9 @@ func GenerateAdapters(ir IR, outputDir string) ([]ArtifactRef, error) {
 		Operations: []string{"VALIDATE_VERSION_DISPATCH", "VALIDATE_V2_OWNERSHIP", "VALIDATE_V3_OWNERSHIP", "VALIDATE_APPEND_ONLY_LINEAGE", "VALIDATE_DIGESTS", "VALIDATE_CARDINALITY", "VALIDATE_DENOMINATOR", "RESOLVE_PRECEDENCE"},
 		IRDigest:   ir.IRDigest,
 	}
+	if ir.Version == "v2" {
+		validator.Operations = append(validator.Operations, "VALIDATE_BASE_CONTROLLED_WORKFLOW", "VALIDATE_CANDIDATE_CHANGED_PATHS", "VALIDATE_VARIABLE_LIFETIME", "VALIDATE_GUARDIAN_ARTIFACT_DIGEST", "VALIDATE_FAIL_CLOSED_REFERENCE_ERROR")
+	}
 	validator.ArtifactDigest, _ = unsignedValidatorDigest(validator)
 	validatorPath := filepath.Join(outputDir, "generated", "validator.json")
 	if err := WriteJSON(validatorPath, validator); err != nil {
@@ -75,10 +78,13 @@ func LoadGeneratedAdapters(ir IR, outputDir string) ([]AdapterArtifact, Validato
 }
 
 func adapterOperations(ir IR) []string {
-	operations := make([]string, 0, 16)
+	operations := make([]string, 0, 21)
 	for _, adapter := range ir.Adapters {
 		operations = append(operations, adapter.Operations...)
 	}
 	operations = append(operations, "VALIDATE_VERSION_DISPATCH", "VALIDATE_V2_OWNERSHIP", "VALIDATE_V3_OWNERSHIP", "VALIDATE_APPEND_ONLY_LINEAGE", "VALIDATE_DIGESTS", "VALIDATE_CARDINALITY", "VALIDATE_DENOMINATOR", "RESOLVE_PRECEDENCE")
+	if ir.Version == "v2" {
+		operations = append(operations, "VALIDATE_BASE_CONTROLLED_WORKFLOW", "VALIDATE_CANDIDATE_CHANGED_PATHS", "VALIDATE_VARIABLE_LIFETIME", "VALIDATE_GUARDIAN_ARTIFACT_DIGEST", "VALIDATE_FAIL_CLOSED_REFERENCE_ERROR")
+	}
 	return operations
 }

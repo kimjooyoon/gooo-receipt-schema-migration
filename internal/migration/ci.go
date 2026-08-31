@@ -41,14 +41,36 @@ func BuildCISummary(reportPath, buildMetricsPath, testMetricsPath, conformanceMe
 		{ID: "conformance_wall_ms", Value: conformance.WallMS},
 		{ID: "conformance_peak_rss_kib", Value: conformance.PeakRSSKiB},
 	}
+	guardianSummary := GuardianHarnessSummary{}
+	fixtureFileCount := 0
+	if report.GuardianHarness != nil {
+		guardianSummary = report.GuardianHarness.Summary
+		fixtureFileCount = report.GuardianHarness.FixtureFileCount
+	}
+	if report.MigrationVersion == "v2" && report.Migration != nil {
+		harnessCaseCount := 0
+		if report.GuardianHarness != nil {
+			harnessCaseCount = len(report.GuardianHarness.Results)
+		}
+		metrics = append(metrics,
+			MetricValue{ID: "denominator_add_count", Value: report.Migration.Added},
+			MetricValue{ID: "denominator_retire_count", Value: report.Migration.Retired},
+			MetricValue{ID: "denominator_split_count", Value: report.Migration.Split},
+			MetricValue{ID: "guardian_harness_case_count", Value: harnessCaseCount},
+			MetricValue{ID: "guardian_harness_closed_count", Value: guardianSummary.ClosedCount},
+			MetricValue{ID: "guardian_harness_unknown_count", Value: guardianSummary.UnknownCount},
+			MetricValue{ID: "guardian_harness_refuted_count", Value: guardianSummary.RefutedCount},
+			MetricValue{ID: "guardian_fixture_file_count", Value: fixtureFileCount},
+		)
+	}
 	if err := validateMetricBindings(report.MetricBindings, metrics); err != nil {
 		return CISummary{}, err
 	}
 	summary := CISummary{
-		Schema: CISummarySchema, ReportDigest: report.ReportDigest, SchemaVersions: append([]string(nil), report.SchemaVersions...),
+		Schema: CISummarySchema, MigrationVersion: report.MigrationVersion, Migration: report.Migration, ReportDigest: report.ReportDigest, SchemaVersions: append([]string(nil), report.SchemaVersions...),
 		ParentReceiptCount: report.Summary.ParentReceiptCount, ChildReceiptCount: report.Summary.ChildReceiptCount, AcceptedCount: report.Summary.AcceptedCount,
 		UnknownCount: report.Summary.UnknownCount, RefutedCount: report.Summary.RefutedCount, ImmutableParentWrites: report.Summary.ImmutableParentWrites,
-		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement,
+		AdapterOperations: append([]string(nil), report.AdapterOperations...), ArtifactDigests: append([]ArtifactRef(nil), report.ArtifactDigests...), MetricBindings: append([]MetricBinding(nil), report.MetricBindings...), Metrics: metrics, Improvement: report.Improvement, GuardianHarness: guardianSummary,
 	}
 	if summary.ReportDigest == "" {
 		return CISummary{}, fmt.Errorf("report digest is required")
