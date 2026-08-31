@@ -54,6 +54,13 @@ type DevelopmentProvenance struct {
 	DevelopmentPolicyDeviationCount     int            `json:"development_policy_deviation_count"`
 	ProductRuntimeAuthority             Authority      `json:"product_runtime_authority"`
 	RemainingValidationPolicy           string         `json:"remaining_validation_policy"`
+	FailedPackagingAttempts             int            `json:"failed_packaging_attempts"`
+	FailedPackagingReason               string         `json:"failed_packaging_reason"`
+	ReleaseAssetUsed                    bool           `json:"release_asset_used"`
+	FinalArchiveSource                  string         `json:"final_archive_source"`
+	FinalSizeBytes                      int64          `json:"final_size_bytes"`
+	FinalSHA256                         string         `json:"final_sha256"`
+	ResetDeleteRewrite                  bool           `json:"reset_delete_rewrite"`
 	ProvenanceDigest                    string         `json:"provenance_digest,omitempty"`
 }
 
