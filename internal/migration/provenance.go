@@ -30,6 +30,13 @@ func developmentProvenance() DevelopmentProvenance {
 			RootReadmePolicy:            "EXCLUDED_FROM_REPOSITORY_INVENTORY",
 		},
 		RemainingValidationPolicy: "GITHUB_ACTIONS_ONLY_AFTER_THIS_RECORD",
+		FailedPackagingAttempts:   1,
+		FailedPackagingReason:     "ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH",
+		ReleaseAssetUsed:          false,
+		FinalArchiveSource:        "POST_MAIN_ACTIONS_ARTIFACT_ONLY",
+		FinalSizeBytes:            35456,
+		FinalSHA256:               "sha256:ca7c03961c74f10d16d6369e6900b7bc681bfd1cbb04523156d3f372bf2eb39a",
+		ResetDeleteRewrite:        false,
 	}
 }
 
@@ -44,7 +51,7 @@ func ValidateDevelopmentProvenance(provenance DevelopmentProvenance) error {
 	if err != nil {
 		return err
 	}
-	if provenance.Schema != expected.Schema || provenance.EventID != expected.EventID || provenance.Class != expected.Class || provenance.Purpose != expected.Purpose || provenance.PolicyState != expected.PolicyState || provenance.EventMutationPolicy != expected.EventMutationPolicy || provenance.DevelopmentPolicyDeviationCount != 1 || provenance.DevelopmentLocalVMHarnessExecutions != 1 || provenance.RemainingValidationPolicy != expected.RemainingValidationPolicy || provenance.ProvenanceDigest != expectedDigest || provenance.ProductRuntimeAuthority != expected.ProductRuntimeAuthority || len(provenance.DevelopmentLocalGoCommands) != 4 {
+	if provenance.Schema != expected.Schema || provenance.EventID != expected.EventID || provenance.Class != expected.Class || provenance.Purpose != expected.Purpose || provenance.PolicyState != expected.PolicyState || provenance.EventMutationPolicy != expected.EventMutationPolicy || provenance.DevelopmentPolicyDeviationCount != 1 || provenance.DevelopmentLocalVMHarnessExecutions != 1 || provenance.RemainingValidationPolicy != expected.RemainingValidationPolicy || provenance.ProvenanceDigest != expectedDigest || provenance.ProductRuntimeAuthority != expected.ProductRuntimeAuthority || provenance.FailedPackagingAttempts != 1 || provenance.FailedPackagingReason != "ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH" || provenance.ReleaseAssetUsed || provenance.FinalArchiveSource != "POST_MAIN_ACTIONS_ARTIFACT_ONLY" || provenance.FinalSizeBytes != 35456 || provenance.FinalSHA256 != "sha256:ca7c03961c74f10d16d6369e6900b7bc681bfd1cbb04523156d3f372bf2eb39a" || provenance.ResetDeleteRewrite || len(provenance.DevelopmentLocalGoCommands) != 4 {
 		return fmt.Errorf("development provenance is not the recorded v3 event")
 	}
 	for _, command := range []string{"gofmt", "build", "test", "vet"} {

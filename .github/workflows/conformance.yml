@@ -111,7 +111,14 @@ jobs:
             .development_provenance.event_mutation_policy == "APPEND_ONLY_NO_RESET_DELETE_REWRITE" and
             .development_provenance.development_policy_deviation_count == 1 and
             .development_provenance.product_runtime_authority.repository_writes == 0 and
-            .development_provenance.product_runtime_authority.local_test_executions == 0
+            .development_provenance.product_runtime_authority.local_test_executions == 0 and
+            .development_provenance.failed_packaging_attempts == 1 and
+            .development_provenance.failed_packaging_reason == "ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH" and
+            .development_provenance.release_asset_used == false and
+            .development_provenance.final_archive_source == "POST_MAIN_ACTIONS_ARTIFACT_ONLY" and
+            .development_provenance.final_size_bytes == 35456 and
+            .development_provenance.final_sha256 == "sha256:ca7c03961c74f10d16d6369e6900b7bc681bfd1cbb04523156d3f372bf2eb39a" and
+            .development_provenance.reset_delete_rewrite == false
           ' "$first/report.json"
 
           jq -e '
@@ -130,7 +137,9 @@ jobs:
             (.release_lineage | length) == 5 and
             (.variable_lifetime_ownership | length) == 4 and
             .development_provenance.development_local_vm_harness_executions == 1 and
-            .development_provenance.policy_state == "RECORDED_DEVELOPMENT_POLICY_DEVIATION"
+            .development_provenance.policy_state == "RECORDED_DEVELOPMENT_POLICY_DEVIATION" and
+            .development_provenance.failed_packaging_attempts == 1 and
+            .development_provenance.final_size_bytes == 35456
           ' "$first/adoption-proposal.json"
 
           jq -e '
@@ -215,7 +224,11 @@ jobs:
             .development_provenance.development_policy_deviation_count == 1 and
             .development_provenance.product_runtime_authority.repository_writes == 0 and
             .development_provenance.product_runtime_authority.local_test_executions == 0 and
-            .development_provenance.remaining_validation_policy == "GITHUB_ACTIONS_ONLY_AFTER_THIS_RECORD"
+            .development_provenance.remaining_validation_policy == "GITHUB_ACTIONS_ONLY_AFTER_THIS_RECORD" and
+            .development_provenance.failed_packaging_reason == "ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH" and
+            .development_provenance.final_sha256 == "sha256:ca7c03961c74f10d16d6369e6900b7bc681bfd1cbb04523156d3f372bf2eb39a" and
+            .development_provenance.release_asset_used == false and
+            .development_provenance.reset_delete_rewrite == false
           ' "$root/first/ci-summary.json"
 
       - name: Verify final repository write boundary
