@@ -36,7 +36,7 @@ func GenerateAdapters(ir IR, outputDir string) ([]ArtifactRef, error) {
 		Schema: ValidatorSchema, Version: "v1", SupportedSchemas: []string{ParentV2Schema, ChildV3Schema},
 		Precedence: append([]string(nil), ir.Precedence...), UnknownFields: append([]string(nil), ir.UnknownFields...),
 		Operations: []string{"VALIDATE_VERSION_DISPATCH", "VALIDATE_V2_OWNERSHIP", "VALIDATE_V3_OWNERSHIP", "VALIDATE_APPEND_ONLY_LINEAGE", "VALIDATE_DIGESTS", "VALIDATE_CARDINALITY", "VALIDATE_DENOMINATOR", "RESOLVE_PRECEDENCE"},
-		IRDigest: ir.IRDigest,
+		IRDigest:   ir.IRDigest,
 	}
 	validator.ArtifactDigest, _ = unsignedValidatorDigest(validator)
 	validatorPath := filepath.Join(outputDir, "generated", "validator.json")

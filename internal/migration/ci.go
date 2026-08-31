@@ -60,8 +60,8 @@ func BuildCISummary(reportPath, buildMetricsPath, testMetricsPath, conformanceMe
 }
 
 type processMetrics struct {
-	WallMS      int64
-	PeakRSSKiB  int64
+	WallMS     int64
+	PeakRSSKiB int64
 }
 
 func readProcessMetrics(path string) (processMetrics, error) {
