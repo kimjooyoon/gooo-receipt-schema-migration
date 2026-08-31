@@ -86,6 +86,7 @@ jobs:
           cmp -s "$first/human-report.md" "$replay/human-report.md"
           cmp -s "$first/adoption-proposal.json" "$replay/adoption-proposal.json"
 
+          jq '{schema, fixed_denominator, stage_counts, role_counts, schema_versions, precedence, unknown_fields, summary, authority, improvement, scenario_states: [.scenarios[].state]}' "$first/report.json"
           jq -e '
             .schema == "gooo/receipt-schema-migration/report/v1" and
             .fixed_denominator == 12 and
