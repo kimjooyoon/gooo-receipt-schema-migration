@@ -26,7 +26,7 @@ func GenerateAdapters(ir IR, outputDir string) ([]ArtifactRef, error) {
 		if err := WriteJSON(path, artifact); err != nil {
 			return nil, err
 		}
-		ref, err := artifactRef(path, filepath.Join(outputDir, "generated", "adapters", declaration.Version+".json"))
+		ref, err := artifactRef(path, filepath.Join("generated", "adapters", declaration.Version+".json"))
 		if err != nil {
 			return nil, err
 		}
