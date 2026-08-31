@@ -32,8 +32,6 @@ jobs:
         run: |
           set -euo pipefail
           files=$(gofmt -l $(git ls-files '*.go'))
-          echo "$files"
-          gofmt -d $files | sed -n '1,240p'
           test -z "$files"
 
       - name: Verify inventory exception
