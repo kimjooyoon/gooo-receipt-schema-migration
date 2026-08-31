@@ -32,6 +32,34 @@ func TestSourceAndContractDeclareTheFixedTwelveCellProtocol(t *testing.T) {
 	}
 }
 
+func TestV2PreservesTwelveAndAddsExactGuardianCells(t *testing.T) {
+	root := filepath.Join("..", "..")
+	source, err := ParseSource(filepath.Join(root, "examples", "receipt-schema-migration-v2", "migration.gooo"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	contract, err := LoadContract(filepath.Join(root, "contracts", "receipt-migration-denominator-v2.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ValidateDeclarations(source, contract); err != nil {
+		t.Fatal(err)
+	}
+	ir, err := BuildIR(source, contract)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := ValidateIR(ir); err != nil {
+		t.Fatal(err)
+	}
+	if ir.CellCount != MigrationV2Cells || len(ir.Cells) != MigrationV2Cells || len(ir.Scenarios) != MigrationV2Cells || len(ir.HarnessCases) != 8 {
+		t.Fatalf("unexpected v2 denominator shape: %#v", ir)
+	}
+	if ir.Migration.Added != 4 || ir.Migration.Retired != 0 || ir.Migration.Split != 0 {
+		t.Fatalf("unexpected migration record: %#v", ir.Migration)
+	}
+}
+
 func TestRawReceiptDigestExcludesOnlyDigestField(t *testing.T) {
 	raw, digest, err := rawWithDigest(ParentReceipt{Schema: ParentV2Schema, SchemaVersion: "v2", ReceiptID: "parent:test", Kind: "REGRESSION_REPAIR", Immutable: true}, nil, "")
 	if err != nil {

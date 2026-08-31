@@ -10,13 +10,18 @@ func BuildIR(source SourceDecl, contract Contract) (IR, error) {
 	if err != nil {
 		return IR{}, err
 	}
+	irSchema := IRSchema
+	if source.Version == "v2" {
+		irSchema = IRSchemaV2
+	}
 	ir := IR{
-		Schema: IRSchema, Version: "v1", SourceDigest: source.SourceDigest, ContractDigest: contractDigest,
-		DenominatorID: source.DenominatorID, CellCount: FixedCells,
+		Schema: irSchema, Version: source.Version, SourceDigest: source.SourceDigest, ContractDigest: contractDigest,
+		DenominatorID: source.DenominatorID, CellCount: source.CellCount,
 		StageCounts: cloneCounts(source.StageCounts), RoleCounts: cloneCounts(source.RoleCounts),
 		Authority: source.Authority, Precedence: append([]string(nil), source.Precedence...),
 		UnknownFields: append([]string(nil), source.UnknownFields...), Adapters: cloneAdapters(source.Schemas),
 		Cells: cloneCells(source.Cells), Scenarios: cloneScenarios(source.Scenarios), Metrics: cloneMetrics(source.Metrics),
+		Migration: source.Migration, GuardianFixture: source.GuardianFixture, HarnessCases: append([]HarnessCaseDecl(nil), source.HarnessCases...),
 	}
 	ir.IRDigest, err = unsignedIRDigest(ir)
 	if err != nil {

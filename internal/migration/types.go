@@ -4,18 +4,25 @@ import "encoding/json"
 
 const (
 	SourceSchema           = "gooo/receipt-schema-migration/source/v1"
+	SourceSchemaV2         = "gooo/receipt-schema-migration/source/v2"
 	ContractSchema         = "gooo/receipt-schema-migration/denominator/v1"
+	ContractSchemaV2       = "gooo/receipt-schema-migration/denominator/v2"
 	IRSchema               = "gooo/receipt-schema-migration/semantic-ir/v1"
+	IRSchemaV2             = "gooo/receipt-schema-migration/semantic-ir/v2"
 	AdapterSchema          = "gooo/receipt-schema-migration/generated-adapter/v1"
 	ValidatorSchema        = "gooo/receipt-schema-migration/generated-validator/v1"
 	ScenarioSchema         = "gooo/receipt-schema-migration/scenario-receipt/v1"
+	GuardianHarnessSchema  = "gooo/receipt-schema-migration/guardian-harness/v1"
 	ReportSchema           = "gooo/receipt-schema-migration/report/v1"
+	ReportSchemaV2         = "gooo/receipt-schema-migration/report/v2"
 	ProposalSchema         = "gooo/receipt-schema-migration/adoption-proposal/v1"
+	ProposalSchemaV2       = "gooo/receipt-schema-migration/adoption-proposal/v2"
 	ArtifactManifestSchema = "gooo/receipt-schema-migration/artifact-manifest/v1"
 	CISummarySchema        = "gooo/receipt-schema-migration/ci-summary/v1"
 	ParentV2Schema         = "gooo/receipt/parent/v2"
 	ChildV3Schema          = "gooo/receipt/child/v3"
 	FixedCells             = 12
+	MigrationV2Cells       = 16
 )
 
 type Authority struct {
@@ -50,6 +57,38 @@ type Cell struct {
 	DependsOn    []string `json:"depends_on"`
 }
 
+type MigrationRecord struct {
+	FromVersion       string         `json:"from_version"`
+	ToVersion         string         `json:"to_version"`
+	Added             int            `json:"added"`
+	Retired           int            `json:"retired"`
+	Split             int            `json:"split"`
+	AddedCellIDs      []string       `json:"added_cell_ids"`
+	StageCountsBefore map[string]int `json:"stage_counts_before"`
+	StageCountsAfter  map[string]int `json:"stage_counts_after"`
+	StageDelta        map[string]int `json:"stage_delta"`
+	RoleCountsBefore  map[string]int `json:"role_counts_before"`
+	RoleCountsAfter   map[string]int `json:"role_counts_after"`
+	RoleDelta         map[string]int `json:"role_delta"`
+}
+
+type GuardianFixture struct {
+	Repository   string `json:"repository"`
+	Ref          string `json:"ref"`
+	Commit       string `json:"commit"`
+	ManifestPath string `json:"manifest_path"`
+}
+
+type HarnessCaseDecl struct {
+	Ordinal    int    `json:"ordinal"`
+	ID         string `json:"id"`
+	ScenarioID string `json:"scenario_id"`
+	Cell       string `json:"cell"`
+	Expected   string `json:"expected"`
+	Mode       string `json:"mode"`
+	Operation  string `json:"operation"`
+}
+
 type AdapterDecl struct {
 	Version         string   `json:"version"`
 	Owner           string   `json:"owner"`
@@ -69,6 +108,7 @@ type ScenarioDecl struct {
 	ParentMode string `json:"parent_mode"`
 	ChildMode  string `json:"child_mode"`
 	Operation  string `json:"operation"`
+	Kind       string `json:"kind,omitempty"`
 }
 
 type MetricBinding struct {
@@ -81,55 +121,64 @@ type MetricBinding struct {
 }
 
 type SourceDecl struct {
-	Schema        string          `json:"schema"`
-	Version       string          `json:"version"`
-	DenominatorID string          `json:"denominator_id"`
-	CellCount     int             `json:"cell_count"`
-	StageCounts   map[string]int  `json:"stage_counts"`
-	RoleCounts    map[string]int  `json:"role_counts"`
-	Authority     Authority       `json:"authority"`
-	Precedence    []string        `json:"precedence"`
-	UnknownFields []string        `json:"unknown_fields"`
-	Schemas       []AdapterDecl   `json:"schemas"`
-	Cells         []Cell          `json:"cells"`
-	Scenarios     []ScenarioDecl  `json:"scenarios"`
-	Metrics       []MetricBinding `json:"metrics"`
-	SourceDigest  string          `json:"source_digest"`
+	Schema          string            `json:"schema"`
+	Version         string            `json:"version"`
+	DenominatorID   string            `json:"denominator_id"`
+	CellCount       int               `json:"cell_count"`
+	StageCounts     map[string]int    `json:"stage_counts"`
+	RoleCounts      map[string]int    `json:"role_counts"`
+	Authority       Authority         `json:"authority"`
+	Precedence      []string          `json:"precedence"`
+	UnknownFields   []string          `json:"unknown_fields"`
+	Schemas         []AdapterDecl     `json:"schemas"`
+	Cells           []Cell            `json:"cells"`
+	Scenarios       []ScenarioDecl    `json:"scenarios"`
+	Metrics         []MetricBinding   `json:"metrics"`
+	Migration       MigrationRecord   `json:"migration"`
+	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
+	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
+	SourceDigest    string            `json:"source_digest"`
 }
 
 type Contract struct {
-	Schema        string          `json:"schema"`
-	ID            string          `json:"id"`
-	Version       string          `json:"version"`
-	CellCount     int             `json:"cell_count"`
-	Fixed         bool            `json:"fixed"`
-	StageCounts   map[string]int  `json:"stage_counts"`
-	RoleCounts    map[string]int  `json:"role_counts"`
-	Precedence    []string        `json:"precedence"`
-	UnknownFields []string        `json:"unknown_fields"`
-	Schemas       []AdapterDecl   `json:"schemas"`
-	Cells         []Cell          `json:"cells"`
-	Scenarios     []ScenarioDecl  `json:"scenarios"`
-	Metrics       []MetricBinding `json:"metrics"`
+	Schema          string            `json:"schema"`
+	ID              string            `json:"id"`
+	Version         string            `json:"version"`
+	CellCount       int               `json:"cell_count"`
+	Fixed           bool              `json:"fixed"`
+	StageCounts     map[string]int    `json:"stage_counts"`
+	RoleCounts      map[string]int    `json:"role_counts"`
+	Precedence      []string          `json:"precedence"`
+	UnknownFields   []string          `json:"unknown_fields"`
+	Schemas         []AdapterDecl     `json:"schemas"`
+	Cells           []Cell            `json:"cells"`
+	Scenarios       []ScenarioDecl    `json:"scenarios"`
+	Metrics         []MetricBinding   `json:"metrics"`
+	Migration       MigrationRecord   `json:"migration"`
+	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
+	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
 }
 
 type IR struct {
-	Schema         string          `json:"schema"`
-	Version        string          `json:"version"`
-	SourceDigest   string          `json:"source_digest"`
-	ContractDigest string          `json:"contract_digest"`
-	DenominatorID  string          `json:"denominator_id"`
-	CellCount      int             `json:"cell_count"`
-	StageCounts    map[string]int  `json:"stage_counts"`
-	RoleCounts     map[string]int  `json:"role_counts"`
-	Authority      Authority       `json:"authority"`
-	Precedence     []string        `json:"precedence"`
-	UnknownFields  []string        `json:"unknown_fields"`
-	Adapters       []AdapterDecl   `json:"adapters"`
-	Cells          []Cell          `json:"cells"`
-	Scenarios      []ScenarioDecl  `json:"scenarios"`
-	Metrics        []MetricBinding `json:"metrics"`
-	IRDigest       string          `json:"ir_digest,omitempty"`
+	Schema          string            `json:"schema"`
+	Version         string            `json:"version"`
+	SourceDigest    string            `json:"source_digest"`
+	ContractDigest  string            `json:"contract_digest"`
+	DenominatorID   string            `json:"denominator_id"`
+	CellCount       int               `json:"cell_count"`
+	StageCounts     map[string]int    `json:"stage_counts"`
+	RoleCounts      map[string]int    `json:"role_counts"`
+	Authority       Authority         `json:"authority"`
+	Precedence      []string          `json:"precedence"`
+	UnknownFields   []string          `json:"unknown_fields"`
+	Adapters        []AdapterDecl     `json:"adapters"`
+	Cells           []Cell            `json:"cells"`
+	Scenarios       []ScenarioDecl    `json:"scenarios"`
+	Metrics         []MetricBinding   `json:"metrics"`
+	Migration       MigrationRecord   `json:"migration"`
+	GuardianFixture GuardianFixture   `json:"guardian_fixture"`
+	HarnessCases    []HarnessCaseDecl `json:"harness_cases"`
+	IRDigest        string            `json:"ir_digest,omitempty"`
 }
 
 type AdapterArtifact struct {
@@ -227,6 +276,53 @@ type ScenarioBundle struct {
 	ArtifactDigest string             `json:"artifact_digest,omitempty"`
 }
 
+type GuardianHarnessCasesArtifact struct {
+	Schema           string            `json:"schema"`
+	MigrationVersion string            `json:"migration_version"`
+	IRDigest         string            `json:"ir_digest"`
+	Fixture          GuardianFixture   `json:"fixture"`
+	Cases            []HarnessCaseDecl `json:"cases"`
+	ArtifactDigest   string            `json:"artifact_digest,omitempty"`
+}
+
+type GuardianHarnessResult struct {
+	ID                   string         `json:"id"`
+	ScenarioID           string         `json:"scenario_id"`
+	CellID               string         `json:"cell_id"`
+	ExpectedState        string         `json:"expected_state"`
+	State                string         `json:"state"`
+	GuardianDecision     string         `json:"guardian_decision"`
+	Stage                string         `json:"stage"`
+	Step                 string         `json:"step"`
+	Reason               string         `json:"reason"`
+	UnknownClass         string         `json:"unknown_class"`
+	NextOperation        string         `json:"next_operation"`
+	BlockedBy            []string       `json:"blocked_by"`
+	Claim                Claim          `json:"claim"`
+	BeforeDigest         string         `json:"before_digest,omitempty"`
+	AfterDigest          string         `json:"after_digest,omitempty"`
+	ArtifactBeforeDigest string         `json:"artifact_before_digest,omitempty"`
+	ArtifactAfterDigest  string         `json:"artifact_after_digest,omitempty"`
+	Evidence             map[string]any `json:"evidence,omitempty"`
+}
+
+type GuardianHarnessSummary struct {
+	ClosedCount  int `json:"closed_count"`
+	UnknownCount int `json:"unknown_count"`
+	RefutedCount int `json:"refuted_count"`
+}
+
+type GuardianHarnessReport struct {
+	Schema           string                  `json:"schema"`
+	MigrationVersion string                  `json:"migration_version"`
+	IRDigest         string                  `json:"ir_digest"`
+	Fixture          GuardianFixture         `json:"fixture"`
+	FixtureFileCount int                     `json:"fixture_file_count"`
+	Results          []GuardianHarnessResult `json:"results"`
+	Summary          GuardianHarnessSummary  `json:"summary"`
+	ArtifactDigest   string                  `json:"artifact_digest,omitempty"`
+}
+
 type ArtifactRef struct {
 	Path      string `json:"path"`
 	Digest    string `json:"digest"`
@@ -261,6 +357,7 @@ type ExternalRelease struct {
 type AdoptionProposal struct {
 	Schema                       string            `json:"schema"`
 	ProposalID                   string            `json:"proposal_id"`
+	MigrationVersion             string            `json:"migration_version,omitempty"`
 	TargetRepository             string            `json:"target_repository"`
 	RepositoryWrites             int               `json:"repository_writes"`
 	LocalTestExecutions          int               `json:"local_test_executions"`
@@ -272,28 +369,36 @@ type AdoptionProposal struct {
 	AcceptanceCases              []AcceptanceCase  `json:"acceptance_cases"`
 	RollbackConditions           []string          `json:"rollback_conditions"`
 	RefutationConditions         []string          `json:"refutation_conditions"`
+	Migration                    *MigrationRecord  `json:"migration,omitempty"`
+	GuardianFixture              *GuardianFixture  `json:"guardian_fixture,omitempty"`
+	VariableLifetimeOwnership    []string          `json:"variable_lifetime_ownership,omitempty"`
+	HarnessAcceptanceCases       []AcceptanceCase  `json:"harness_acceptance_cases,omitempty"`
+	GuardianHarnessArtifact      *ArtifactRef      `json:"guardian_harness_artifact,omitempty"`
 	OptionalExternalRelease      *ExternalRelease  `json:"optional_external_release,omitempty"`
 	ProposalDigest               string            `json:"proposal_digest,omitempty"`
 }
 
 type Report struct {
-	Schema            string            `json:"schema"`
-	Decision          string            `json:"decision"`
-	Pipeline          map[string]string `json:"pipeline"`
-	SchemaVersions    []string          `json:"schema_versions"`
-	FixedDenominator  int               `json:"fixed_denominator"`
-	StageCounts       map[string]int    `json:"stage_counts"`
-	RoleCounts        map[string]int    `json:"role_counts"`
-	Precedence        []string          `json:"precedence"`
-	UnknownFields     []string          `json:"unknown_fields"`
-	Authority         Authority         `json:"authority"`
-	Summary           Summary           `json:"summary"`
-	AdapterOperations []string          `json:"adapter_operations"`
-	ArtifactDigests   []ArtifactRef     `json:"artifact_digests"`
-	MetricBindings    []MetricBinding   `json:"metric_bindings"`
-	Scenarios         []ScenarioResult  `json:"scenarios"`
-	Improvement       Claim             `json:"improvement"`
-	ReportDigest      string            `json:"report_digest,omitempty"`
+	Schema            string                 `json:"schema"`
+	MigrationVersion  string                 `json:"migration_version,omitempty"`
+	Migration         *MigrationRecord       `json:"migration,omitempty"`
+	Decision          string                 `json:"decision"`
+	Pipeline          map[string]string      `json:"pipeline"`
+	SchemaVersions    []string               `json:"schema_versions"`
+	FixedDenominator  int                    `json:"fixed_denominator"`
+	StageCounts       map[string]int         `json:"stage_counts"`
+	RoleCounts        map[string]int         `json:"role_counts"`
+	Precedence        []string               `json:"precedence"`
+	UnknownFields     []string               `json:"unknown_fields"`
+	Authority         Authority              `json:"authority"`
+	Summary           Summary                `json:"summary"`
+	AdapterOperations []string               `json:"adapter_operations"`
+	ArtifactDigests   []ArtifactRef          `json:"artifact_digests"`
+	MetricBindings    []MetricBinding        `json:"metric_bindings"`
+	Scenarios         []ScenarioResult       `json:"scenarios"`
+	GuardianHarness   *GuardianHarnessReport `json:"guardian_harness,omitempty"`
+	Improvement       Claim                  `json:"improvement"`
+	ReportDigest      string                 `json:"report_digest,omitempty"`
 }
 
 type Summary struct {
@@ -311,18 +416,21 @@ type MetricValue struct {
 }
 
 type CISummary struct {
-	Schema                string          `json:"schema"`
-	ReportDigest          string          `json:"report_digest"`
-	SchemaVersions        []string        `json:"schema_versions"`
-	ParentReceiptCount    int             `json:"parent_receipt_count"`
-	ChildReceiptCount     int             `json:"child_receipt_count"`
-	AcceptedCount         int             `json:"accepted_count"`
-	UnknownCount          int             `json:"unknown_count"`
-	RefutedCount          int             `json:"refuted_count"`
-	ImmutableParentWrites int             `json:"immutable_parent_writes"`
-	AdapterOperations     []string        `json:"adapter_operations"`
-	ArtifactDigests       []ArtifactRef   `json:"artifact_digests"`
-	MetricBindings        []MetricBinding `json:"metric_bindings"`
-	Metrics               []MetricValue   `json:"metrics"`
-	Improvement           Claim           `json:"improvement"`
+	Schema                string                 `json:"schema"`
+	MigrationVersion      string                 `json:"migration_version,omitempty"`
+	Migration             *MigrationRecord       `json:"migration,omitempty"`
+	ReportDigest          string                 `json:"report_digest"`
+	SchemaVersions        []string               `json:"schema_versions"`
+	ParentReceiptCount    int                    `json:"parent_receipt_count"`
+	ChildReceiptCount     int                    `json:"child_receipt_count"`
+	AcceptedCount         int                    `json:"accepted_count"`
+	UnknownCount          int                    `json:"unknown_count"`
+	RefutedCount          int                    `json:"refuted_count"`
+	ImmutableParentWrites int                    `json:"immutable_parent_writes"`
+	AdapterOperations     []string               `json:"adapter_operations"`
+	ArtifactDigests       []ArtifactRef          `json:"artifact_digests"`
+	MetricBindings        []MetricBinding        `json:"metric_bindings"`
+	Metrics               []MetricValue          `json:"metrics"`
+	Improvement           Claim                  `json:"improvement"`
+	GuardianHarness       GuardianHarnessSummary `json:"guardian_harness"`
 }

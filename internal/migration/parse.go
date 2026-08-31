@@ -27,10 +27,10 @@ func ParseSource(path string) (SourceDecl, error) {
 		fields := strings.Fields(line)
 		switch fields[0] {
 		case "gooo":
-			if len(fields) != 3 || fields[1] != "receipt_schema_migration" || fields[2] != "v1" {
+			if len(fields) != 3 || fields[1] != "receipt_schema_migration" || (fields[2] != "v1" && fields[2] != "v2") {
 				return SourceDecl{}, fmt.Errorf("line %d: invalid gooo header", lineNumber)
 			}
-			decl.Schema, decl.Version = SourceSchema, fields[2]
+			decl.Schema, decl.Version = sourceSchemaForVersion(fields[2]), fields[2]
 		case "denominator":
 			values, err := parseKeyValues(fields[1:])
 			if err != nil {
@@ -108,7 +108,33 @@ func ParseSource(path string) (SourceDecl, error) {
 			if err != nil {
 				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
 			}
-			decl.Scenarios = append(decl.Scenarios, ScenarioDecl{Ordinal: ordinal, ID: values["id"], Cell: values["cell"], Class: values["class"], Expected: values["expected"], ParentMode: values["parent_mode"], ChildMode: values["child_mode"], Operation: values["operation"]})
+			decl.Scenarios = append(decl.Scenarios, ScenarioDecl{Ordinal: ordinal, ID: values["id"], Cell: values["cell"], Class: values["class"], Expected: values["expected"], ParentMode: values["parent_mode"], ChildMode: values["child_mode"], Operation: values["operation"], Kind: values["kind"]})
+		case "migration":
+			values, err := parseKeyValues(fields[1:])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			migration, err := parseMigrationRecord(values)
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			decl.Migration = migration
+		case "guardian_fixture":
+			values, err := parseKeyValues(fields[1:])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			decl.GuardianFixture = GuardianFixture{Repository: values["repository"], Ref: values["ref"], Commit: values["commit"], ManifestPath: values["manifest"]}
+		case "harness_case":
+			values, err := parseKeyValues(fields[1:])
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			ordinal, err := parseInt(values, "ordinal")
+			if err != nil {
+				return SourceDecl{}, fmt.Errorf("line %d: %w", lineNumber, err)
+			}
+			decl.HarnessCases = append(decl.HarnessCases, HarnessCaseDecl{Ordinal: ordinal, ID: values["id"], ScenarioID: values["scenario_id"], Cell: values["cell"], Expected: values["expected"], Mode: values["mode"], Operation: values["operation"]})
 		case "metric":
 			values, err := parseKeyValues(fields[1:])
 			if err != nil {
@@ -123,6 +149,72 @@ func ParseSource(path string) (SourceDecl, error) {
 		return SourceDecl{}, err
 	}
 	return decl, nil
+}
+
+func sourceSchemaForVersion(version string) string {
+	if version == "v2" {
+		return SourceSchemaV2
+	}
+	return SourceSchema
+}
+
+func parseMigrationRecord(values map[string]string) (MigrationRecord, error) {
+	added, err := parseInt(values, "add")
+	if err != nil {
+		return MigrationRecord{}, err
+	}
+	retired, err := parseInt(values, "retire")
+	if err != nil {
+		return MigrationRecord{}, err
+	}
+	split, err := parseInt(values, "split")
+	if err != nil {
+		return MigrationRecord{}, err
+	}
+	stageBefore, err := parseNamedCounts(values["stage_before"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("stage_before: %w", err)
+	}
+	stageAfter, err := parseNamedCounts(values["stage_after"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("stage_after: %w", err)
+	}
+	stageDelta, err := parseNamedCounts(values["stage_delta"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("stage_delta: %w", err)
+	}
+	roleBefore, err := parseNamedCounts(values["role_before"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("role_before: %w", err)
+	}
+	roleAfter, err := parseNamedCounts(values["role_after"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("role_after: %w", err)
+	}
+	roleDelta, err := parseNamedCounts(values["role_delta"])
+	if err != nil {
+		return MigrationRecord{}, fmt.Errorf("role_delta: %w", err)
+	}
+	return MigrationRecord{FromVersion: values["from"], ToVersion: values["to"], Added: added, Retired: retired, Split: split, AddedCellIDs: splitList(values["added_cells"]), StageCountsBefore: stageBefore, StageCountsAfter: stageAfter, StageDelta: stageDelta, RoleCountsBefore: roleBefore, RoleCountsAfter: roleAfter, RoleDelta: roleDelta}, nil
+}
+
+func parseNamedCounts(value string) (map[string]int, error) {
+	if value == "" {
+		return nil, fmt.Errorf("missing count declaration")
+	}
+	counts := map[string]int{}
+	for _, item := range strings.Split(value, ",") {
+		parts := strings.SplitN(item, ":", 2)
+		if len(parts) != 2 || parts[0] == "" {
+			return nil, fmt.Errorf("invalid count %q", item)
+		}
+		n, err := strconv.Atoi(parts[1])
+		if err != nil {
+			return nil, fmt.Errorf("invalid count %q", item)
+		}
+		counts[parts[0]] = n
+	}
+	return counts, nil
 }
 
 func parseKeyValues(fields []string) (map[string]string, error) {
@@ -185,7 +277,7 @@ func LoadContract(path string) (Contract, error) {
 	if err := json.Unmarshal(data, &contract); err != nil {
 		return Contract{}, fmt.Errorf("decode contract: %w", err)
 	}
-	if contract.Schema != ContractSchema {
+	if contract.Schema != ContractSchema && contract.Schema != ContractSchemaV2 {
 		return Contract{}, fmt.Errorf("unexpected contract schema %q", contract.Schema)
 	}
 	return contract, nil
