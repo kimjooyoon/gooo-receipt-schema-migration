@@ -8,7 +8,6 @@ import (
 func WriteText(path, value string) error {
 	return osWriteFile(path, []byte(value))
 }
-
 func RenderReport(report Report) string {
 	var b strings.Builder
 	b.WriteString("# Receipt schema migration conformance\n\n")
@@ -33,4 +32,3 @@ func RenderReport(report Report) string {
 	b.WriteString("\n## Improvement\n\n`UNKNOWN`: exact comparable before/after pair was not provided.\n")
 	return b.String()
 }
-

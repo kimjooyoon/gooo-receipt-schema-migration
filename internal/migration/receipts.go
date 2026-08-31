@@ -180,7 +180,7 @@ func EvaluateScenarioBundle(ir IR, bundle ScenarioBundle, outputDir string) (Rep
 	}
 	report := Report{
 		Schema: ReportSchema, Decision: "RECEIPT_SCHEMA_MIGRATION_CONFORMANCE_REPORTED",
-		Pipeline: map[string]string{"source": "examples/receipt-schema-migration-v1/migration.gooo", "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "human_report": "human-report.md"},
+		Pipeline:       map[string]string{"source": "examples/receipt-schema-migration-v1/migration.gooo", "semantic_ir": "semantic-ir.json", "generated_adapters": "generated/adapters/v2.json,generated/adapters/v3.json", "generated_validator": "generated/validator.json", "scenario_receipts": "scenario-receipts.json", "human_report": "human-report.md"},
 		SchemaVersions: []string{"v2", "v3"}, FixedDenominator: FixedCells, StageCounts: cloneCounts(ir.StageCounts), RoleCounts: cloneCounts(ir.RoleCounts),
 		Precedence: append([]string(nil), ir.Precedence...), UnknownFields: append([]string(nil), ir.UnknownFields...), Authority: ir.Authority,
 		AdapterOperations: adapterOperations(ir), MetricBindings: append([]MetricBinding(nil), ir.Metrics...), Scenarios: make([]ScenarioResult, 0, FixedCells),

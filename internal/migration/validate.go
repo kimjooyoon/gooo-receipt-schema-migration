@@ -101,7 +101,7 @@ func ValidateContract(contract Contract) error {
 }
 
 func ValidateIR(ir IR) error {
-	if ir.Schema != IRScheme || ir.Version != "v1" || ir.DenominatorID == "" || ir.CellCount != FixedCells || len(ir.Cells) != FixedCells || len(ir.Scenarios) != FixedCells || len(ir.Adapters) != 2 {
+	if ir.Schema != IRSchema || ir.Version != "v1" || ir.DenominatorID == "" || ir.CellCount != FixedCells || len(ir.Cells) != FixedCells || len(ir.Scenarios) != FixedCells || len(ir.Adapters) != 2 {
 		return fmt.Errorf("semantic IR shape is not fixed at twelve cells")
 	}
 	if ir.SourceDigest == "" || ir.ContractDigest == "" || ir.IRDigest == "" {
