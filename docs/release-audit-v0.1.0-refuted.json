@@ -1,0 +1,60 @@
+{
+  "schema": "gooo/receipt-schema-migration/release-audit/v1",
+  "release_version": "v0.1.0",
+  "state": "REFUTED",
+  "reason": "RELEASE_IMMUTABILITY_DISABLED",
+  "preserved_without_modification": true,
+  "observed": {
+    "rest": {
+      "release_immutable": false,
+      "tag_object_sha": "1811f767cd4e8e6c40cbab28a786790f725a8090",
+      "tag_target_commit": "ce5ede3602b043a30b0f37980141f9f4d2571a83",
+      "asset_name": "gooo-receipt-schema-migration-v0.1.0-conformance.tar.gz",
+      "asset_size": 17552,
+      "asset_digest": "sha256:02730229a488e91bffbc4e14076072b08c1eab9fd2cf545b9809fb3989ce27b9"
+    },
+    "graphql": {
+      "release_immutable": false,
+      "tag_object_oid": "1811f767cd4e8e6c40cbab28a786790f725a8090",
+      "tag_target_commit_oid": "ce5ede3602b043a30b0f37980141f9f4d2571a83",
+      "asset_name": "gooo-receipt-schema-migration-v0.1.0-conformance.tar.gz",
+      "asset_size": 17552
+    },
+    "main_conformance": {
+      "run_id": 33353055611,
+      "status": "completed",
+      "conclusion": "success",
+      "artifact_id": 9744246765,
+      "artifact_size": 32259,
+      "artifact_digest": "sha256:be7a8fbc073a189663b5356542704ead11a1d956907b5c402979e5ba7959021f"
+    }
+  },
+  "corrective_action": {
+    "repository_immutable_releases_enabled": true,
+    "replacement_release": "v0.1.1",
+    "correction_pr_required": true
+  },
+  "protected_paths": [
+    ".github/ci-governance.json",
+    ".github/governance-denominator-v2-migration.json",
+    ".github/governance-denominator-v3-correction.json",
+    ".github/workflows/ci-guardian.yml",
+    "internal/verify/scope_foundation_correction_child_20260831.go",
+    "scripts/ci-proof/guardian.js",
+    "scripts/meta-receipts/run.go"
+  ],
+  "acceptance_case_ids": [
+    "NORMAL_V2_PARENT_V3_CHILD",
+    "NORMAL_REPLAY_DETERMINISTIC",
+    "UNKNOWN_PARENT_DIGEST_MISSING",
+    "UNKNOWN_CHILD_DIGEST_STALE",
+    "UNKNOWN_UNSUPPORTED_FUTURE_SCHEMA",
+    "REFUTED_CHILD_REWRITES_PARENT",
+    "REFUTED_FUTURE_FIELD_IN_OLD_SCHEMA",
+    "REFUTED_PARENT_DIGEST_MISMATCH",
+    "REFUTED_SECOND_CHILD_CARDINALITY_ONE",
+    "REFUTED_SELF_ATTESTATION",
+    "REFUTED_DENOMINATOR_DOWNGRADE",
+    "REFUTED_UNKNOWN_PROMOTED_FIXED_POINT"
+  ]
+}
