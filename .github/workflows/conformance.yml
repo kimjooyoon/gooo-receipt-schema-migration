@@ -32,9 +32,6 @@ jobs:
         run: |
           set -euo pipefail
           files=$(gofmt -l $(git ls-files '*.go'))
-          if [ -n "$files" ]; then
-            gofmt -d $files
-          fi
           test -z "$files"
 
       - name: Verify inventory exception
@@ -78,23 +75,14 @@ jobs:
 
           "$bin" run --source "$source" --contract "$contract" --out "$replay" > "$root/replay.stdout"
           cmp -s "$first/semantic-ir.json" "$replay/semantic-ir.json"
-          echo "replay semantic IR passed"
           cmp -s "$first/generated/adapters/v2.json" "$replay/generated/adapters/v2.json"
-          echo "replay v2 adapter passed"
           cmp -s "$first/generated/adapters/v3.json" "$replay/generated/adapters/v3.json"
-          echo "replay v3 adapter passed"
           cmp -s "$first/generated/validator.json" "$replay/generated/validator.json"
-          echo "replay validator passed"
           cmp -s "$first/scenario-receipts.json" "$replay/scenario-receipts.json"
-          echo "replay scenario receipts passed"
           cmp -s "$first/report.json" "$replay/report.json"
-          echo "replay report passed"
           cmp -s "$first/human-report.md" "$replay/human-report.md"
-          echo "replay human report passed"
           cmp -s "$first/adoption-proposal.json" "$replay/adoption-proposal.json"
-          echo "replay proposal passed"
 
-          jq '{schema, fixed_denominator, stage_counts, role_counts, schema_versions, precedence, unknown_fields, summary, authority, improvement, scenario_states: [.scenarios[].state]}' "$first/report.json"
           jq -e '
             .schema == "gooo/receipt-schema-migration/report/v1" and
             .fixed_denominator == 12 and
