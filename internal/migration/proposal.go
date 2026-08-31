@@ -71,7 +71,7 @@ func BuildAdoptionProposal(ir IR, outputDir string, external *ExternalRelease) (
 		proposal.ExpectedProtectedPaths = []string{
 			".github/ci-governance.json",
 			".github/workflows/ci-guardian.yml",
-			".github/governance-denominator-v2-migration.json",
+			".github/agent-scope-table.md",
 			"scripts/ci-proof/guardian.js",
 			"scripts/ci-proof/foundation_bootstrap.js",
 			"scripts/ci-proof/foundation_authorization.js",
