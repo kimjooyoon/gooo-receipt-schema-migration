@@ -172,8 +172,8 @@ func validateV3Declarations(source SourceDecl, contract Contract) error {
 	for _, scenario := range source.Scenarios {
 		expectedCounts[scenario.Expected]++
 	}
-	if expectedCounts["ACCEPTED"] != 2 || expectedCounts["UNKNOWN"] != 3 || expectedCounts["REFUTED"] != 15 {
-		return fmt.Errorf("v3 scenario denominator must contain exact accepted=2, unknown=3, refuted=15 cases")
+	if expectedCounts["ACCEPTED"] != 5 || expectedCounts["UNKNOWN"] != 3 || expectedCounts["REFUTED"] != 12 {
+		return fmt.Errorf("v3 scenario denominator must preserve accepted=5, unknown=3, refuted=12 across v2 and the four new cases")
 	}
 	if err := validateV3HarnessCases(source.HarnessCases, contract.HarnessCases, source.Scenarios); err != nil {
 		return err
