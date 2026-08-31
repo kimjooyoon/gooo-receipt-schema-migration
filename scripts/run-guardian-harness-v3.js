@@ -173,6 +173,7 @@ function policyBytes(policy) {
 function mockGitHub({fixture, manifest, pull, changedFiles, policyMode, guardianAuth}) {
   const mainSHA = 'a0962dd1ac8376b9e88bb629c66e3a7f710b96a9';
   const validPolicy = makeValidPolicy(fixture, manifest, guardianAuth);
+  let baseCommitCalls = 0;
   let policy = validPolicy;
   if (policyMode === 'STALE_FOUNDATION_AUTHORIZATION') policy = {...validPolicy, candidate: {...validPolicy.candidate, branch: 'agent/stale-foundation-authorization'}};
   if (policyMode === 'FOUNDATION_CARDINALITY_EXHAUSTED') policy = {...validPolicy, authorization: {...validPolicy.authorization, consumed: true}};
@@ -195,7 +196,11 @@ function mockGitHub({fixture, manifest, pull, changedFiles, policyMode, guardian
           return {status: 200, data: {status: 'ahead', ahead_by: 1, behind_by: 0, merge_base_commit: {sha: base}}};
         },
         getCommit: async ({ref}) => {
-          if (ref === fixture.base_commit) return {status: 200, data: {sha: fixture.base_commit, parents: manifest.base_parents.map((sha) => ({sha})), commit: {tree: {sha: fixture.kernel_before_tree_sha}}}};
+          if (ref === fixture.base_commit) {
+            baseCommitCalls += 1;
+            const parents = baseCommitCalls === 1 ? [{sha: fixture.base_commit}] : manifest.base_parents.map((sha) => ({sha}));
+            return {status: 200, data: {sha: fixture.base_commit, parents, commit: {tree: {sha: fixture.kernel_before_tree_sha}}}};
+          }
           if (ref === fixture.head_commit) return {status: 200, data: {sha: fixture.head_commit, parents: [], commit: {tree: {sha: fixture.kernel_after_tree_sha}}}};
           return {status: 200, data: {sha: ref, parents: [{sha: fixture.base_commit}], commit: {tree: {sha: fixture.kernel_before_tree_sha}}}};
         },
@@ -230,12 +235,13 @@ async function executeWorkflowScript(script, workspace, pull, fixture, manifest,
     payload: {action: 'reopened', pull_request: pull, repository: {full_name: fixture.repository, default_branch: 'dev'}},
     repo: {owner: 'kimjooyoon', repo: 'meta-ontology-go'},
   };
+  const github = mockGitHub({fixture, manifest, pull, changedFiles, policyMode, guardianAuth});
   const sandbox = {
     Buffer,
     console,
     context,
     core,
-    github: mockGitHub({fixture, manifest, pull, changedFiles, policyMode, guardianAuth}),
+    github,
     process: {env: {
       GUARDIAN_WORKFLOW_REF: `${fixture.repository}/.github/workflows/ci-guardian.yml@refs/heads/dev`,
       GUARDIAN_WORKFLOW_SHA: fixture.base_commit,
@@ -297,7 +303,7 @@ function resultFor(item, state, guardianDecision, value, evidence = {}) {
 function workflowResult(item, outcome, expected, foundationEvaluated = true) {
   if (outcome.error || !outcome.artifact) throw new Error(`${item.id} did not emit a Guardian artifact: ${outcome.error ? outcome.error.message : 'missing artifact'}`);
   const passed = outcome.artifact.decision === 'PASS';
-  if ((expected === 'CLOSED') !== passed) throw new Error(`${item.id} expected ${expected} but artifact decision was ${outcome.artifact.decision}`);
+  if ((expected === 'CLOSED') !== passed) throw new Error(`${item.id} expected ${expected} but artifact decision was ${outcome.artifact.decision} (${outcome.artifact.code || 'none'}): ${outcome.artifact.reason}; foundation=${JSON.stringify(outcome.artifact.foundation_authorization || null)}`);
   if (expected === 'CLOSED' && outcome.failures.length !== 0) throw new Error(`${item.id} unexpectedly failed: ${outcome.failures.join(';')}`);
   const state = expected === 'CLOSED' ? 'CLOSED' : 'REFUTED';
   return resultFor(item, state, passed ? 'PASS' : 'REFUTED', {
