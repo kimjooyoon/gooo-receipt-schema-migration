@@ -115,7 +115,8 @@ jobs:
             .target_repository == "github.com/kimjooyoon/meta-ontology-go" and
             .repository_writes == 0 and .local_test_executions == 0 and .cross_project_required_gates == 0 and
             (.old_schema_ownership | length) == 1 and (.new_schema_ownership | length) == 1 and
-            (.acceptance_cases | length) == 12 and (.expected_protected_paths | length) >= 7 and
+            (.acceptance_cases | length) == 12 and
+            .expected_protected_paths == [".github/ci-governance.json",".github/agent-scope-table.md",".github/branch-policy.md",".github/conformance-plan.md",".github/foundation-authorization.json","go.mod","go.sum"] and
             (.exact_required_semantic_changes | length) >= 12 and (.rollback_conditions | length) >= 8 and
             (.refutation_conditions | length) >= 6 and (.harness_acceptance_cases | length) == 8 and
             .guardian_fixture.commit == "7f45792e3c23100cbb10cca8b229132060982a7b" and
